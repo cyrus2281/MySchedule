@@ -1,0 +1,20 @@
+Update Version 1.0.1:
+
+Application created with intitial program :)
+
+
+==================================
+Future Updates and Features:
+
+Export CSV
+Export MSV1
+Import MSV1
+Info Section
+Merging data
+
+
+==================================
+Known Bugs Waiting For Fix:
+
+color mismatch after editing an item date.
+null value crashing the save data.
