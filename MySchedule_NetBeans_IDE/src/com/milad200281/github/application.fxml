@@ -7,7 +7,6 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToolBar?>
@@ -19,16 +18,33 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainBorderPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="com.milad200281.github.AppController">
+<BorderPane fx:id="mainBorderPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.milad200281.github.AppController">
     <top>
         <VBox>
-            <MenuBar>
-                <Menu text="File">
-                    <MenuItem onAction="#showNewItemDialog" text="New..." />
-                    <SeparatorMenuItem />
-                    <MenuItem onAction="#handleExit" text="Exit" />
-                </Menu>
-            </MenuBar>
+            <HBox>
+                <MenuBar HBox.hgrow="ALWAYS">
+                    <Menu text="File">
+                        <MenuItem onAction="#showNewItemDialog" text="New Item" />
+                        <Menu text="Export">
+                            <MenuItem text="Export as CSV" />
+                            <MenuItem text="Export as MSV1" />
+                        </Menu>
+                        <MenuItem text="Import MSV1" />
+                        <MenuItem text="Merge" />
+                        <MenuItem text="Options" />
+                        <MenuItem onAction="#handleExit" text="Exit" />
+                    
+                    </Menu>
+                </MenuBar>
+                <Button text="About" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin></Button>
+            <VBox.margin>
+               <Insets />
+            </VBox.margin>
+            </HBox>
+            
             <ToolBar>
                 <HBox>
                     <Button onAction="#showNewItemDialog">
@@ -45,12 +61,15 @@
                         <tooltip>
                             <Tooltip text="Button Down: show Today's items only. Button Up: show all items" />
                         </tooltip>
-                  <HBox.margin>
-                     <Insets left="5.0" />
-                  </HBox.margin>
+                        <HBox.margin>
+                            <Insets left="5.0" />
+                        </HBox.margin>
                         
                     </ToggleButton>
                 </HBox>
+            <VBox.margin>
+               <Insets />
+            </VBox.margin>
             </ToolBar>
         </VBox>
 

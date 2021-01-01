@@ -23,9 +23,9 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Parent root = FXMLLoader.load(getClass().getResource("app.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("application.fxml"));
          //this line will choose the template
-        setUserAgentStylesheet(STYLESHEET_CASPIAN);
+        setUserAgentStylesheet(STYLESHEET_MODENA);
         primaryStage.setTitle("Todo List");
         primaryStage.setScene(new Scene(root, 900, 500));
         primaryStage.show();
