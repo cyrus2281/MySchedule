@@ -26,17 +26,17 @@
                     <Menu text="File">
                         <MenuItem onAction="#showNewItemDialog" text="New Item" />
                         <Menu text="Export">
-                            <MenuItem text="Export as CSV" />
-                            <MenuItem text="Export as MSV1" />
+                            <MenuItem disable="true" text="Export as CSV" />
+                            <MenuItem onAction="#handleExportMSV1" text="Export as MSV1" />
                         </Menu>
-                        <MenuItem text="Import MSV1" />
-                        <MenuItem text="Merge" />
-                        <MenuItem text="Options" />
+                        <MenuItem onAction="#handleImportMSV1" text="Import MSV1" />
+                        <MenuItem disable="true" onAction="#handleMerge" text="Merge" />
+                        <MenuItem disable="true" text="Options" />
                         <MenuItem onAction="#handleExit" text="Exit" />
                     
                     </Menu>
                 </MenuBar>
-                <Button text="About" HBox.hgrow="ALWAYS">
+                <Button disable="true" text="About" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets right="5.0" />
                </HBox.margin></Button>

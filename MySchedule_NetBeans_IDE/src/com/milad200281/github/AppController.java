@@ -1,6 +1,8 @@
 package com.milad200281.github;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
@@ -37,13 +39,14 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.util.Callback;
 
 public class AppController {
 
     private List<TodoItem> todoItems;
     @FXML
-    private ListView<TodoItem> todoListView; 
+    private ListView<TodoItem> todoListView;
     @FXML
     private TextArea itemDetailsTextArea;
     @FXML
@@ -109,15 +112,7 @@ public class AppController {
             }
         };
 
-        filteredList = new FilteredList<TodoItem>(TodoData.getInstance().getTodoItems(), wantAllItems);
-        sortedList = new SortedList<TodoItem>(filteredList, new Comparator<TodoItem>() {
-            @Override
-            public int compare(TodoItem o1, TodoItem o2) {
-                return o1.getDeadline().compareTo(o2.getDeadline());
-            }
-        });
-
-        todoListView.setItems(sortedList);
+        sorting();
 
         todoListView.getSelectionModel()
                 .setSelectionMode(SelectionMode.SINGLE);
@@ -158,6 +153,17 @@ public class AppController {
             }
         }
         );
+    }
+
+    public void sorting() {
+        filteredList = new FilteredList<TodoItem>(TodoData.getInstance().getTodoItems(), wantAllItems);
+        sortedList = new SortedList<TodoItem>(filteredList, new Comparator<TodoItem>() {
+            @Override
+            public int compare(TodoItem o1, TodoItem o2) {
+                return o1.getDeadline().compareTo(o2.getDeadline());
+            }
+        });
+        todoListView.setItems(sortedList);
     }
 
     @FXML
@@ -207,7 +213,7 @@ public class AppController {
 
     @FXML
     public void handleClickListView() {
-        TodoItem item = todoListView.getSelectionModel().getSelectedItem(); 
+        TodoItem item = todoListView.getSelectionModel().getSelectedItem();
         itemDetailsTextArea.setText(item.getDetails());
         deadlineLabel.setText(item.getDeadline().toString());
     }
@@ -280,6 +286,48 @@ public class AppController {
             filteredList.setPredicate(wantAllItems);
             todoListView.getSelectionModel().select(selectedItem);
         }
+    }
+
+    @FXML
+    public void handleExportMSV1() throws IOException {
+        Path savePath;
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Save App File");
+        chooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("MSV1", "*.msv1"));
+
+        File file = chooser.showSaveDialog(mainBorderPane.getScene().getWindow());
+        if (file != null) {
+            savePath = file.toPath();
+            System.out.println(savePath);
+            TodoData.getInstance().exportTodoItemsMSV1(savePath);
+        } else {
+            System.out.println("Chooser was cancelled");
+        }
+
+    }
+
+    @FXML
+    public void handleImportMSV1() throws IOException {
+        Path loadPath;
+        FileChooser chooser = new FileChooser();
+        File file = chooser.showOpenDialog(mainBorderPane.getScene().getWindow());
+        loadPath = file.toPath();
+        System.out.println(loadPath);
+        TodoData.getInstance().importTodoItemsMSV1(loadPath);
+
+        sorting();
+
+    }
+
+    @FXML
+    public void handleMerge() throws IOException {
+        Path loadPath;
+        FileChooser chooser = new FileChooser();
+        File file = chooser.showOpenDialog(mainBorderPane.getScene().getWindow());
+        loadPath = file.toPath();
+        System.out.println(loadPath);
+        TodoData.getInstance().MergeTodoItemsMSV1(loadPath);
+
     }
 
     @FXML

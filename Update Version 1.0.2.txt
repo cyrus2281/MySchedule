@@ -1,14 +1,14 @@
 Update Version 1.0.1:
 
-Application created with intitial program :)
+
+Import MSV1 feature added
+Ecport MSV1 feature added
 
 
 ==================================
 Future Updates and Features:
 
 Export CSV
-Export MSV1
-Import MSV1
 Info Section
 Merging data
 
