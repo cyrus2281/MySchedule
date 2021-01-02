@@ -1,11 +1,10 @@
-Update Version 1.0.4:
+Update Version 1.0.5:
 	
-	Bugs Fixed, null entry prevented
+	Export as CSV feature added
 
 ==================================
 Future Updates and Features:
 
-	Export CSV
 	Merging data
 
 ==================================
@@ -16,6 +15,9 @@ Known Bugs Waiting For Fix:
 
 ==================================
 Version History:
+
+Version 1.0.5:
+	Export as CSV feature added
 
 Version 1.0.4:
 	Bugs Fixed, null entry prevented

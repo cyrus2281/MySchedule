@@ -327,6 +327,22 @@ public class AppController {
         }
 
     }
+    @FXML
+    public void handleExportCSV() throws IOException {
+        Path savePath;
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Save File As CSV");
+        chooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("CSV", "*.csv"));
+        File file = chooser.showSaveDialog(mainBorderPane.getScene().getWindow());
+        if (file != null) {
+            savePath = file.toPath();
+            System.out.println(savePath);
+            TodoData.getInstance().exportTodoItemsCSV(savePath);
+        } else {
+            System.out.println("Chooser was cancelled");
+        }
+
+    }
 
     @FXML
     public void handleImportMSV1() throws IOException {

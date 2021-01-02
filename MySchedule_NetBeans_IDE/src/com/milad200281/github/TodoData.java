@@ -10,6 +10,7 @@ import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -81,7 +82,25 @@ public class TodoData {
         }
     }
 
-    public void exportTodoItemsCSV() {
+    public void exportTodoItemsCSV(Path path) throws IOException {
+
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("MMMM d, yyyy");
+        String append = "\"Short Description\",\"Details\",\"DeadLine\"\n";
+        try (FileWriter locFile = new FileWriter(path.toString())) {
+            locFile.write(append);
+            for (TodoItem item : todoItems) {
+                append = "\"";
+                append += item.getShortDescription();
+                append += "\",\"";
+                append += item.getDetails();
+                append += "\",\"";
+                append +=df.format(item.getDeadline());
+                append += "\"\n";
+                locFile.write(append);
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 
