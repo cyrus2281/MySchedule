@@ -62,6 +62,8 @@ public class DialogController {
     }
     
     public boolean validation() {
+        deadlineLabel.setText("");
+        shortDiscriptionLabel.setText("");
         boolean valid = true;
         System.out.println("validation invoked");
         if (!(shortDescriptionField.getText() != null && !shortDescriptionField.getText().trim().equals(""))) {
