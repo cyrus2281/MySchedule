@@ -1,0 +1,32 @@
+Update Version 1.0.3:
+	
+	About panel added
+
+==================================
+Future Updates and Features:
+
+	Export CSV
+	Merging data
+
+==================================
+Known Bugs Waiting For Fix:
+
+	color mismatch after editing an item date.
+	null value crashing the save data.
+	Unsave data deletes when the application is killed 
+
+==================================
+Version History:
+
+Version 1.0.3:
+	About panel added
+
+Version 1.0.2:
+	Import MSV1 feature added
+	Ecport MSV1 feature added
+
+Version 1.0.1:
+	User Interface updated
+
+Version 1.0.0:
+	Functional Applicatiob Created

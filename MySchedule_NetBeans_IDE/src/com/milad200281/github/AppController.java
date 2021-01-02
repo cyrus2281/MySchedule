@@ -329,7 +329,27 @@ public class AppController {
         TodoData.getInstance().MergeTodoItemsMSV1(loadPath);
 
     }
+    @FXML
+    public void handleAbout() {
+        
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.initOwner(mainBorderPane.getScene().getWindow());
+        dialog.setTitle("About MySchdule");
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("about.fxml"));
+        try {
+            dialog.getDialogPane().setContent(fxmlLoader.load());
+        } catch (IOException e) {
+            System.out.println("Couldn't load the dialog");
+            e.printStackTrace();
+            return;
+        }
+        //DialogController controller = fxmlLoader.getController();
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+        Optional<ButtonType> result = dialog.showAndWait();
 
+
+    }
     @FXML
     public void handleExit() {
         Platform.exit();

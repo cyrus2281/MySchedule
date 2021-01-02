@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane fx:id="aboutGridPane" alignment="center" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.milad200281.github.aboutController">
+    <Label text="MySchedule 2021" GridPane.columnIndex="1">
+      <GridPane.margin>
+         <Insets left="100.0" />
+      </GridPane.margin></Label>
+    
+    <Label text="Creator: Milad Mobini" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        
+    </Label>
+    
+    <Label text="Version: 1.0.3" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <GridPane.margin>
+         <Insets left="20.0" />
+      </GridPane.margin></Label>
+    
+    <Label text="Last Updated: 2021/1" GridPane.columnIndex="1" GridPane.rowIndex="3">
+      <GridPane.margin>
+         <Insets left="20.0" />
+      </GridPane.margin></Label>
+    
+    <Label text="Click Here for" GridPane.columnIndex="1" GridPane.rowIndex="4">
+      <padding>
+         <Insets left="20.0" />
+      </padding></Label>
+    <Hyperlink onAction="#handleLinkLicense" text="License" GridPane.columnIndex="1" GridPane.rowIndex="4">
+      <GridPane.margin>
+         <Insets left="115.0" />
+      </GridPane.margin></Hyperlink>
+    
+    <Label text="Code is open source, and can be found at" GridPane.columnIndex="1" GridPane.rowIndex="5">
+      <GridPane.margin>
+         <Insets left="20.0" />
+      </GridPane.margin></Label>
+   <Hyperlink onAction="#handleLinkGithub" text="Here" GridPane.columnIndex="1" GridPane.rowIndex="5">
+      <GridPane.margin>
+         <Insets left="310.0" />
+      </GridPane.margin>
+   </Hyperlink>
+</GridPane>
