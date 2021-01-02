@@ -16,7 +16,7 @@ public class aboutController {
     public void handleLinkLicense(){
   
         try{
-            Desktop.getDesktop().browse(new URI("https://github.com/milad200281/MySchedule/blob/main/README.md"));
+            Desktop.getDesktop().browse(new URI("https://github.com/milad200281/MySchedule/blob/main/License.md"));
         }catch(IOException | URISyntaxException e){
             e.printStackTrace();
         }
