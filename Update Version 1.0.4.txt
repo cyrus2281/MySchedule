@@ -1,6 +1,6 @@
-Update Version 1.0.3:
+Update Version 1.0.4:
 	
-	About panel added
+	Bugs Fixed, null entry prevented
 
 ==================================
 Future Updates and Features:
@@ -12,11 +12,13 @@ Future Updates and Features:
 Known Bugs Waiting For Fix:
 
 	color mismatch after editing an item date.
-	null value crashing the save data.
 	Unsave data deletes when the application is killed 
 
 ==================================
 Version History:
+
+Version 1.0.4:
+	Bugs Fixed, null entry prevented
 
 Version 1.0.3:
 	About panel added

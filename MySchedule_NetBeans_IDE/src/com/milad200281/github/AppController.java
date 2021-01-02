@@ -188,13 +188,24 @@ public class AppController {
         dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
         dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
 
+        final DialogController controller = fxmlLoader.getController();
+        final Button btOk = (Button) dialog.getDialogPane().lookupButton(ButtonType.OK);
+        btOk.addEventFilter(
+                ActionEvent.ACTION,
+                event -> {
+                    if (controller.validation()) {
+                        event.consume();
+                    }
+                }
+        );
+
         Optional<ButtonType> result = dialog.showAndWait();
 
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            DialogController controller = fxmlLoader.getController();
             TodoItem newItem = controller.proccessResults();
             todoListView.getSelectionModel().select(newItem);
             System.out.println("OK pressed");
+
         } else {
             System.out.println("Cancel pressed");
         }
@@ -251,10 +262,21 @@ public class AppController {
             e.printStackTrace();
             return;
         }
-        DialogController controller = fxmlLoader.getController();
-        controller.proccessEdit(oldItem);
         dialog.getDialogPane().getButtonTypes().add(ButtonType.APPLY);
         dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
+
+        final DialogController controller = fxmlLoader.getController();
+        controller.proccessEdit(oldItem);
+
+        final Button btApply = (Button) dialog.getDialogPane().lookupButton(ButtonType.APPLY);
+        btApply.addEventFilter(
+                ActionEvent.ACTION,
+                event -> {
+                    if (controller.validation()) {
+                        event.consume();
+                    }
+                }
+        );
 
         Optional<ButtonType> result = dialog.showAndWait();
 
@@ -329,9 +351,10 @@ public class AppController {
         TodoData.getInstance().MergeTodoItemsMSV1(loadPath);
 
     }
+
     @FXML
     public void handleAbout() {
-        
+
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.initOwner(mainBorderPane.getScene().getWindow());
         dialog.setTitle("About MySchdule");
@@ -348,8 +371,8 @@ public class AppController {
         dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
         Optional<ButtonType> result = dialog.showAndWait();
 
-
     }
+
     @FXML
     public void handleExit() {
         Platform.exit();

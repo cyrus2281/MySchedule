@@ -36,13 +36,13 @@
          <Insets left="115.0" />
       </GridPane.margin></Hyperlink>
     
-    <Label text="Code is open source, and can be found at" GridPane.columnIndex="1" GridPane.rowIndex="5">
+    <Label text="Code is open source and can be found" GridPane.columnIndex="1" GridPane.rowIndex="5">
       <GridPane.margin>
          <Insets left="20.0" />
       </GridPane.margin></Label>
    <Hyperlink onAction="#handleLinkGithub" text="Here" GridPane.columnIndex="1" GridPane.rowIndex="5">
       <GridPane.margin>
-         <Insets left="310.0" />
+         <Insets left="290.0" />
       </GridPane.margin>
    </Hyperlink>
 </GridPane>
