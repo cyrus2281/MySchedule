@@ -1,11 +1,14 @@
 package com.milad200281.github;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -47,6 +50,18 @@ public class DialogController {
 
         TodoItem newItem = new TodoItem(shortDescription, details, deadlineValue);
         TodoData.getInstance().addTodoItem(newItem);
+        
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    TodoData.getInstance().storeTodoItems();
+                } catch (IOException ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
+        }).start();
+        
         return newItem;
 
     }

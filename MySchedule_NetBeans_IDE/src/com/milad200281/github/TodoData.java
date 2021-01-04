@@ -83,9 +83,11 @@ public class TodoData {
     }
 
     public void storeTodoItems() throws IOException {
-        try (ObjectOutputStream locFile = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(filename)))) {
-            for (TodoItem item : todoItems) {
-                locFile.writeObject(item);
+        synchronized (this) {
+            try (ObjectOutputStream locFile = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(filename)))) {
+                for (TodoItem item : todoItems) {
+                    locFile.writeObject(item);
+                }
             }
         }
     }

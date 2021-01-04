@@ -282,6 +282,16 @@ public class AppController {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             TodoData.getInstance().deleteTodoItem(item);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        TodoData.getInstance().storeTodoItems();
+                    } catch (IOException ex) {
+                        System.out.println(ex.getMessage());
+                    }
+                }
+            }).start();
         }
 
     }
@@ -412,6 +422,16 @@ public class AppController {
             System.out.println(loadPath);
             TodoData.getInstance().importTodoItemsMSV1(loadPath);
             sorting();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        TodoData.getInstance().storeTodoItems();
+                    } catch (IOException ex) {
+                        System.out.println(ex.getMessage());
+                    }
+                }
+            }).start();
         } else {
             System.out.println("Chooser was cancelled");
         }
@@ -426,6 +446,16 @@ public class AppController {
         loadPath = file.toPath();
         System.out.println(loadPath);
         TodoData.getInstance().MergeTodoItemsMSV1(loadPath);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    TodoData.getInstance().storeTodoItems();
+                } catch (IOException ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
+        }).start();
 
     }
 

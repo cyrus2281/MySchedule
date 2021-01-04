@@ -1,20 +1,16 @@
-Update Version 1.0.7:
-	
-	UI updated
+=======================
+===     Current Version    ===
+=======================
 
-==================================
-Future Updates and Features:
+Update Version 1.0.8:
+	Autosave Added
 
-	Merging data
+=======================
+===     Version History     ===
+=======================
 
-==================================
-Known Bugs Waiting For Fix:
-
-	color mismatch after editing an item date.
-	Unsave data deletes when the application is killed 
-
-==================================
-Version History:
+Version 1.0.8:
+	Autosave Added
 
 Version 1.0.7:
 	UI updated
