@@ -22,13 +22,16 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.FileChooser;
 
 public class TodoData {
 
     private static TodoData instance = new TodoData();
-    private static String filename = "TodoListItems.msv1";
+    private static String filename = "MyScheduleDataItems.msv1";
 
     private ObservableList<TodoItem> todoItems;
     private DateTimeFormatter formatter;
@@ -49,13 +52,14 @@ public class TodoData {
         todoItems.add(item);
     }
 
-    public void loadTodoItems() throws IOException {
+    public boolean loadTodoItems() throws IOException {
 
         todoItems = FXCollections.observableArrayList();
         try (ObjectInputStream locFile = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filename)))) {
             boolean eof = false;
             while (!eof) {
                 try {
+
                     TodoItem item = (TodoItem) locFile.readObject();
 
                     String shortDescription = item.getShortDescription();
@@ -67,10 +71,14 @@ public class TodoData {
                     eof = true;
                 }
             }
+            return true;
         } catch (IOException io) {
-            System.out.println("IO Exception" + io.getMessage());
+            System.out.println("File Corrupted\nIO Exception" + io.getMessage());
+            return false;
         } catch (ClassNotFoundException e) {
             System.out.println("ClassNotFoundException " + e.getMessage());
+            return false;
+
         }
     }
 
@@ -94,7 +102,7 @@ public class TodoData {
                 append += "\",\"";
                 append += item.getDetails();
                 append += "\",\"";
-                append +=df.format(item.getDeadline());
+                append += df.format(item.getDeadline());
                 append += "\"\n";
                 locFile.write(append);
             }

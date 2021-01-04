@@ -213,7 +213,7 @@ public class AppController {
     }
 
     @FXML
-    public void handleKeyPressed(KeyEvent keyEvent) {
+    public void handleKeyPressedDelete(KeyEvent keyEvent) {
         TodoItem selectedItem = todoListView.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
             if (keyEvent.getCode().equals(KeyCode.DELETE)) {
@@ -221,6 +221,27 @@ public class AppController {
             }
         }
     }
+
+    @FXML
+    public void handleKeyPressed(KeyEvent keyEvent) throws IOException {
+            if (keyEvent.isControlDown() && (keyEvent.getCode() == KeyCode.X)) {
+                System.out.println("Ctrl+X");
+                handleExportMSV1();
+            }
+            if (keyEvent.isControlDown() && (keyEvent.getCode() == KeyCode.I)) {
+                System.out.println("Ctrl+I");
+                handleImportMSV1();
+            }
+            if (keyEvent.isControlDown() && (keyEvent.getCode() == KeyCode.M)) {
+                System.out.println("Ctrl+M");
+                handleMerge();
+            }
+            if (keyEvent.isControlDown() && (keyEvent.getCode() == KeyCode.N)) {
+                System.out.println("Ctrl+N");
+                showNewItemDialog();
+            }
+        }
+    
 
     @FXML
     public void handleClickListView() {
@@ -314,7 +335,7 @@ public class AppController {
     public void handleExportMSV1() throws IOException {
         Path savePath;
         FileChooser chooser = new FileChooser();
-        chooser.setTitle("Save App File");
+        chooser.setTitle("Export File as MSV1");
         chooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("MSV1", "*.msv1"));
 
         File file = chooser.showSaveDialog(mainBorderPane.getScene().getWindow());
@@ -327,11 +348,12 @@ public class AppController {
         }
 
     }
+
     @FXML
     public void handleExportCSV() throws IOException {
         Path savePath;
         FileChooser chooser = new FileChooser();
-        chooser.setTitle("Save File As CSV");
+        chooser.setTitle("Export File As CSV");
         chooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("CSV", "*.csv"));
         File file = chooser.showSaveDialog(mainBorderPane.getScene().getWindow());
         if (file != null) {
@@ -348,12 +370,17 @@ public class AppController {
     public void handleImportMSV1() throws IOException {
         Path loadPath;
         FileChooser chooser = new FileChooser();
+        chooser.setTitle("Select MSV1 file");
+        chooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("MSV1", "*.msv1"));
         File file = chooser.showOpenDialog(mainBorderPane.getScene().getWindow());
+        if (file != null) {
         loadPath = file.toPath();
         System.out.println(loadPath);
         TodoData.getInstance().importTodoItemsMSV1(loadPath);
-
         sorting();
+        }else {
+            System.out.println("Chooser was cancelled");
+        }
 
     }
 

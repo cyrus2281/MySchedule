@@ -18,7 +18,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainBorderPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.milad200281.github.AppController">
+<BorderPane fx:id="mainBorderPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="com.milad200281.github.AppController" onKeyPressed="#handleKeyPressed">
     <top>
         <VBox>
             <HBox>
@@ -84,7 +85,7 @@
     </top>
     
     <left>
-        <ListView fx:id="todoListView" onKeyPressed="#handleKeyPressed"> <!-- onMouseClicked="#handleClickListView" -->
+        <ListView fx:id="todoListView" onKeyPressed="#handleKeyPressedDelete"> <!-- onMouseClicked="#handleClickListView" -->
             
         </ListView>
     </left>
