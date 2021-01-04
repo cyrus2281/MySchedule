@@ -1,6 +1,6 @@
-Update Version 1.0.6:
+Update Version 1.0.7:
 	
-	Hot Keys added
+	UI updated
 
 ==================================
 Future Updates and Features:
@@ -15,6 +15,9 @@ Known Bugs Waiting For Fix:
 
 ==================================
 Version History:
+
+Version 1.0.7:
+	UI updated
 
 Version 1.0.6:
 	Hot Keys added

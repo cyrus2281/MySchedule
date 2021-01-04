@@ -18,28 +18,41 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainBorderPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
-            fx:controller="com.milad200281.github.AppController" onKeyPressed="#handleKeyPressed">
+<BorderPane fx:id="mainBorderPane" onKeyPressed="#handleKeyPressed" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.milad200281.github.AppController">
     <top>
         <VBox>
             <HBox>
                 <MenuBar HBox.hgrow="ALWAYS">
                     <Menu text="File">
-                        <MenuItem onAction="#showNewItemDialog" text="New Item" />
+                        <MenuItem onAction="#showNewItemDialog" text="New Item               Ctrl+N">
+                        </MenuItem>
                         <Menu text="Export">
-                            <MenuItem text="Export as CSV" onAction="#handleExportCSV"/>
-                            <MenuItem onAction="#handleExportMSV1" text="Export as MSV1" >
+                            <MenuItem onAction="#handleExportCSV" text="Export as CSV          Ctrl+T" />
+                            <MenuItem onAction="#handleExportMSV1" text="Export as MSV1       Ctrl+E">
                             </MenuItem>
                         </Menu>
-                        <MenuItem onAction="#handleImportMSV1" text="Import MSV1" />
-                        <MenuItem disable="true" onAction="#handleMerge" text="Merge" />
-                        <MenuItem disable="true" text="Options" />
+                        <MenuItem onAction="#handleImportMSV1" text="Import MSV1          Ctrl+I" />
+                        <MenuItem disable="true" onAction="#handleMerge" text="Merge                     Ctrl+M" />
+                        <MenuItem disable="true" text="Preference              Ctrl+P" />
                         <MenuItem onAction="#handleExit" text="Exit" />
                     
                     </Menu>
                 </MenuBar>
 
-                <Button  onAction="#handleAbout">
+                <Button>
+                    <graphic>
+                        <ImageView>
+                            <Image url="@/toolbarButtonGraphics/general/Help24.gif" />
+                        </ImageView>
+                    </graphic>
+                    <HBox.margin>
+                        <Insets right="5.0" />
+                    </HBox.margin>
+                    <tooltip>
+                        <Tooltip text="Support and Help" />
+                    </tooltip>
+                </Button>
+                <Button onAction="#handleAbout">
                     <graphic>
                         <ImageView>
                             <Image url="@/toolbarButtonGraphics/general/About24.gif" />
@@ -48,6 +61,9 @@
                     <HBox.margin>
                         <Insets right="5.0" />
                     </HBox.margin>
+                    <tooltip>
+                        <Tooltip text="About MySchedule" />
+                    </tooltip>
                 </Button>
                 <VBox.margin>
                     <Insets />
@@ -58,11 +74,34 @@
                 <HBox>
                     <Button onAction="#showNewItemDialog">
                         <tooltip>
-                            <Tooltip text="Add a New Todo item." />
+                            <Tooltip text="Add a new item. (Ctrl+N)" />
                         </tooltip>
                         <graphic>
                             <ImageView>
                                 <Image url="@/toolbarButtonGraphics/general/New24.gif" />
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Button fx:id="editButton" onAction="#handleEditButton">
+                        <tooltip>
+                            <Tooltip text="Edit selected item. (Ctrl+R)" />
+                        </tooltip>
+                        <HBox.margin>
+                            <Insets left="5.0" right="5.0"/>
+                        </HBox.margin>
+                        <graphic>
+                            <ImageView>
+                                <Image url="@/toolbarButtonGraphics/general/Edit24.gif" />
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Button fx:id="deleteButton" onAction="#handleDeleteButton">
+                        <tooltip>
+                            <Tooltip text="Delete selected item. (Del)" />
+                        </tooltip>
+                        <graphic>
+                            <ImageView>
+                                <Image url="@/toolbarButtonGraphics/general/Delete24.gif" />
                             </ImageView>
                         </graphic>
                     </Button>
@@ -85,13 +124,13 @@
     </top>
     
     <left>
-        <ListView fx:id="todoListView" onKeyPressed="#handleKeyPressedDelete"> <!-- onMouseClicked="#handleClickListView" -->
+        <ListView fx:id="todoListView" onKeyPressed="#handleKeyPressedItem"> 
             
         </ListView>
     </left>
     <center>
         <VBox style="-fx-background-color: white">
-            <TextArea fx:id="itemDetailsTextArea" WrapText="true" VBox.vgrow="ALWAYS" /> <!-- gives as much space as possible -->
+            <TextArea fx:id="itemDetailsTextArea" WrapText="true" editable="false" VBox.vgrow="ALWAYS" /> 
             <HBox>
                 <Label text="Due: ">
                     <font>

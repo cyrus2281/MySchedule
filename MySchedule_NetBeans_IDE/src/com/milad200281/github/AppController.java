@@ -57,6 +57,10 @@ public class AppController {
     private ContextMenu listContextMenu;
     @FXML
     private ToggleButton filterToggleButton;
+    @FXML
+    private Button deleteButton;
+    @FXML
+    private Button editButton;
 
     private FilteredList<TodoItem> filteredList;
     SortedList<TodoItem> sortedList;
@@ -90,10 +94,16 @@ public class AppController {
             @Override
             public void changed(ObservableValue<? extends TodoItem> observable, TodoItem oldValue, TodoItem newValue) {
                 if (newValue != null) {
+                    editButton.setDisable(false);
+                    deleteButton.setDisable(false);
+
                     TodoItem item = todoListView.getSelectionModel().getSelectedItem();
                     itemDetailsTextArea.setText(item.getDetails());
                     DateTimeFormatter df = DateTimeFormatter.ofPattern("MMMM d, yyyy");
                     deadlineLabel.setText(df.format(item.getDeadline()));
+                } else {
+                    editButton.setDisable(true);
+                    deleteButton.setDisable(true);
                 }
             }
         }
@@ -213,35 +223,48 @@ public class AppController {
     }
 
     @FXML
-    public void handleKeyPressedDelete(KeyEvent keyEvent) {
+    public void handleKeyPressedItem(KeyEvent keyEvent) {
         TodoItem selectedItem = todoListView.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
             if (keyEvent.getCode().equals(KeyCode.DELETE)) {
+                System.out.println("Del");
                 deleteItem(selectedItem);
             }
+        }
+        if (keyEvent.isControlDown() && (keyEvent.getCode() == KeyCode.R)) {
+            System.out.println("Ctrl+R");
+            editItem(selectedItem);
         }
     }
 
     @FXML
     public void handleKeyPressed(KeyEvent keyEvent) throws IOException {
-            if (keyEvent.isControlDown() && (keyEvent.getCode() == KeyCode.X)) {
-                System.out.println("Ctrl+X");
-                handleExportMSV1();
-            }
-            if (keyEvent.isControlDown() && (keyEvent.getCode() == KeyCode.I)) {
-                System.out.println("Ctrl+I");
-                handleImportMSV1();
-            }
-            if (keyEvent.isControlDown() && (keyEvent.getCode() == KeyCode.M)) {
-                System.out.println("Ctrl+M");
-                handleMerge();
-            }
-            if (keyEvent.isControlDown() && (keyEvent.getCode() == KeyCode.N)) {
-                System.out.println("Ctrl+N");
-                showNewItemDialog();
-            }
+        if (keyEvent.isControlDown() && (keyEvent.getCode() == KeyCode.E)) {
+            System.out.println("Ctrl+E");
+            handleExportMSV1();
         }
-    
+        if (keyEvent.isControlDown() && (keyEvent.getCode() == KeyCode.I)) {
+            System.out.println("Ctrl+I");
+            handleImportMSV1();
+        }
+        if (keyEvent.isControlDown() && (keyEvent.getCode() == KeyCode.M)) {
+            System.out.println("Ctrl+M");
+            handleMerge();
+
+        }
+        if (keyEvent.isControlDown() && (keyEvent.getCode() == KeyCode.N)) {
+            System.out.println("Ctrl+N");
+            showNewItemDialog();
+        }
+        if (keyEvent.isControlDown() && (keyEvent.getCode() == KeyCode.T)) {
+            System.out.println("Ctrl+T");
+            handleExportCSV();
+        }
+        if (keyEvent.isControlDown() && (keyEvent.getCode() == KeyCode.P)) {
+            System.out.println("Ctrl+P");
+            //Preference 
+        }
+    }
 
     @FXML
     public void handleClickListView() {
@@ -312,6 +335,17 @@ public class AppController {
     }
 
     @FXML
+    public void handleEditButton() {
+        TodoItem item = todoListView.getSelectionModel().getSelectedItem();
+        editItem(item);
+    }
+
+    public void handleDeleteButton() {
+        TodoItem item = todoListView.getSelectionModel().getSelectedItem();
+        deleteItem(item);
+    }
+
+    @FXML
     public void handleFilterButton() {
         TodoItem selectedItem = todoListView.getSelectionModel().getSelectedItem();
 
@@ -370,15 +404,15 @@ public class AppController {
     public void handleImportMSV1() throws IOException {
         Path loadPath;
         FileChooser chooser = new FileChooser();
-        chooser.setTitle("Select MSV1 file");
+        chooser.setTitle("Import MSV1 file");
         chooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("MSV1", "*.msv1"));
         File file = chooser.showOpenDialog(mainBorderPane.getScene().getWindow());
         if (file != null) {
-        loadPath = file.toPath();
-        System.out.println(loadPath);
-        TodoData.getInstance().importTodoItemsMSV1(loadPath);
-        sorting();
-        }else {
+            loadPath = file.toPath();
+            System.out.println(loadPath);
+            TodoData.getInstance().importTodoItemsMSV1(loadPath);
+            sorting();
+        } else {
             System.out.println("Chooser was cancelled");
         }
 
