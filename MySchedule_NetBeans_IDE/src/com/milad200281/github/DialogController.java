@@ -50,18 +50,7 @@ public class DialogController {
 
         TodoItem newItem = new TodoItem(shortDescription, details, deadlineValue);
         TodoData.getInstance().addTodoItem(newItem);
-        
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    TodoData.getInstance().storeTodoItems();
-                } catch (IOException ex) {
-                    System.out.println(ex.getMessage());
-                }
-            }
-        }).start();
-        
+        AppController.saveAll();
         return newItem;
 
     }

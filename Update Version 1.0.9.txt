@@ -2,12 +2,19 @@
 ===     Current Version    ===
 =======================
 
-Update Version 1.0.8:
-	Autosave Added
+Update Version 1.0.9:
+	Codes upgraded with lambda
+	Multithreading applied to the exports, and saves
+	issues with merge fixed and feature added
 
 =======================
 ===     Version History     ===
 =======================
+
+ Version 1.0.9:
+	Codes upgraded with lambda
+	Multithreading applied to the exports, and saves
+	issues with merge fixed and feature added
 
 Version 1.0.8:
 	Autosave Added

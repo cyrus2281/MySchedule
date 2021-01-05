@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -49,7 +50,20 @@ public class TodoData {
     }
 
     public void addTodoItem(TodoItem item) {
-        todoItems.add(item);
+         
+        boolean notContain = true;
+        for (TodoItem todo : todoItems) {
+            if (item.equals(todo)) {
+                notContain = false;
+                break;
+            }
+        }
+        if (notContain) {
+            System.out.println(item.getShortDescription()+": was added to the list");
+            todoItems.add(item);
+        } else {
+            System.out.println(item.getShortDescription()+": already exists");
+        }
     }
 
     public boolean loadTodoItems() throws IOException {
@@ -93,62 +107,33 @@ public class TodoData {
     }
 
     public void exportTodoItemsCSV(Path path) throws IOException {
-
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("MMMM d, yyyy");
-        String append = "\"Short Description\",\"Details\",\"DeadLine\"\n";
-        try (FileWriter locFile = new FileWriter(path.toString())) {
-            locFile.write(append);
-            for (TodoItem item : todoItems) {
-                append = "\"";
-                append += item.getShortDescription();
-                append += "\",\"";
-                append += item.getDetails();
-                append += "\",\"";
-                append += df.format(item.getDeadline());
-                append += "\"\n";
+        synchronized (this) {
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("MMMM d, yyyy");
+            String append = "\"Short Description\",\"Details\",\"DeadLine\"\n";
+            try (FileWriter locFile = new FileWriter(path.toString())) {
                 locFile.write(append);
+                for (TodoItem item : todoItems) {
+                    append = "\"";
+                    append += item.getShortDescription();
+                    append += "\",\"";
+                    append += item.getDetails();
+                    append += "\",\"";
+                    append += df.format(item.getDeadline());
+                    append += "\"\n";
+                    locFile.write(append);
+                }
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
             }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
         }
 
     }
-
-    /*
-            //folder
-        /*
-    DirectoryChooser chooser = new DirectoryChooser();
-    File file = chooser.showDialog(gridPane.getScene().getWindow());
-    if(file != null){
-        System.out.println(file.getPath());
-}else{
-        System.out.println("Chooser was cancelled");
-    }
-     *//*
-        //file
-        FileChooser chooser = new FileChooser();
-//    chooser.showOpenDialog(gridPane.getScene().getWindow()); //this prevent the user from doing anything else
-//        chooser.showOpenMultipleDialog(gridPane.getScene().getWindow()); // to open multiple files, returns an array (file.size();)
-        //to save file
-        chooser.setTitle("Save App File");
-        chooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text", "*.txt"), //to add extension filter
-                new FileChooser.ExtensionFilter("PDF", "*.pdf"),
-                new FileChooser.ExtensionFilter("My Type", "*.mbn", "*.mld", "*.png"),
-                new FileChooser.ExtensionFilter("All Files", "*.*"));
-
-        File file = chooser.showSaveDialog(gridPane.getScene().getWindow());
-        if (file != null) {
-            System.out.println(file.getPath());
-        } else {
-            System.out.println("Chooser was cancelled");
-        }
-    
-     */
     public void exportTodoItemsMSV1(Path path) throws IOException {
-
-        try (ObjectOutputStream locFile = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(path.toString())))) {
-            for (TodoItem item : todoItems) {
-                locFile.writeObject(item);
+        synchronized (this) {
+            try (ObjectOutputStream locFile = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(path.toString())))) {
+                for (TodoItem item : todoItems) {
+                    locFile.writeObject(item);
+                }
             }
         }
     }
@@ -180,28 +165,17 @@ public class TodoData {
     }
 
     public void MergeTodoItemsMSV1(Path path) {
-        try (ObjectInputStream locFile = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filename)))) {
+        try (ObjectInputStream locFile = new ObjectInputStream(new BufferedInputStream(new FileInputStream(path.toString())))) {
             boolean eof = false;
-            ArrayList<TodoItem> items = new ArrayList<TodoItem>();
             while (!eof) {
                 try {
                     TodoItem item = (TodoItem) locFile.readObject();
-                    String shortDescription = item.getShortDescription();
-                    String details = item.getDetails();
-                    LocalDate date = item.getDeadline();
-                    TodoItem todoItem = new TodoItem(shortDescription, details, date);
-                    items.add(todoItem);
+                    addTodoItem(item);
                 } catch (EOFException e) {
                     eof = true;
                 }
             }
-            for (TodoItem item : items) {
-                if (todoItems.containsAll(items)) {
-                    System.out.println("it does contain");
-                } else {
-                    System.out.println("It does not");
-                }
-            }
+
         } catch (IOException io) {
             System.out.println("IO Exception" + io.getMessage());
         } catch (ClassNotFoundException e) {

@@ -32,9 +32,9 @@
                             </MenuItem>
                         </Menu>
                         <MenuItem onAction="#handleImportMSV1" text="Import MSV1          Ctrl+I" />
-                        <MenuItem disable="true" onAction="#handleMerge" text="Merge                     Ctrl+M" />
+                        <MenuItem onAction="#handleMerge" text="Merge                     Ctrl+M" />
                         <MenuItem disable="true" text="Preference              Ctrl+P" />
-                        <MenuItem onAction="#handleExit" text="Exit" />
+                        <MenuItem onAction="#handleExit" text="Exit                          esc" />
                     
                     </Menu>
                 </MenuBar>

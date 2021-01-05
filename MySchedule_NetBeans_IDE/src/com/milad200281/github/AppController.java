@@ -11,6 +11,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -72,21 +74,18 @@ public class AppController {
         listContextMenu = new ContextMenu();
         MenuItem deleteMenuItem = new MenuItem("Delete");
         MenuItem editMenuItem = new MenuItem("Edit");
-        deleteMenuItem.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                TodoItem item = todoListView.getSelectionModel().getSelectedItem();
-                deleteItem(item);
-            }
+        deleteMenuItem.setOnAction((event) -> {
+            TodoItem item = todoListView.getSelectionModel().getSelectedItem();
+            deleteItem(item);
         });
 
-        editMenuItem.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                TodoItem item = todoListView.getSelectionModel().getSelectedItem();
-                editItem(item);
-            }
+        editMenuItem.setOnAction((event) -> {
+            TodoItem item = todoListView.getSelectionModel().getSelectedItem();
+            editItem(item);
         });
+
+        editButton.setDisable(true);
+        deleteButton.setDisable(true);
 
         listContextMenu.getItems().addAll(editMenuItem, deleteMenuItem);
 
@@ -167,12 +166,7 @@ public class AppController {
 
     public void sorting() {
         filteredList = new FilteredList<TodoItem>(TodoData.getInstance().getTodoItems(), wantAllItems);
-        sortedList = new SortedList<TodoItem>(filteredList, new Comparator<TodoItem>() {
-            @Override
-            public int compare(TodoItem o1, TodoItem o2) {
-                return o1.getDeadline().compareTo(o2.getDeadline());
-            }
-        });
+        sortedList = new SortedList<TodoItem>(filteredList, (TodoItem o1, TodoItem o2) -> o1.getDeadline().compareTo(o2.getDeadline()));
         todoListView.setItems(sortedList);
     }
 
@@ -260,6 +254,10 @@ public class AppController {
             System.out.println("Ctrl+T");
             handleExportCSV();
         }
+        if (keyEvent.getCode() == KeyCode.ESCAPE) {
+            System.out.println("esp");
+            handleExit();
+        }
         if (keyEvent.isControlDown() && (keyEvent.getCode() == KeyCode.P)) {
             System.out.println("Ctrl+P");
             //Preference 
@@ -273,6 +271,16 @@ public class AppController {
         deadlineLabel.setText(item.getDeadline().toString());
     }
 
+    public static void saveAll() {
+        new Thread(() -> {
+            try {
+                TodoData.getInstance().storeTodoItems();
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }).start();
+    }
+
     public void deleteItem(TodoItem item) {
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -282,18 +290,8 @@ public class AppController {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             TodoData.getInstance().deleteTodoItem(item);
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        TodoData.getInstance().storeTodoItems();
-                    } catch (IOException ex) {
-                        System.out.println(ex.getMessage());
-                    }
-                }
-            }).start();
+            saveAll();
         }
-
     }
 
     public void editItem(TodoItem oldItem) {
@@ -381,12 +379,17 @@ public class AppController {
         FileChooser chooser = new FileChooser();
         chooser.setTitle("Export File as MSV1");
         chooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("MSV1", "*.msv1"));
-
         File file = chooser.showSaveDialog(mainBorderPane.getScene().getWindow());
         if (file != null) {
             savePath = file.toPath();
             System.out.println(savePath);
-            TodoData.getInstance().exportTodoItemsMSV1(savePath);
+            new Thread(() -> {
+                try {
+                    TodoData.getInstance().exportTodoItemsMSV1(savePath);
+                } catch (IOException ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }).start();
         } else {
             System.out.println("Chooser was cancelled");
         }
@@ -403,7 +406,13 @@ public class AppController {
         if (file != null) {
             savePath = file.toPath();
             System.out.println(savePath);
-            TodoData.getInstance().exportTodoItemsCSV(savePath);
+            new Thread(() -> {
+                try {
+                    TodoData.getInstance().exportTodoItemsCSV(savePath);
+                } catch (IOException ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }).start();
         } else {
             System.out.println("Chooser was cancelled");
         }
@@ -422,16 +431,8 @@ public class AppController {
             System.out.println(loadPath);
             TodoData.getInstance().importTodoItemsMSV1(loadPath);
             sorting();
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        TodoData.getInstance().storeTodoItems();
-                    } catch (IOException ex) {
-                        System.out.println(ex.getMessage());
-                    }
-                }
-            }).start();
+            saveAll();
+
         } else {
             System.out.println("Chooser was cancelled");
         }
@@ -442,20 +443,13 @@ public class AppController {
     public void handleMerge() throws IOException {
         Path loadPath;
         FileChooser chooser = new FileChooser();
+        chooser.setTitle("Load MSV1 file");
+        chooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("MSV1", "*.msv1"));
         File file = chooser.showOpenDialog(mainBorderPane.getScene().getWindow());
         loadPath = file.toPath();
         System.out.println(loadPath);
         TodoData.getInstance().MergeTodoItemsMSV1(loadPath);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    TodoData.getInstance().storeTodoItems();
-                } catch (IOException ex) {
-                    System.out.println(ex.getMessage());
-                }
-            }
-        }).start();
+        saveAll();
 
     }
 
