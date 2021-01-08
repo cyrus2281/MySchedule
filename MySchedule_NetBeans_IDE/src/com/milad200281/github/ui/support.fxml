@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane fx:id="supportGridPane" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" 
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.milad200281.github.ui.AboutAndSupportController">     
+    <HBox alignment="center" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <Label text="MySchedule 2021" />
+    </HBox>
+
+    <Label text="File:" GridPane.columnIndex="1" GridPane.rowIndex="2">
+    </Label>
+    <Label text="Export as CSV: Export all items as comma seprated file(CSV)." GridPane.columnIndex="1" GridPane.rowIndex="3">
+        <graphic>
+            <ImageView>
+                <Image url="@/toolbarButtonGraphics/general/Export24.gif" />
+            </ImageView>
+        </graphic>
+        <GridPane.margin>
+            <Insets left="10.0" />
+        </GridPane.margin>
+    </Label>
+    <Label text="Export as MSF: Export all the items as shareable msf files." GridPane.columnIndex="1" GridPane.rowIndex="4">
+        <graphic>
+            <ImageView>
+                <Image url="@/toolbarButtonGraphics/general/Export24.gif" />
+            </ImageView>
+        </graphic>
+        <GridPane.margin>
+            <Insets left="10.0" />
+        </GridPane.margin>
+    </Label>
+    <Label text="Import: Overwrites all the items from a msf file." GridPane.columnIndex="1" GridPane.rowIndex="5">
+        <graphic>
+            <ImageView>
+                <Image url="@/toolbarButtonGraphics/general/Import24.gif" />
+            </ImageView>
+        </graphic>
+        <GridPane.margin>
+            <Insets left="10.0" />
+        </GridPane.margin>
+    </Label>
+    <Label text="Merge: Add new items to the existing items from a msf file." GridPane.columnIndex="1" GridPane.rowIndex="6">
+        <graphic>
+            <ImageView>
+                <Image url="@/toolbarButtonGraphics/general/Copy24.gif" />
+            </ImageView>
+        </graphic>
+        <GridPane.margin>
+            <Insets left="10.0" />
+        </GridPane.margin>
+    </Label>
+
+   
+    <HBox alignment="center_left" GridPane.columnIndex="1" GridPane.rowIndex="8">
+        <Label text="For more help and support you can contact the creator through" />
+        <Hyperlink onAction="#handleLinkGithub" text="GitHub. " />
+    </HBox>
+
+</GridPane>

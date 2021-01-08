@@ -1,5 +1,7 @@
-package com.milad200281.github;
+package com.milad200281.github.ui;
 
+import com.milad200281.github.commen.TodoData;
+import com.milad200281.github.commen.TodoItem;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -235,11 +237,11 @@ public class AppController {
     public void handleKeyPressed(KeyEvent keyEvent) throws IOException {
         if (keyEvent.isControlDown() && (keyEvent.getCode() == KeyCode.E)) {
             System.out.println("Ctrl+E");
-            handleExportMSV1();
+            handleExportMSF();
         }
         if (keyEvent.isControlDown() && (keyEvent.getCode() == KeyCode.I)) {
             System.out.println("Ctrl+I");
-            handleImportMSV1();
+            handleImportMSF();
         }
         if (keyEvent.isControlDown() && (keyEvent.getCode() == KeyCode.M)) {
             System.out.println("Ctrl+M");
@@ -374,18 +376,18 @@ public class AppController {
     }
 
     @FXML
-    public void handleExportMSV1() throws IOException {
+    public void handleExportMSF() throws IOException {
         Path savePath;
         FileChooser chooser = new FileChooser();
-        chooser.setTitle("Export File as MSV1");
-        chooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("MSV1", "*.msv1"));
+        chooser.setTitle("Export File as MSF");
+        chooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("MSF", "*.msf"));
         File file = chooser.showSaveDialog(mainBorderPane.getScene().getWindow());
         if (file != null) {
             savePath = file.toPath();
             System.out.println(savePath);
             new Thread(() -> {
                 try {
-                    TodoData.getInstance().exportTodoItemsMSV1(savePath);
+                    TodoData.getInstance().exportTodoItemsMSF(savePath);
                 } catch (IOException ex) {
                     System.out.println(ex.getMessage());
                 }
@@ -420,16 +422,16 @@ public class AppController {
     }
 
     @FXML
-    public void handleImportMSV1() throws IOException {
+    public void handleImportMSF() throws IOException {
         Path loadPath;
         FileChooser chooser = new FileChooser();
-        chooser.setTitle("Import MSV1 file");
-        chooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("MSV1", "*.msv1"));
+        chooser.setTitle("Import MSF file");
+        chooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("MSF", "*.msf"));
         File file = chooser.showOpenDialog(mainBorderPane.getScene().getWindow());
         if (file != null) {
             loadPath = file.toPath();
             System.out.println(loadPath);
-            TodoData.getInstance().importTodoItemsMSV1(loadPath);
+            TodoData.getInstance().importTodoItemsMSF(loadPath);
             sorting();
             saveAll();
 
@@ -443,13 +445,17 @@ public class AppController {
     public void handleMerge() throws IOException {
         Path loadPath;
         FileChooser chooser = new FileChooser();
-        chooser.setTitle("Load MSV1 file");
-        chooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("MSV1", "*.msv1"));
+        chooser.setTitle("Merge MSF file");
+        chooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("MSF", "*.msf"));
         File file = chooser.showOpenDialog(mainBorderPane.getScene().getWindow());
-        loadPath = file.toPath();
-        System.out.println(loadPath);
-        TodoData.getInstance().MergeTodoItemsMSV1(loadPath);
-        saveAll();
+        if (file != null) {
+            loadPath = file.toPath();
+            System.out.println(loadPath);
+            TodoData.getInstance().MergeTodoItemsMSF(loadPath);
+            saveAll();
+        } else {
+            System.out.println("Chooser was cancelled");
+        }
 
     }
 
@@ -461,6 +467,27 @@ public class AppController {
         dialog.setTitle("About MySchdule");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("about.fxml"));
+        try {
+            dialog.getDialogPane().setContent(fxmlLoader.load());
+        } catch (IOException e) {
+            System.out.println("Couldn't load the dialog");
+            e.printStackTrace();
+            return;
+        }
+        //DialogController controller = fxmlLoader.getController();
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+        Optional<ButtonType> result = dialog.showAndWait();
+
+    }
+
+    @FXML
+    public void handleSupport() {
+
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.initOwner(mainBorderPane.getScene().getWindow());
+        dialog.setTitle("Help And Support");
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("support.fxml"));
         try {
             dialog.getDialogPane().setContent(fxmlLoader.load());
         } catch (IOException e) {

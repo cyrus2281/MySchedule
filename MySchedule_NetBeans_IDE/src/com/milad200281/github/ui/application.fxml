@@ -18,28 +18,57 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainBorderPane" onKeyPressed="#handleKeyPressed" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.milad200281.github.AppController">
+<BorderPane fx:id="mainBorderPane" onKeyPressed="#handleKeyPressed" xmlns="http://javafx.com/javafx/11.0.1" 
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.milad200281.github.ui.AppController">
     <top>
         <VBox>
             <HBox>
                 <MenuBar HBox.hgrow="ALWAYS">
                     <Menu text="File">
                         <MenuItem onAction="#showNewItemDialog" text="New Item               Ctrl+N">
+                            <graphic>
+                                <ImageView>
+                                    <Image url="@/toolbarButtonGraphics/general/New24.gif" />
+                                </ImageView>
+                            </graphic>
                         </MenuItem>
                         <Menu text="Export">
+                            <graphic>
+                                <ImageView>
+                                    <Image url="@/toolbarButtonGraphics/general/Export24.gif" />
+                                </ImageView>
+                            </graphic>
                             <MenuItem onAction="#handleExportCSV" text="Export as CSV          Ctrl+T" />
-                            <MenuItem onAction="#handleExportMSV1" text="Export as MSV1       Ctrl+E">
+                            <MenuItem onAction="#handleExportMSF" text="Export as MSF       Ctrl+E">
                             </MenuItem>
                         </Menu>
-                        <MenuItem onAction="#handleImportMSV1" text="Import MSV1          Ctrl+I" />
-                        <MenuItem onAction="#handleMerge" text="Merge                     Ctrl+M" />
-                        <MenuItem disable="true" text="Preference              Ctrl+P" />
+                        <MenuItem onAction="#handleImportMSF" text="Import MSF          Ctrl+I" >
+                            <graphic>
+                                <ImageView>
+                                    <Image url="@/toolbarButtonGraphics/general/Import24.gif" />
+                                </ImageView>
+                            </graphic>
+                        </MenuItem>
+                        <MenuItem onAction="#handleMerge" text="Merge                     Ctrl+M" >
+                            <graphic>
+                                <ImageView>
+                                    <Image url="@/toolbarButtonGraphics/general/Copy24.gif" />
+                                </ImageView>
+                            </graphic>
+                        </MenuItem>
+                        <MenuItem disable="true" text="Preference              Ctrl+P" >
+                            <graphic>
+                                <ImageView>
+                                    <Image url="@/toolbarButtonGraphics/general/Preferences24.gif" />
+                                </ImageView>
+                            </graphic>
+                        </MenuItem>
                         <MenuItem onAction="#handleExit" text="Exit                          esc" />
                     
                     </Menu>
                 </MenuBar>
 
-                <Button>
+                <Button onAction="#handleSupport">
                     <graphic>
                         <ImageView>
                             <Image url="@/toolbarButtonGraphics/general/Help24.gif" />

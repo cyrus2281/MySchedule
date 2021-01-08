@@ -2,14 +2,19 @@
 ===     Current Version    ===
 =======================
 
-Update Version 1.0.9:
-	Codes upgraded with lambda
-	Multithreading applied to the exports, and saves
-	issues with merge fixed and feature added
+Update Version 1.0.10:
+	Support panel updated
+	file format updated
+	UI updated
 
 =======================
 ===     Version History     ===
 =======================
+
+Update Version 1.0.10:
+	Support panel updated
+	file format updated
+	UI updated
 
  Version 1.0.9:
 	Codes upgraded with lambda

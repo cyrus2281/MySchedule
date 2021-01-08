@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<DialogPane     fx:controller="com.milad200281.github.DialogController"
+<DialogPane     fx:controller="com.milad200281.github.ui.DialogController"
                 xmlns:fx="http://javafx.com/fxml" >
     <headerText>
 

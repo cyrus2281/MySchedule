@@ -1,5 +1,6 @@
-package com.milad200281.github;
+package com.milad200281.github.commen;
 
+import com.milad200281.github.commen.TodoItem;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import javafx.collections.FXCollections;
@@ -32,7 +33,7 @@ import javafx.stage.FileChooser;
 public class TodoData {
 
     private static TodoData instance = new TodoData();
-    private static String filename = "MyScheduleDataItems.msv1";
+    private static String filename = "MyScheduleDataItems.msf";
 
     private ObservableList<TodoItem> todoItems;
     private DateTimeFormatter formatter;
@@ -84,7 +85,7 @@ public class TodoData {
                 } catch (EOFException e) {
                     eof = true;
                 }
-            }
+            } 
             return true;
         } catch (IOException io) {
             System.out.println("File Corrupted\nIO Exception" + io.getMessage());
@@ -128,7 +129,7 @@ public class TodoData {
         }
 
     }
-    public void exportTodoItemsMSV1(Path path) throws IOException {
+    public void exportTodoItemsMSF(Path path) throws IOException {
         synchronized (this) {
             try (ObjectOutputStream locFile = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(path.toString())))) {
                 for (TodoItem item : todoItems) {
@@ -138,7 +139,7 @@ public class TodoData {
         }
     }
 
-    public void importTodoItemsMSV1(Path path) {
+    public void importTodoItemsMSF(Path path) {
         todoItems.clear();
         todoItems = FXCollections.observableArrayList();
         try (ObjectInputStream locFile = new ObjectInputStream(new BufferedInputStream(new FileInputStream(path.toString())))) {
@@ -164,7 +165,7 @@ public class TodoData {
 
     }
 
-    public void MergeTodoItemsMSV1(Path path) {
+    public void MergeTodoItemsMSF(Path path) {
         try (ObjectInputStream locFile = new ObjectInputStream(new BufferedInputStream(new FileInputStream(path.toString())))) {
             boolean eof = false;
             while (!eof) {

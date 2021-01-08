@@ -1,5 +1,5 @@
 
-package com.milad200281.github;
+package com.milad200281.github.ui;
 
 import java.awt.Desktop;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.web.WebEngine;
 
 
-public class aboutController {
+public class AboutAndSupportController {
     
     
     @FXML
