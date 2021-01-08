@@ -2,6 +2,7 @@ package com.milad200281.github.ui;
 
 import com.milad200281.github.commen.TodoData;
 import com.milad200281.github.commen.TodoItem;
+import com.sun.javafx.css.Style;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -45,6 +46,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.util.Callback;
+import javax.swing.text.StyledEditorKit;
 
 public class AppController {
 
@@ -143,10 +145,15 @@ public class AppController {
                             setText(null);
                         } else {
                             setText(item.getShortDescription());
-                            if (item.getDeadline().isBefore(LocalDate.now().plusDays(1))) {
+                            if (item.getDeadline().isBefore(LocalDate.now().plusDays(0))) {
                                 setTextFill(Color.RED);
+                            } else if (item.getDeadline().isBefore(LocalDate.now().plusDays(1))) {
+                                setTextFill(Color.valueOf("#993300"));
+                                setStyle("-fx-font-weight: bold");
                             } else if (item.getDeadline().equals(LocalDate.now().plusDays(1))) {
-                                setTextFill(Color.BROWN);
+                                setTextFill(Color.NAVY);
+                            }else{
+                                setTextFill(Color.BLACK);
                             }
                         }
                     }
@@ -159,6 +166,7 @@ public class AppController {
                                 cell.setContextMenu(listContextMenu);
                             }
                         }
+                        
                 );
                 return cell;
             }
@@ -170,52 +178,6 @@ public class AppController {
         filteredList = new FilteredList<TodoItem>(TodoData.getInstance().getTodoItems(), wantAllItems);
         sortedList = new SortedList<TodoItem>(filteredList, (TodoItem o1, TodoItem o2) -> o1.getDeadline().compareTo(o2.getDeadline()));
         todoListView.setItems(sortedList);
-    }
-
-    @FXML
-
-    public void showNewItemDialog() {
-        Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.initOwner(mainBorderPane.getScene().getWindow());
-
-        dialog.setTitle("Add New Todo Item");
-        dialog.setHeaderText("Use this dialog to create a new todo item");
-
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("todoItemDialog.fxml"));
-        try {
-            dialog.getDialogPane().setContent(fxmlLoader.load());
-        } catch (IOException e) {
-            System.out.println("Couldn't load the dialog");
-            e.printStackTrace();
-            return;
-        }
-
-        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
-        dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
-
-        final DialogController controller = fxmlLoader.getController();
-        final Button btOk = (Button) dialog.getDialogPane().lookupButton(ButtonType.OK);
-        btOk.addEventFilter(
-                ActionEvent.ACTION,
-                event -> {
-                    if (controller.validation()) {
-                        event.consume();
-                    }
-                }
-        );
-
-        Optional<ButtonType> result = dialog.showAndWait();
-
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            TodoItem newItem = controller.proccessResults();
-            todoListView.getSelectionModel().select(newItem);
-            System.out.println("OK pressed");
-
-        } else {
-            System.out.println("Cancel pressed");
-        }
-
     }
 
     @FXML
@@ -337,7 +299,54 @@ public class AppController {
         if (result.isPresent() && result.get() == ButtonType.APPLY) {
             TodoData.getInstance().deleteTodoItem(oldItem);
             todoListView.getSelectionModel().select(controller.proccessResults());
+            
+            
             System.out.println("Apply pressed");
+        } else {
+            System.out.println("Cancel pressed");
+        }
+
+    }
+
+    @FXML
+    public void showNewItemDialog() {
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.initOwner(mainBorderPane.getScene().getWindow());
+
+        dialog.setTitle("Add New Todo Item");
+        dialog.setHeaderText("Use this dialog to create a new todo item");
+
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("todoItemDialog.fxml"));
+        try {
+            dialog.getDialogPane().setContent(fxmlLoader.load());
+        } catch (IOException e) {
+            System.out.println("Couldn't load the dialog");
+            e.printStackTrace();
+            return;
+        }
+
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
+
+        final DialogController controller = fxmlLoader.getController();
+        final Button btOk = (Button) dialog.getDialogPane().lookupButton(ButtonType.OK);
+        btOk.addEventFilter(
+                ActionEvent.ACTION,
+                event -> {
+                    if (controller.validation()) {
+                        event.consume();
+                    }
+                }
+        );
+
+        Optional<ButtonType> result = dialog.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            TodoItem newItem = controller.proccessResults();
+            todoListView.getSelectionModel().select(newItem);
+            System.out.println("OK pressed");
+
         } else {
             System.out.println("Cancel pressed");
         }

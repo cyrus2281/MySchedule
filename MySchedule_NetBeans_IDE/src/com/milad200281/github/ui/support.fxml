@@ -9,6 +9,8 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.ColorPicker?>
+
 
 <GridPane fx:id="supportGridPane" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" 
           xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.milad200281.github.ui.AboutAndSupportController">     
@@ -58,11 +60,31 @@
             <Insets left="10.0" />
         </GridPane.margin>
     </Label>
-
+<Label text="Color Codes:" GridPane.columnIndex="1" GridPane.rowIndex="7">
+    </Label>
+    <Label text="Red: The item is past-due." textFill="red" GridPane.columnIndex="1" GridPane.rowIndex="8">
+        <GridPane.margin>
+            <Insets left="10.0" />
+        </GridPane.margin>
+    </Label>
+    <Label text="Brown: Item is due to today." textFill="brown" GridPane.columnIndex="1" GridPane.rowIndex="9">
+        <GridPane.margin>
+            <Insets left="10.0" />
+        </GridPane.margin>
+    </Label>
+    <Label text="Blue: Item is due date to tomorrow." textFill="navy" GridPane.columnIndex="1" GridPane.rowIndex="10">
+        <GridPane.margin>
+            <Insets left="10.0" />
+        </GridPane.margin>
+    </Label>
+    <Label text="Black: Item is due after tomorrow." textFill="black" GridPane.columnIndex="1" GridPane.rowIndex="11">
+        <GridPane.margin>
+            <Insets left="10.0" />
+        </GridPane.margin>
+    </Label>
    
-    <HBox alignment="center_left" GridPane.columnIndex="1" GridPane.rowIndex="8">
+    <HBox alignment="center_left" GridPane.columnIndex="1" GridPane.rowIndex="12">
         <Label text="For more help and support you can contact the creator through" />
         <Hyperlink onAction="#handleLinkGithub" text="GitHub. " />
     </HBox>
-
 </GridPane>
