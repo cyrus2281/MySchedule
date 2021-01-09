@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.milad200281.github.commen;
+package com.milad200281.github.ui;
 
 /**
  *
  * @author milad
  */
-public class Options {
+public class PreferenceController {
     
 }

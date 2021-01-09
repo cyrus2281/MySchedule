@@ -2,17 +2,21 @@
 ===     Current Version    ===
 =======================
 
-Update Version 1.0.11:
-	Items color bug fixed and updated
+Update Version 1.1.1:
+	Option class added
+		selective colors
+		selective date format
 	
 =======================
 ===     Version History     ===
 =======================
 
- Version 1.0.11:
-	Items color bug fixed and updated
-	
-Update Version 1.0.10:
+Version 1.1.1:
+	Option class added
+		selective colors
+		selective date format	
+
+Version 1.0.10:
 	Support panel updated
 	file format updated
 	UI updated

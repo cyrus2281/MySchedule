@@ -1,4 +1,6 @@
 package com.milad200281.github.ui;
+
+import com.milad200281.github.commen.Option;
 import com.milad200281.github.commen.TodoData;
 import java.io.IOException;
 import java.util.Optional;
@@ -37,9 +39,10 @@ public class Main extends Application {
 
     @Override
     public void init() throws Exception {
-          try {
+        try {
+            Option.getInstance().loadOption();
             TodoData.getInstance().loadTodoItems();
-          /*
+            /*
             try {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Delete Todo Item");
@@ -61,6 +64,7 @@ public class Main extends Application {
     @Override
     public void stop() throws Exception {
         try {
+            Option.getInstance().saveOption();
             TodoData.getInstance().storeTodoItems();
         } catch (IOException e) {
             System.out.println(e.getMessage());

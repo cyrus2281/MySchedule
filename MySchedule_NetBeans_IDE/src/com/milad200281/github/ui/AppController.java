@@ -1,5 +1,6 @@
 package com.milad200281.github.ui;
 
+import com.milad200281.github.commen.Option;
 import com.milad200281.github.commen.TodoData;
 import com.milad200281.github.commen.TodoItem;
 import com.sun.javafx.css.Style;
@@ -74,7 +75,7 @@ public class AppController {
     private Predicate<TodoItem> wantAllItems;
     private Predicate<TodoItem> wantTodaysItems;
 
-    public void initialize() {
+    public void initialize() {     
         listContextMenu = new ContextMenu();
         MenuItem deleteMenuItem = new MenuItem("Delete");
         MenuItem editMenuItem = new MenuItem("Edit");
@@ -102,8 +103,7 @@ public class AppController {
 
                     TodoItem item = todoListView.getSelectionModel().getSelectedItem();
                     itemDetailsTextArea.setText(item.getDetails());
-                    DateTimeFormatter df = DateTimeFormatter.ofPattern("MMMM d, yyyy");
-                    deadlineLabel.setText(df.format(item.getDeadline()));
+                    deadlineLabel.setText(Option.getInstance().getDateFormater().format(item.getDeadline()));
                 } else {
                     editButton.setDisable(true);
                     deleteButton.setDisable(true);
@@ -146,14 +146,14 @@ public class AppController {
                         } else {
                             setText(item.getShortDescription());
                             if (item.getDeadline().isBefore(LocalDate.now().plusDays(0))) {
-                                setTextFill(Color.RED);
+                                setTextFill(Color.valueOf(Option.getInstance().getColorPast()));
                             } else if (item.getDeadline().isBefore(LocalDate.now().plusDays(1))) {
-                                setTextFill(Color.valueOf("#993300"));
-                                setStyle("-fx-font-weight: bold");
+                                setTextFill(Color.valueOf(Option.getInstance().getColorToday()));
+                                setStyle(Option.getInstance().getTodayFont());
                             } else if (item.getDeadline().equals(LocalDate.now().plusDays(1))) {
-                                setTextFill(Color.NAVY);
+                                setTextFill(Color.valueOf(Option.getInstance().getColorTomorrow()));
                             }else{
-                                setTextFill(Color.BLACK);
+                                setTextFill(Color.valueOf(Option.getInstance().getColorFuture()));
                             }
                         }
                     }
@@ -496,7 +496,8 @@ public class AppController {
         dialog.initOwner(mainBorderPane.getScene().getWindow());
         dialog.setTitle("Help And Support");
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("support.fxml"));
+        //fxmlLoader.setLocation(getClass().getResource("support.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("preference.fxml"));
         try {
             dialog.getDialogPane().setContent(fxmlLoader.load());
         } catch (IOException e) {

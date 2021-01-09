@@ -60,24 +60,24 @@
             <Insets left="10.0" />
         </GridPane.margin>
     </Label>
-<Label text="Color Codes:" GridPane.columnIndex="1" GridPane.rowIndex="7">
+    <Label text="Color Codes can be adjusted for:" GridPane.columnIndex="1" GridPane.rowIndex="7">
     </Label>
-    <Label text="Red: The item is past-due." textFill="red" GridPane.columnIndex="1" GridPane.rowIndex="8">
+    <Label text="Items past-due." GridPane.columnIndex="1" GridPane.rowIndex="8">
         <GridPane.margin>
             <Insets left="10.0" />
         </GridPane.margin>
     </Label>
-    <Label text="Brown: Item is due to today." textFill="brown" GridPane.columnIndex="1" GridPane.rowIndex="9">
+    <Label text="Items due to today."  GridPane.columnIndex="1" GridPane.rowIndex="9">
         <GridPane.margin>
             <Insets left="10.0" />
         </GridPane.margin>
     </Label>
-    <Label text="Blue: Item is due date to tomorrow." textFill="navy" GridPane.columnIndex="1" GridPane.rowIndex="10">
+    <Label text="Items due to tomorrow."  GridPane.columnIndex="1" GridPane.rowIndex="10">
         <GridPane.margin>
             <Insets left="10.0" />
         </GridPane.margin>
     </Label>
-    <Label text="Black: Item is due after tomorrow." textFill="black" GridPane.columnIndex="1" GridPane.rowIndex="11">
+    <Label text="Items due after tomorrow."  GridPane.columnIndex="1" GridPane.rowIndex="11">
         <GridPane.margin>
             <Insets left="10.0" />
         </GridPane.margin>
