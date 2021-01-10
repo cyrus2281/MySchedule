@@ -79,6 +79,7 @@ public class AppController {
         listContextMenu = new ContextMenu();
         MenuItem deleteMenuItem = new MenuItem("Delete");
         MenuItem editMenuItem = new MenuItem("Edit");
+        MenuItem exportMenuItem = new MenuItem("Export");
         deleteMenuItem.setOnAction((event) -> {
             TodoItem item = todoListView.getSelectionModel().getSelectedItem();
             deleteItem(item);
@@ -88,11 +89,35 @@ public class AppController {
             TodoItem item = todoListView.getSelectionModel().getSelectedItem();
             editItem(item);
         });
+        exportMenuItem.setOnAction((event) -> {
+            TodoItem item = todoListView.getSelectionModel().getSelectedItem();
+            Path savePath;
+            FileChooser chooser = new FileChooser();
+            chooser.setTitle("Export " + item.getShortDescription());
+            chooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("MSF", "*.msf"));
+            File file = chooser.showSaveDialog(mainBorderPane.getScene().getWindow());
+            if (file != null) {
+                savePath = file.toPath();
+                System.out.println(savePath);
+                new Thread(() -> {
+                    try {
+                        List<TodoItem> items = new ArrayList<TodoItem>();
+                        items.add(item);
+                        TodoData.getInstance().exportTodoItemsMSF(savePath, items);
+                    } catch (IOException ex) {
+                        System.out.println(ex.getMessage());
+                    }
+                }).start();
+            } else {
+                System.out.println("Chooser was cancelled");
+            }
+
+        });
 
         editButton.setDisable(true);
         deleteButton.setDisable(true);
 
-        listContextMenu.getItems().addAll(editMenuItem, deleteMenuItem);
+        listContextMenu.getItems().addAll(editMenuItem, exportMenuItem, deleteMenuItem);
 
         todoListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TodoItem>() {
             @Override
@@ -231,6 +256,10 @@ public class AppController {
         if (keyEvent.isControlDown() && (keyEvent.getCode() == KeyCode.P)) {
             System.out.println("Ctrl+P");
             handlePreference();
+        }
+        if (keyEvent.isControlDown() && (keyEvent.getCode() == KeyCode.R)) {
+            System.out.println("Ctrl+R");
+            handleExportMultiple();
         }
     }
 
@@ -401,7 +430,7 @@ public class AppController {
             System.out.println(savePath);
             new Thread(() -> {
                 try {
-                    TodoData.getInstance().exportTodoItemsMSF(savePath);
+                    TodoData.getInstance().exportTodoItemsMSF(savePath, TodoData.getInstance().getTodoItems());
                 } catch (IOException ex) {
                     System.out.println(ex.getMessage());
                 }
@@ -469,6 +498,60 @@ public class AppController {
             saveAll();
         } else {
             System.out.println("Chooser was cancelled");
+        }
+
+    }
+
+    @FXML
+    public void handleExportMultiple() {
+
+        Dialog<ButtonType> Dialog = new Dialog<>();
+        Dialog.initOwner(mainBorderPane.getScene().getWindow());
+
+        Dialog.setTitle("Multiple Item export");
+        Dialog.setHeaderText("Select items to export.");
+
+        FXMLLoader fxmlOption = new FXMLLoader();
+        fxmlOption.setLocation(getClass().getResource("selectiveExport.fxml"));
+
+        try {
+            Dialog.getDialogPane().setContent(fxmlOption.load());
+
+        } catch (IOException e) {
+            System.out.println("Couldn't load the dialog");
+            e.printStackTrace();
+            return;
+        }
+        Dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
+        Dialog.getDialogPane().getButtonTypes().add(ButtonType.NEXT);
+
+        final SelectiveExportController controller = fxmlOption.getController();
+        Optional<ButtonType> result = Dialog.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.NEXT) {
+            controller.getSelectedItems();
+            Path savePath;
+            FileChooser chooser = new FileChooser();
+            chooser.setTitle("Export selected items as MSF");
+            chooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("MSF", "*.msf"));
+            File file = chooser.showSaveDialog(mainBorderPane.getScene().getWindow());
+            if (file != null) {
+                savePath = file.toPath();
+                System.out.println(savePath);
+                new Thread(() -> {
+                    try {
+                        TodoData.getInstance().exportTodoItemsMSF(savePath, controller.getSelectedItems());
+                    } catch (IOException ex) {
+                        System.out.println(ex.getMessage());
+                    }
+                }).start();
+            } else {
+                System.out.println("Chooser was cancelled");
+            }
+
+            System.out.println("Apply pressed");
+        } else {
+            System.out.println("Cancel pressed");
         }
 
     }

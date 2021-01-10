@@ -39,8 +39,9 @@
                                 </ImageView>
                             </graphic>
                             <MenuItem onAction="#handleExportCSV" text="Export as CSV        Ctrl+T" />
-                            <MenuItem onAction="#handleExportMSF" text="Export as MSF        Ctrl+E">
-                            </MenuItem>
+                            <MenuItem onAction="#handleExportMSF" text="Export as MSF        Ctrl+E"/>
+                            <MenuItem onAction="#handleExportMultiple" text="Select Multiple       Ctrl+R"/>
+                            
                         </Menu>
                         <MenuItem onAction="#handleImportMSF" text="Import MSF            Ctrl+I" >
                             <graphic>

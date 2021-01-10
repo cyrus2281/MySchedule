@@ -2,13 +2,21 @@
 ===     Current Version    ===
 =======================
 
-Update Version 1.1.4:
-	Preference option settings now are persistance
+Update Version 1.1.6:
+	multiple item selection added
+	multiple item export added
 
 =======================
 ===     Version History     ===
 =======================
- 
+
+ Version 1.1.6:
+	multiple item selection added
+	multiple item export added
+
+Version 1.1.5:
+	Single item export added
+
 Version 1.1.4:
 	Preference option settings now are persistance
 

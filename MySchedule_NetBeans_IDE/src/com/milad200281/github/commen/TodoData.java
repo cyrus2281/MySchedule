@@ -129,10 +129,10 @@ public class TodoData {
         }
 
     }
-    public void exportTodoItemsMSF(Path path) throws IOException {
+    public void exportTodoItemsMSF(Path path, List<TodoItem> items) throws IOException {
         synchronized (this) {
             try (ObjectOutputStream locFile = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(path.toString())))) {
-                for (TodoItem item : todoItems) {
+                for (TodoItem item : items) {
                     locFile.writeObject(item);
                 }
             }
