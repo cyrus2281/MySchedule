@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<DialogPane     fx:controller="com.milad200281.github.ui.DialogController"
+<DialogPane     fx:controller="com.milad200281.github.ui.TodoItemDialogController"
                 xmlns:fx="http://javafx.com/fxml" >
     <headerText>
 
@@ -17,15 +17,15 @@
             <TextField fx:id="shortDescriptionField" GridPane.rowIndex="0" GridPane.columnIndex="1" />
             
             <Label  fx:id="shortDiscriptionLabel"
-                   textFill="red" GridPane.rowIndex="1" GridPane.columnIndex="1">
+                    textFill="red" GridPane.rowIndex="1" GridPane.columnIndex="1">
             </Label>
             <Label text="Details" GridPane.rowIndex="2" GridPane.columnIndex="0" />
             <TextArea fx:id="detailsArea" GridPane.rowIndex="2" GridPane.columnIndex="1"
                       WrapText="true"            />
             <Label text="Deadline:" GridPane.rowIndex="3" GridPane.columnIndex="0" />
-            <DatePicker fx:id="deadlinePicker" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+            <DatePicker fx:id="deadlinePicker" GridPane.rowIndex="3" GridPane.columnIndex="1" editable="false"/>
             <Label  fx:id="deadlineLabel"
-                   textFill="red" GridPane.rowIndex="4" GridPane.columnIndex="1">
+                    textFill="red" GridPane.rowIndex="4" GridPane.columnIndex="1">
             </Label>
         </GridPane>
     </content>

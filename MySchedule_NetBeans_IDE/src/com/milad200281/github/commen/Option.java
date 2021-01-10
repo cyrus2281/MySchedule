@@ -13,8 +13,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -22,7 +25,9 @@ import javafx.collections.ObservableList;
  *
  * @author milad
  */
-public class Option {
+public class Option implements Serializable {
+
+    private final long SerialVersionUID = 123456789L;
 
     private static Option instance = new Option();
     private static String filename = "option.dt";
@@ -31,39 +36,53 @@ public class Option {
     private static String colorToday;
     private static String colorTomorrow;
     private static String colorFuture;
-    private static String todayFont;
 
-    private static DateTimeFormatter dateFormater;
+    private static String todayBold;
+
+    private static String shortSize;
+    private static String detailSize;
+
+    private static String dateFormat;
 
     private Option() {
+
         colorPast = "#FF0000";
         colorToday = "#993300";
         colorTomorrow = "#000080";
         colorFuture = "#000000";
-        todayFont = "-fx-font-weight: bold";
-        dateFormater = DateTimeFormatter.ofPattern("MMMM d, yyyy");
-
+        todayBold = "-fx-font-weight: bold";
+        shortSize = "-fx-font-size: 16";
+        detailSize = "-fx-font-size: 16";
+        dateFormat = "MMMM dd, yyyy";
     }
 
     public static Option getInstance() {
         return instance;
     }
 
-    
     public boolean loadOption() throws IOException {
         try (ObjectInputStream locFile = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filename)))) {
             boolean eof = false;
             while (!eof) {
                 try {
-                     Option option = (Option) locFile.readObject();
-                     if (option != null){
-                         instance =  option;
-                     }
+
+                    String option = (String) locFile.readObject();
+                    if (option != null) {
+                        String[] opt = option.split(";");
+                        colorPast = opt[0];
+                        colorToday = opt[1];
+                        colorTomorrow = opt[2];
+                        colorFuture = opt[3];
+                        todayBold = opt[4];
+                        shortSize = opt[5];
+                        detailSize = opt[6];
+                        dateFormat = opt[7];
+                    }
 
                 } catch (EOFException e) {
                     eof = true;
                 }
-            } 
+            }
             return true;
         } catch (IOException io) {
             System.out.println("File Corrupted\nIO Exception" + io.getMessage());
@@ -78,11 +97,12 @@ public class Option {
     public void saveOption() throws IOException {
         synchronized (this) {
             try (ObjectOutputStream locFile = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(filename)))) {
-                    locFile.writeObject(instance);
+                System.out.println("Options: "+instance.toString());
+                locFile.writeObject(instance.toString());
             }
         }
     }
-     
+
     public String getColorPast() {
         return colorPast;
     }
@@ -99,12 +119,32 @@ public class Option {
         return colorFuture;
     }
 
-    public DateTimeFormatter getDateFormater() {
-        return dateFormater;
+    public String getTodayBold() {
+        return todayBold;
     }
 
-    public String getTodayFont() {
-        return todayFont;
+    public String getShortSize() {
+        return shortSize;
+    }
+
+    public String getDetailSize() {
+        return detailSize;
+    }
+
+    public String getDateFormat() {
+        return dateFormat;
+    }
+
+    public void setDateFormat(String dateFormat) {
+        Option.dateFormat = dateFormat;
+    }
+
+    public void setShortSize(String shortSize) {
+        Option.shortSize = shortSize;
+    }
+
+    public void setDetailSize(String detailSize) {
+        Option.detailSize = detailSize;
     }
 
     public void setColorPast(String colorPast) {
@@ -123,12 +163,20 @@ public class Option {
         Option.colorFuture = colorFuture;
     }
 
-    public void setTodayFont(String todayFont) {
-        Option.todayFont = todayFont;
+    public void setTodayBold(String todayFont) {
+        Option.todayBold = todayFont;
     }
 
-    public void setDateFormater(DateTimeFormatter dateFormater) {
-        Option.dateFormater = dateFormater;
+    @Override
+    public String toString() {
+        return colorPast + ";"
+                + colorToday + ";"
+                + colorTomorrow + ";"
+                + colorFuture + ";"
+                + todayBold + ";"
+                + shortSize + ";"
+                + detailSize + ";"
+                + dateFormat;
     }
 
 }

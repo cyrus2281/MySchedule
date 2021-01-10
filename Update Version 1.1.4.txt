@@ -2,14 +2,25 @@
 ===     Current Version    ===
 =======================
 
-Update Version 1.1.1:
-	Option class added
-		selective colors
-		selective date format
-	
+Update Version 1.1.4:
+	Preference option settings now are persistance
+
 =======================
 ===     Version History     ===
 =======================
+ 
+Version 1.1.4:
+	Preference option settings now are persistance
+
+Version 1.1.3:
+	Preference option added
+	Preference getter and setters added
+
+Version 1.1.2:
+	
+	Option class updated
+		selective fonz size
+		selective bold option
 
 Version 1.1.1:
 	Option class added

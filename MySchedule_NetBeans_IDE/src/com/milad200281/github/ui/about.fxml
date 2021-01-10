@@ -15,7 +15,7 @@
         <Label text="MySchedule 2021" />
     </HBox>
     <Label text="Creator: Milad Mobini" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-    <Label text="Version: 1.1.1" GridPane.columnIndex="1" GridPane.rowIndex="3"/>  
+    <Label text="Version: 1.1.4" GridPane.columnIndex="1" GridPane.rowIndex="3"/>  
     <Label text="Last Updated: 2021/1" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
     <HBox GridPane.rowIndex="5" GridPane.columnIndex="1" alignment="center_left">
         <Label text="Click Here for" />

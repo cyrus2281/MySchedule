@@ -75,7 +75,7 @@ public class AppController {
     private Predicate<TodoItem> wantAllItems;
     private Predicate<TodoItem> wantTodaysItems;
 
-    public void initialize() {     
+    public void initialize() {
         listContextMenu = new ContextMenu();
         MenuItem deleteMenuItem = new MenuItem("Delete");
         MenuItem editMenuItem = new MenuItem("Edit");
@@ -103,7 +103,10 @@ public class AppController {
 
                     TodoItem item = todoListView.getSelectionModel().getSelectedItem();
                     itemDetailsTextArea.setText(item.getDetails());
-                    deadlineLabel.setText(Option.getInstance().getDateFormater().format(item.getDeadline()));
+                    itemDetailsTextArea.setStyle(Option.getInstance().getDetailSize());
+                    todoListView.setStyle(Option.getInstance().getShortSize());
+                    DateTimeFormatter df = DateTimeFormatter.ofPattern(Option.getInstance().getDateFormat());
+                    deadlineLabel.setText(df.format(item.getDeadline()));
                 } else {
                     editButton.setDisable(true);
                     deleteButton.setDisable(true);
@@ -147,13 +150,17 @@ public class AppController {
                             setText(item.getShortDescription());
                             if (item.getDeadline().isBefore(LocalDate.now().plusDays(0))) {
                                 setTextFill(Color.valueOf(Option.getInstance().getColorPast()));
+                                setStyle("");
                             } else if (item.getDeadline().isBefore(LocalDate.now().plusDays(1))) {
                                 setTextFill(Color.valueOf(Option.getInstance().getColorToday()));
-                                setStyle(Option.getInstance().getTodayFont());
+                                setStyle(Option.getInstance().getTodayBold());
                             } else if (item.getDeadline().equals(LocalDate.now().plusDays(1))) {
                                 setTextFill(Color.valueOf(Option.getInstance().getColorTomorrow()));
-                            }else{
+                                setStyle("");
+                            } else {
                                 setTextFill(Color.valueOf(Option.getInstance().getColorFuture()));
+                                setStyle("");
+
                             }
                         }
                     }
@@ -166,7 +173,6 @@ public class AppController {
                                 cell.setContextMenu(listContextMenu);
                             }
                         }
-                        
                 );
                 return cell;
             }
@@ -224,7 +230,7 @@ public class AppController {
         }
         if (keyEvent.isControlDown() && (keyEvent.getCode() == KeyCode.P)) {
             System.out.println("Ctrl+P");
-            //Preference 
+            handlePreference();
         }
     }
 
@@ -281,7 +287,7 @@ public class AppController {
         dialog.getDialogPane().getButtonTypes().add(ButtonType.APPLY);
         dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
 
-        final DialogController controller = fxmlLoader.getController();
+        final TodoItemDialogController controller = fxmlLoader.getController();
         controller.proccessEdit(oldItem);
 
         final Button btApply = (Button) dialog.getDialogPane().lookupButton(ButtonType.APPLY);
@@ -299,8 +305,7 @@ public class AppController {
         if (result.isPresent() && result.get() == ButtonType.APPLY) {
             TodoData.getInstance().deleteTodoItem(oldItem);
             todoListView.getSelectionModel().select(controller.proccessResults());
-            
-            
+
             System.out.println("Apply pressed");
         } else {
             System.out.println("Cancel pressed");
@@ -329,7 +334,7 @@ public class AppController {
         dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
         dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
 
-        final DialogController controller = fxmlLoader.getController();
+        final TodoItemDialogController controller = fxmlLoader.getController();
         final Button btOk = (Button) dialog.getDialogPane().lookupButton(ButtonType.OK);
         btOk.addEventFilter(
                 ActionEvent.ACTION,
@@ -469,6 +474,40 @@ public class AppController {
     }
 
     @FXML
+    public void handlePreference() {
+
+        Dialog<ButtonType> OptionDialog = new Dialog<>();
+        OptionDialog.initOwner(mainBorderPane.getScene().getWindow());
+
+        OptionDialog.setTitle("Preferences");
+
+        FXMLLoader fxmlOption = new FXMLLoader();
+        fxmlOption.setLocation(getClass().getResource("preference.fxml"));
+
+        try {
+            OptionDialog.getDialogPane().setContent(fxmlOption.load());
+
+        } catch (IOException e) {
+            System.out.println("Couldn't load the dialog");
+            e.printStackTrace();
+            return;
+        }
+        OptionDialog.getDialogPane().getButtonTypes().add(ButtonType.APPLY);
+        OptionDialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
+
+        final PreferenceController Optioncontroller = fxmlOption.getController();
+        Optional<ButtonType> result = OptionDialog.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.APPLY) {
+            Optioncontroller.setValues();
+            System.out.println("Apply pressed");
+        } else {
+            System.out.println("Cancel pressed");
+        }
+
+    }
+
+    @FXML
     public void handleAbout() {
 
         Dialog<ButtonType> dialog = new Dialog<>();
@@ -483,7 +522,6 @@ public class AppController {
             e.printStackTrace();
             return;
         }
-        //DialogController controller = fxmlLoader.getController();
         dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
         Optional<ButtonType> result = dialog.showAndWait();
 
@@ -496,8 +534,7 @@ public class AppController {
         dialog.initOwner(mainBorderPane.getScene().getWindow());
         dialog.setTitle("Help And Support");
         FXMLLoader fxmlLoader = new FXMLLoader();
-        //fxmlLoader.setLocation(getClass().getResource("support.fxml"));
-        fxmlLoader.setLocation(getClass().getResource("preference.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("support.fxml"));
         try {
             dialog.getDialogPane().setContent(fxmlLoader.load());
         } catch (IOException e) {
@@ -505,7 +542,6 @@ public class AppController {
             e.printStackTrace();
             return;
         }
-        //DialogController controller = fxmlLoader.getController();
         dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
         Optional<ButtonType> result = dialog.showAndWait();
 
