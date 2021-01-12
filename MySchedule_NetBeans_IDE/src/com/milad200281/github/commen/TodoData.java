@@ -189,6 +189,9 @@ public class TodoData {
         todoItems.remove(item);
     }
 
+    public void deleteAll(){
+        todoItems.clear();
+    }
     public void editItem(TodoItem oldItem, TodoItem newItem) {
         oldItem.setShortDescription(newItem.getShortDescription());
         oldItem.setDetails(newItem.getDetails());

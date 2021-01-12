@@ -68,6 +68,8 @@ public class AppController {
     private Button deleteButton;
     @FXML
     private Button editButton;
+    @FXML
+    MenuItem truncateMenuItem;
 
     private FilteredList<TodoItem> filteredList;
     SortedList<TodoItem> sortedList;
@@ -106,7 +108,7 @@ public class AppController {
                         TodoData.getInstance().exportTodoItemsMSF(savePath, items);
                     } catch (IOException ex) {
                         System.out.println(ex.getMessage());
-                    } 
+                    }
                 }).start();
             } else {
                 System.out.println("Chooser was cancelled");
@@ -135,6 +137,13 @@ public class AppController {
                 } else {
                     editButton.setDisable(true);
                     deleteButton.setDisable(true);
+                }
+                if (TodoData.getInstance().getTodoItems().size() < 1) {
+                    itemDetailsTextArea.clear();
+                    deadlineLabel.setText("");
+                    truncateMenuItem.setDisable(true);
+                } else {
+                    truncateMenuItem.setDisable(false);
                 }
             }
         }
@@ -285,9 +294,11 @@ public class AppController {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Delete Todo Item");
         alert.setHeaderText("Delete item: " + item.getShortDescription());
-        alert.setContentText("Are you sure? Press OK to confirm, or cancel to back out.");
+        alert.setContentText("Are you sure you want to delete this item?");
+        alert.getButtonTypes().remove(ButtonType.OK);
+        alert.getButtonTypes().add(ButtonType.YES);
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
+        if (result.isPresent() && result.get() == ButtonType.YES) {
             TodoData.getInstance().deleteTodoItem(item);
             saveAll();
         }
@@ -477,6 +488,7 @@ public class AppController {
             TodoData.getInstance().importTodoItemsMSF(loadPath);
             sorting();
             saveAll();
+            truncateMenuItem.setDisable(false);
 
         } else {
             System.out.println("Chooser was cancelled");
@@ -496,6 +508,8 @@ public class AppController {
             System.out.println(loadPath);
             TodoData.getInstance().MergeTodoItemsMSF(loadPath);
             saveAll();
+            truncateMenuItem.setDisable(false);
+
         } else {
             System.out.println("Chooser was cancelled");
         }
@@ -567,7 +581,24 @@ public class AppController {
     }
 
     @FXML
+    public void handleTruncate() {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Delete All");
+        alert.setHeaderText("Delete all items.");
+        alert.setContentText("Are you sure you want to delete all the items? ");
+        alert.getButtonTypes().remove(ButtonType.OK);
+        alert.getButtonTypes().add(ButtonType.YES);
+        alert.getButtonTypes().add(ButtonType.CANCEL);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.YES) {
+            TodoData.getInstance().deleteAll();
+            itemDetailsTextArea.clear();
+            deadlineLabel.setText("");
+            truncateMenuItem.setDisable(true);
+        }
+    }
 
+    @FXML
     public void handlePreference() {
 
         Dialog<ButtonType> OptionDialog = new Dialog<>();

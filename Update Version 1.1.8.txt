@@ -2,13 +2,15 @@
 ===     Current Version    ===
 =======================
 
-Update Version 1.1.7:
-	bugs fixed
-	code modified
+Update Version 1.1.9:
+	truncate feature added
 
 =======================
 ===     Version History     ===
 =======================
+
+Version 1.1.9:
+	truncate feature added
 
 Version 1.1.7:
 	bugs fixed

@@ -57,7 +57,7 @@
                                 </ImageView>
                             </graphic>
                         </MenuItem>
-                        <MenuItem disable="true" onAction="#handleMerge" text="Truncate                Ctrl+D" >
+                        <MenuItem disable="true" fx:id="truncateMenuItem" onAction="#handleTruncate" text="Truncate                Ctrl+D" >
                             <graphic>
                                 <ImageView>
                                     <Image url="@/toolbarButtonGraphics/general/Stop24.gif" />
