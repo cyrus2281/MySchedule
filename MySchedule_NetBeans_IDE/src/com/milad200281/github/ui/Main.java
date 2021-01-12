@@ -64,7 +64,7 @@ public class Main extends Application {
 
     public void popUpNotification() {
         if (Option.getInstance().isPopUp()) {
-            if (TodoData.getInstance().getTodoItems().size() > 1) {
+            if (TodoData.getInstance().getTodoItems().size() >= 1) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("MySchedule");
                 alert.setHeaderText("Welcome Back.");

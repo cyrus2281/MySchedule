@@ -37,6 +37,7 @@ public class TodoData {
 
     private ObservableList<TodoItem> todoItems;
     private DateTimeFormatter formatter;
+    private TodoItem firstTodayItem;
 
     public static TodoData getInstance() {
         return instance;
@@ -82,6 +83,9 @@ public class TodoData {
                     todoItems.add(item);
                     if (item.getDeadline().isEqual(LocalDate.now())) {
                         todayNum++;
+                        if(firstTodayItem == null){
+                            firstTodayItem = item;
+                        }
                     } else if (item.getDeadline().equals(LocalDate.now().plusDays(1))) {
                         tmwNum++;
                     }
@@ -204,4 +208,13 @@ public class TodoData {
         oldItem.setDetails(newItem.getDetails());
         oldItem.setDeadline(newItem.getDeadline());
     }
+
+    public TodoItem getFirstTodayItem() {
+        return firstTodayItem;
+    }
+
+    public void setFirstTodayItem(TodoItem firstTodayItem) {
+        this.firstTodayItem = firstTodayItem;
+    }
+    
 }

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -38,7 +41,7 @@
                                     <Image url="@/toolbarButtonGraphics/general/Export24.gif" />
                                 </ImageView>
                             </graphic>
-                            <MenuItem onAction="#handleExportCSV" text="Export as CSV        Ctrl+T" />
+                            <MenuItem onAction="#handleExportCSV" text="Export as CSV        Ctrl+D" />
                             <MenuItem onAction="#handleExportMSF" text="Export as MSF        Ctrl+E"/>
                             <MenuItem onAction="#handleExportMultiple" text="Select Multiple       Ctrl+R"/>
                             
@@ -57,7 +60,7 @@
                                 </ImageView>
                             </graphic>
                         </MenuItem>
-                        <MenuItem disable="true" fx:id="truncateMenuItem" onAction="#handleTruncate" text="Truncate                Ctrl+D" >
+                        <MenuItem disable="true" fx:id="truncateMenuItem" onAction="#handleTruncate" text="Truncate                Ctrl+T" >
                             <graphic>
                                 <ImageView>
                                     <Image url="@/toolbarButtonGraphics/general/Stop24.gif" />
@@ -108,7 +111,7 @@
             </HBox>
             
             <ToolBar>
-                <HBox>
+                <HBox alignment="center">
                     <Button onAction="#showNewItemDialog">
                         <tooltip>
                             <Tooltip text="Add a new item. (Ctrl+N)" />
@@ -142,15 +145,32 @@
                             </ImageView>
                         </graphic>
                     </Button>
-                    <ToggleButton fx:id="filterToggleButton" onAction="#handleFilterButton" text="Today's Items">
-                        <tooltip>
-                            <Tooltip text="Button Down: show Today's items only. Button Up: show all items" />
-                        </tooltip>
+                    <Label text="Show: " >
+                        <HBox.margin>
+                            <Insets left="35.0" />
+                        </HBox.margin>
+                    </Label>
+                    <ComboBox fx:id="filterComboBox" onAction="#handleFilterButton">
                         <HBox.margin>
                             <Insets left="5.0" />
                         </HBox.margin>
-                        
-                    </ToggleButton>
+                        <tooltip>
+                            <Tooltip text="Filter which items to show on the list." />
+                        </tooltip>
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="All items" />
+                                <String fx:value="Items due today" />
+                                <String fx:value="Items due tomorrow" />
+                                <String fx:value="Items due this month" />
+                                <String fx:value="Items past-due" />
+                                <String fx:value="Current items" />
+                            </FXCollections>
+                        </items>
+                        <value>
+                            <String fx:value="All items" />
+                        </value>
+                    </ComboBox>
                 </HBox>
                 <VBox.margin>
                     <Insets />

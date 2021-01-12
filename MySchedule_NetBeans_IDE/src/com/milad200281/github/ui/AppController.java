@@ -31,6 +31,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
@@ -63,7 +64,7 @@ public class AppController {
     @FXML
     private ContextMenu listContextMenu;
     @FXML
-    private ToggleButton filterToggleButton;
+    private ComboBox<String> filterComboBox;
     @FXML
     private Button deleteButton;
     @FXML
@@ -72,10 +73,14 @@ public class AppController {
     MenuItem truncateMenuItem;
 
     private FilteredList<TodoItem> filteredList;
-    SortedList<TodoItem> sortedList;
+    private SortedList<TodoItem> sortedList;
 
     private Predicate<TodoItem> wantAllItems;
     private Predicate<TodoItem> wantTodaysItems;
+    private Predicate<TodoItem> wantPastDueItems;
+    private Predicate<TodoItem> wantNotDueItems;
+    private Predicate<TodoItem> wantTomorrowItems;
+    private Predicate<TodoItem> wantThisMonthItems;
 
     public void initialize() {
         listContextMenu = new ContextMenu();
@@ -149,25 +154,30 @@ public class AppController {
         }
         );
 
-        wantAllItems = new Predicate<TodoItem>() {
-            @Override
-            public boolean test(TodoItem todoItem) {
+        wantAllItems = (TodoItem todoItem) -> true;
+        wantTodaysItems = (TodoItem todoItem) -> todoItem.getDeadline().equals(LocalDate.now());
+        wantTomorrowItems = (TodoItem todoItem) -> todoItem.getDeadline().equals(LocalDate.now().plusDays(1));
+        wantPastDueItems = (TodoItem todoItem) -> todoItem.getDeadline().isBefore(LocalDate.now().plusDays(0));
+        wantNotDueItems = (TodoItem todoItem) -> todoItem.getDeadline().isAfter(LocalDate.now().minusDays(1));
+        wantThisMonthItems = (TodoItem todoItem) -> {
+            if (todoItem.getDeadline().getMonth().equals(LocalDate.now().getMonth())) {
                 return true;
             }
-        };
-        wantTodaysItems = new Predicate<TodoItem>() {
-            @Override
-            public boolean test(TodoItem todoItem) {
-                return todoItem.getDeadline().equals(LocalDate.now());
-            }
+            return false;
         };
 
         sorting();
 
         todoListView.getSelectionModel()
                 .setSelectionMode(SelectionMode.SINGLE);
-        todoListView.getSelectionModel()
-                .selectFirst();
+        if (TodoData.getInstance()
+                .getFirstTodayItem() != null) {
+            todoListView.getSelectionModel()
+                    .select(TodoData.getInstance().getFirstTodayItem());
+        } else {
+            todoListView.getSelectionModel()
+                    .selectFirst();
+        }
 
         todoListView.setCellFactory(
                 new Callback<ListView<TodoItem>, ListCell<TodoItem>>() {
@@ -212,8 +222,7 @@ public class AppController {
             }
         }
         );
-        
-        System.out.println("Due to today:"+Option.getInstance().getTodayItems()+"Due to tomorrow:"+Option.getInstance().getTomorrowItems());
+
     }
 
     public void sorting() {
@@ -256,9 +265,13 @@ public class AppController {
             System.out.println("Ctrl+N");
             showNewItemDialog();
         }
-        if (keyEvent.isControlDown() && (keyEvent.getCode() == KeyCode.T)) {
+        if (keyEvent.isControlDown() && (keyEvent.getCode() == KeyCode.D)) {
             System.out.println("Ctrl+T");
             handleExportCSV();
+        }
+        if (keyEvent.isControlDown() && (keyEvent.getCode() == KeyCode.T)) {
+            System.out.println("Ctrl+T");
+            handleTruncate();
         }
         if (keyEvent.getCode() == KeyCode.ESCAPE) {
             System.out.println("esp");
@@ -414,20 +427,76 @@ public class AppController {
     @FXML
     public void handleFilterButton() {
         TodoItem selectedItem = todoListView.getSelectionModel().getSelectedItem();
-
-        if (filterToggleButton.isSelected()) {
-            filteredList.setPredicate(wantTodaysItems);
-            if (filteredList.isEmpty()) {
-                itemDetailsTextArea.clear();
-                deadlineLabel.setText("");
-            } else if (filteredList.contains(selectedItem)) {
-                todoListView.getSelectionModel().select(selectedItem);
-            } else {
-                todoListView.getSelectionModel().selectFirst();
-            }
-        } else {
-            filteredList.setPredicate(wantAllItems);
-            todoListView.getSelectionModel().select(selectedItem);
+        switch (filterComboBox.getValue()) {
+            case "Items due today":
+                filteredList.setPredicate(wantTodaysItems);
+                if (filteredList.isEmpty()) {
+                    itemDetailsTextArea.clear();
+                    deadlineLabel.setText("");
+                } else if (filteredList.contains(selectedItem)) {
+                    todoListView.getSelectionModel().select(selectedItem);
+                } else {
+                    todoListView.getSelectionModel().selectFirst();
+                }
+                break;
+            case "Items due tomorrow":
+                filteredList.setPredicate(wantTomorrowItems);
+                if (filteredList.isEmpty()) {
+                    itemDetailsTextArea.clear();
+                    deadlineLabel.setText("");
+                } else if (filteredList.contains(selectedItem)) {
+                    todoListView.getSelectionModel().select(selectedItem);
+                } else {
+                    todoListView.getSelectionModel().selectFirst();
+                }
+                break;
+            case "Items due this month":
+                filteredList.setPredicate(wantThisMonthItems);
+                if (filteredList.isEmpty()) {
+                    itemDetailsTextArea.clear();
+                    deadlineLabel.setText("");
+                } else if (filteredList.contains(selectedItem)) {
+                    todoListView.getSelectionModel().select(selectedItem);
+                } else {
+                    todoListView.getSelectionModel().selectFirst();
+                }
+                break;
+            case "Items past-due":
+                filteredList.setPredicate(wantPastDueItems);
+                if (filteredList.isEmpty()) {
+                    itemDetailsTextArea.clear();
+                    deadlineLabel.setText("");
+                } else if (filteredList.contains(selectedItem)) {
+                    todoListView.getSelectionModel().select(selectedItem);
+                } else {
+                    todoListView.getSelectionModel().selectFirst();
+                }
+                break;
+            case "Current items":
+                filteredList.setPredicate(wantNotDueItems);
+                if (filteredList.isEmpty()) {
+                    itemDetailsTextArea.clear();
+                    deadlineLabel.setText("");
+                } else if (filteredList.contains(selectedItem)) {
+                    todoListView.getSelectionModel().select(selectedItem);
+                } else {
+                    todoListView.getSelectionModel().selectFirst();
+                }
+                break;
+            case "All items":
+                filteredList.setPredicate(wantAllItems);
+                if (filteredList.isEmpty()) {
+                    itemDetailsTextArea.clear();
+                    deadlineLabel.setText("");
+                } else if (filteredList.contains(selectedItem)) {
+                    todoListView.getSelectionModel().select(selectedItem);
+                } else {
+                    todoListView.getSelectionModel().selectFirst();
+                }
+                break;
+            default:
+                System.out.println("error");
+                break;
         }
     }
 
@@ -627,6 +696,7 @@ public class AppController {
 
         if (result.isPresent() && result.get() == ButtonType.APPLY) {
             Optioncontroller.setValues();
+            todoListView.setItems(sortedList);
             System.out.println("Apply pressed");
         } else {
             System.out.println("Cancel pressed");

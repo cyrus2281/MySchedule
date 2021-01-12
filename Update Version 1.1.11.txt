@@ -2,12 +2,15 @@
 ===     Current Version    ===
 =======================
 
-Update Version 1.1.10:
-	popUp notification feature added
+Update Version 1.1.11:
+	Filter section updated
 
 =======================
 ===     Version History     ===
 =======================
+
+Version 1.1.11:
+	Filter section updated
 
 Version 1.1.10:
 	popUp notification feature added
