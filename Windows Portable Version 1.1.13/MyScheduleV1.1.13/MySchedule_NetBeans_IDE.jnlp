@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="MySchedule_NetBeans_IDE.jar" size="39236" download="eager" />
+    <jar href="MySchedule_NetBeans_IDE.jar" size="228579" download="eager" />
     <jar href="lib\jlfgr-1_0.jar" size="114252" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="MySchedule_NetBeans_IDE" >
