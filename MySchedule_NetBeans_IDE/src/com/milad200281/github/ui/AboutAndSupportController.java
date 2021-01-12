@@ -1,4 +1,3 @@
-
 package com.milad200281.github.ui;
 
 import java.awt.Desktop;
@@ -8,6 +7,13 @@ import java.net.URISyntaxException;
 import javafx.fxml.FXML;
 import javafx.scene.web.WebEngine;
 
+/**
+*MySchedule 
+*Author: Milad Mobini
+*Last Modified: 2021/1
+* GitHub: https://github.com/milad200281/MySchedule
+* License available at legal folder
+*/
 
 public class AboutAndSupportController {
     

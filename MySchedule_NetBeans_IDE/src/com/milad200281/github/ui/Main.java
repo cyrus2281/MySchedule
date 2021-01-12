@@ -7,22 +7,19 @@ import java.util.Optional;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 /**
- *
- * @author milad
- */
+*MySchedule 
+*Author: Milad Mobini
+*Last Modified: 2021/1
+* GitHub: https://github.com/milad200281/MySchedule
+* License available at legal folder
+*/
 public class Main extends Application {
 
     //The Application
@@ -72,19 +69,27 @@ public class Main extends Application {
                 String strTwo = "There ";
                 int numOne = Option.getInstance().getTodayItems();
                 int numTwo = Option.getInstance().getTomorrowItems();
-                if (numOne == 0) {
-                    strOne += "is no item due to today.";
-                } else if (numOne == 1) {
-                    strOne += "is 1 item due to today.";
-                } else {
-                    strOne += "are " + numOne + " items due to today.";
+                switch (numOne) {
+                    case 0:
+                        strOne += "is no item due to today.";
+                        break;
+                    case 1:
+                        strOne += "is 1 item due to today.";
+                        break;
+                    default:
+                        strOne += "are " + numOne + " items due to today.";
+                        break;
                 }
-                if (numTwo == 0) {
-                    strTwo += "is no item due to tomorrow.";
-                } else if (numTwo == 1) {
-                    strTwo += "is 1 item due to tomorrow.";
-                } else {
-                    strTwo += "are " + numTwo + " item due to tomorrow.";
+                switch (numTwo) {
+                    case 0:
+                        strTwo += "is no item due to tomorrow.";
+                        break;
+                    case 1:
+                        strTwo += "is 1 item due to tomorrow.";
+                        break;
+                    default:
+                        strTwo += "are " + numTwo + " item due to tomorrow.";
+                        break;
                 }
                 alert.setContentText(strOne + "\n" + strTwo);
                 Optional<ButtonType> result = alert.showAndWait();

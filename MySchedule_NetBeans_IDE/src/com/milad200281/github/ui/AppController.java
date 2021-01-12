@@ -39,6 +39,14 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.util.Callback;
 
+/**
+*MySchedule 
+*Author: Milad Mobini
+*Last Modified: 2021/1
+* GitHub: https://github.com/milad200281/MySchedule
+* License available at legal folder
+*/
+
 public class AppController {
 
     private List<TodoItem> todoItems;
@@ -72,6 +80,7 @@ public class AppController {
     private Predicate<TodoItem> wantThisMonthItems;
 
     public void initialize() {
+        //right click option menues
         listContextMenu = new ContextMenu();
         MenuItem deleteMenuItem = new MenuItem("Delete");
         MenuItem editMenuItem = new MenuItem("Edit");
@@ -114,7 +123,7 @@ public class AppController {
         deleteButton.setDisable(true);
 
         listContextMenu.getItems().addAll(editMenuItem, exportMenuItem, deleteMenuItem);
-
+        //listener on changing selection on the todoListView
         todoListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TodoItem>() {
             @Override
             public void changed(ObservableValue<? extends TodoItem> observable, TodoItem oldValue, TodoItem newValue) {
@@ -142,7 +151,7 @@ public class AppController {
             }
         }
         );
-
+        //creating filters
         wantAllItems = (TodoItem todoItem) -> true;
         wantTodaysItems = (TodoItem todoItem) -> todoItem.getDeadline().equals(LocalDate.now());
         wantTomorrowItems = (TodoItem todoItem) -> todoItem.getDeadline().equals(LocalDate.now().plusDays(1));

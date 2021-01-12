@@ -4,7 +4,13 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-
+/**
+*MySchedule 
+*Author: Milad Mobini
+*Last Modified: 2021/1
+* GitHub: https://github.com/milad200281/MySchedule
+* License available at legal folder
+*/
 public class TodoItem implements Serializable {
 
     private final long SerialVersionUID = 123456789L;

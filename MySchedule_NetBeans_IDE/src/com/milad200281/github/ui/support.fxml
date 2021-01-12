@@ -11,7 +11,13 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.control.ColorPicker?>
 
-
+<!--
+*MySchedule 
+*Author: Milad Mobini
+*Last Modified: 2021/1
+* GitHub: https://github.com/milad200281/MySchedule
+* License available at legal folder
+-->
 <GridPane fx:id="supportGridPane" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" 
           xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.milad200281.github.ui.AboutAndSupportController">     
     <HBox alignment="center" GridPane.columnIndex="1" GridPane.rowIndex="1">
