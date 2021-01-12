@@ -212,6 +212,8 @@ public class AppController {
             }
         }
         );
+        
+        System.out.println("Due to today:"+Option.getInstance().getTodayItems()+"Due to tomorrow:"+Option.getInstance().getTomorrowItems());
     }
 
     public void sorting() {
@@ -676,4 +678,5 @@ public class AppController {
     public void handleExit() {
         Platform.exit();
     }
+
 }

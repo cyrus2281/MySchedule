@@ -35,6 +35,7 @@ public class Main extends Application {
         primaryStage.setTitle("MySchedule");
         primaryStage.setScene(new Scene(root, 900, 500));
         primaryStage.show();
+        popUpNotification();
     }
 
     @Override
@@ -42,16 +43,6 @@ public class Main extends Application {
         try {
             Option.getInstance().loadOption();
             TodoData.getInstance().loadTodoItems();
-            /*
-            try {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Delete Todo Item");
-                alert.setHeaderText("Delete item: ");
-                alert.setContentText("Are you sure? Press OK to confirm, or cancel to back out.");
-                Optional<ButtonType> result = alert.showAndWait();
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }*/
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -71,4 +62,33 @@ public class Main extends Application {
         }
     }
 
+    public void popUpNotification() {
+        if (Option.getInstance().isPopUp()) {
+            if (TodoData.getInstance().getTodoItems().size() > 1) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("MySchedule");
+                alert.setHeaderText("Welcome Back.");
+                String strOne = "There ";
+                String strTwo = "There ";
+                int numOne = Option.getInstance().getTodayItems();
+                int numTwo = Option.getInstance().getTomorrowItems();
+                if (numOne == 0) {
+                    strOne += "is no item due to today.";
+                } else if (numOne == 1) {
+                    strOne += "is 1 item due to today.";
+                } else {
+                    strOne += "are " + numOne + " items due to today.";
+                }
+                if (numTwo == 0) {
+                    strTwo += "is no item due to tomorrow.";
+                } else if (numTwo == 1) {
+                    strTwo += "is 1 item due to tomorrow.";
+                } else {
+                    strTwo += "are " + numTwo + " item due to tomorrow.";
+                }
+                alert.setContentText(strOne + "\n" + strTwo);
+                Optional<ButtonType> result = alert.showAndWait();
+            }
+        }
+    }
 }

@@ -58,6 +58,8 @@ public class PreferenceController {
     ColorPicker tmwColorPicker;
     @FXML
     CheckBox boldToday;
+    @FXML
+    CheckBox popUp;
 
     public void initialize() {
 
@@ -65,13 +67,18 @@ public class PreferenceController {
         pastColorPicker.setValue(javafx.scene.paint.Color.valueOf(Option.getInstance().getColorPast()));
         todayColorPicker.setValue(javafx.scene.paint.Color.valueOf(Option.getInstance().getColorToday()));
         tmwColorPicker.setValue(javafx.scene.paint.Color.valueOf(Option.getInstance().getColorTomorrow()));
-        shortSizeBox.setValue(Option.getInstance().getShortSize().replaceAll("\\D", "")+"px");
-        detailsSizeBox.setValue(Option.getInstance().getDetailSize().replaceAll("\\D", "")+"px");
+        shortSizeBox.setValue(Option.getInstance().getShortSize().replaceAll("\\D", "") + "px");
+        detailsSizeBox.setValue(Option.getInstance().getDetailSize().replaceAll("\\D", "") + "px");
         dateFomratBox.setValue(Option.getInstance().getDateFormat());
         if (!Option.getInstance().getTodayBold().equals("")) {
             boldToday.setSelected(true);
         } else {
             boldToday.setSelected(false);
+        }
+        if (Option.getInstance().isPopUp()) {
+            popUp.setSelected(true);
+        } else {
+            popUp.setSelected(false);
         }
     }
 
@@ -81,8 +88,14 @@ public class PreferenceController {
         Option.getInstance().setColorTomorrow(tmwColorPicker.getValue().toString());
         Option.getInstance().setColorFuture(futureColorPicker.getValue().toString());
         Option.getInstance().setDateFormat(dateFomratBox.getValue());
-        Option.getInstance().setDetailSize("-fx-font-size: "+detailsSizeBox.getValue().replaceAll("\\D", ""));
-        Option.getInstance().setShortSize("-fx-font-size: "+shortSizeBox.getValue().replaceAll("\\D", ""));
+        Option.getInstance().setDetailSize("-fx-font-size: " + detailsSizeBox.getValue().replaceAll("\\D", ""));
+        Option.getInstance().setShortSize("-fx-font-size: " + shortSizeBox.getValue().replaceAll("\\D", ""));
+        if (popUp.isSelected()) {
+            Option.getInstance().setPopUp(true);
+        } else {
+            Option.getInstance().setPopUp(false);
+        }
+        Option.getInstance().setShortSize("-fx-font-size: " + shortSizeBox.getValue().replaceAll("\\D", ""));
         if (boldToday.isSelected()) {
             Option.getInstance().setTodayBold("-fx-font-weight: bold");
         } else {

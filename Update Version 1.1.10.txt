@@ -2,12 +2,15 @@
 ===     Current Version    ===
 =======================
 
-Update Version 1.1.9:
-	truncate feature added
+Update Version 1.1.10:
+	popUp notification feature added
 
 =======================
 ===     Version History     ===
 =======================
+
+Version 1.1.10:
+	popUp notification feature added
 
 Version 1.1.9:
 	truncate feature added

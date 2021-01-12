@@ -115,5 +115,6 @@
             </FXCollections>
         </items>
     </ChoiceBox>
-    <CheckBox fx:id="boldToday" text="Bold items due to today" GridPane.columnIndex="0" GridPane.rowIndex="12" />
+    <CheckBox fx:id="popUp" text="Pop up notification at start-up" GridPane.columnIndex="0" GridPane.rowIndex="12" />
+    <CheckBox fx:id="boldToday" text="Bold items due to today" GridPane.columnIndex="0" GridPane.rowIndex="13" />
 </GridPane>

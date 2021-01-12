@@ -51,7 +51,7 @@ public class TodoData {
     }
 
     public void addTodoItem(TodoItem item) {
-         
+
         boolean notContain = true;
         for (TodoItem todo : todoItems) {
             if (item.equals(todo)) {
@@ -60,10 +60,10 @@ public class TodoData {
             }
         }
         if (notContain) {
-            System.out.println(item.getShortDescription()+": was added to the list");
+            System.out.println(item.getShortDescription() + ": was added to the list");
             todoItems.add(item);
         } else {
-            System.out.println(item.getShortDescription()+": already exists");
+            System.out.println(item.getShortDescription() + ": already exists");
         }
     }
 
@@ -72,20 +72,25 @@ public class TodoData {
         todoItems = FXCollections.observableArrayList();
         try (ObjectInputStream locFile = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filename)))) {
             boolean eof = false;
+            int todayNum = 0;
+            int tmwNum = 0;
+
             while (!eof) {
                 try {
 
                     TodoItem item = (TodoItem) locFile.readObject();
-
-                    String shortDescription = item.getShortDescription();
-                    String details = item.getDetails();
-                    LocalDate date = item.getDeadline();
-                    TodoItem todoItem = new TodoItem(shortDescription, details, date);
-                    todoItems.add(todoItem);
+                    todoItems.add(item);
+                    if (item.getDeadline().isEqual(LocalDate.now())) {
+                        todayNum++;
+                    } else if (item.getDeadline().equals(LocalDate.now().plusDays(1))) {
+                        tmwNum++;
+                    }
+                    Option.getInstance().setTodayItems(todayNum);
+                    Option.getInstance().setTomorrowItems(tmwNum);
                 } catch (EOFException e) {
                     eof = true;
                 }
-            } 
+            }
             return true;
         } catch (IOException io) {
             System.out.println("File Corrupted\nIO Exception" + io.getMessage());
@@ -129,6 +134,7 @@ public class TodoData {
         }
 
     }
+
     public void exportTodoItemsMSF(Path path, List<TodoItem> items) throws IOException {
         synchronized (this) {
             try (ObjectOutputStream locFile = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(path.toString())))) {
@@ -189,9 +195,10 @@ public class TodoData {
         todoItems.remove(item);
     }
 
-    public void deleteAll(){
+    public void deleteAll() {
         todoItems.clear();
     }
+
     public void editItem(TodoItem oldItem, TodoItem newItem) {
         oldItem.setShortDescription(newItem.getShortDescription());
         oldItem.setDetails(newItem.getDetails());

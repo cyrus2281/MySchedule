@@ -43,9 +43,13 @@ public class Option implements Serializable {
     private static String detailSize;
 
     private static String dateFormat;
+    
+    private static boolean popUp;
+    private static int todayItems;
+    private static int tomorrowItems;
 
     private Option() {
-
+        //these options will be saved into file
         colorPast = "#FF0000";
         colorToday = "#993300";
         colorTomorrow = "#000080";
@@ -54,6 +58,10 @@ public class Option implements Serializable {
         shortSize = "-fx-font-size: 16";
         detailSize = "-fx-font-size: 16";
         dateFormat = "MMMM dd, yyyy";
+        popUp = true;
+        //these will not
+        todayItems = 0;
+        tomorrowItems = 0;
     }
 
     public static Option getInstance() {
@@ -77,6 +85,7 @@ public class Option implements Serializable {
                         shortSize = opt[5];
                         detailSize = opt[6];
                         dateFormat = opt[7];
+                        popUp = Boolean.parseBoolean(opt[8]);
                     }
 
                 } catch (EOFException e) {
@@ -135,6 +144,30 @@ public class Option implements Serializable {
         return dateFormat;
     }
 
+    public int getTodayItems() {
+        return todayItems;
+    }
+
+    public void setTodayItems(int todayItems) {
+        Option.todayItems = todayItems;
+    }
+
+    public int getTomorrowItems() {
+        return tomorrowItems;
+    }
+
+    public boolean isPopUp() {
+        return popUp;
+    }
+
+    public  void setPopUp(boolean popUp) {
+        Option.popUp = popUp;
+    }
+
+    public void setTomorrowItems(int tomorrowItems) {
+        Option.tomorrowItems = tomorrowItems;
+    }
+
     public void setDateFormat(String dateFormat) {
         Option.dateFormat = dateFormat;
     }
@@ -176,7 +209,8 @@ public class Option implements Serializable {
                 + todayBold + ";"
                 + shortSize + ";"
                 + detailSize + ";"
-                + dateFormat;
+                + dateFormat+";"
+                +popUp;
     }
 
 }
