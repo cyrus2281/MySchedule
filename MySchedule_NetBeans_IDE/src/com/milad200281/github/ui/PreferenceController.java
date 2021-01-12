@@ -103,4 +103,16 @@ public class PreferenceController {
         }
     }
 
+    @FXML
+    public void handleRestoreDefault() {
+        futureColorPicker.setValue(javafx.scene.paint.Color.valueOf("#000000"));
+        pastColorPicker.setValue(javafx.scene.paint.Color.valueOf("#FF0000"));
+        todayColorPicker.setValue(javafx.scene.paint.Color.valueOf("#993300"));
+        tmwColorPicker.setValue(javafx.scene.paint.Color.valueOf("#000080"));
+        shortSizeBox.setValue("-fx-font-size: 16".replaceAll("\\D", "") + "px");
+        detailsSizeBox.setValue("-fx-font-size: 16".replaceAll("\\D", "") + "px");
+        dateFomratBox.setValue("MMMM dd, yyyy");
+        popUp.setSelected(true);
+        boldToday.setSelected(true);
+    }
 }

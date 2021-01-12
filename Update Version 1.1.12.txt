@@ -2,12 +2,18 @@
 ===     Current Version    ===
 =======================
 
-Update Version 1.1.11:
-	Filter section updated
+Update Version 1.1.12:
+	Preference bug fixed
+	Preference restore default feature added
+	
 
 =======================
 ===     Version History     ===
 =======================
+
+Version 1.1.12:
+	Preference bug fixed
+	Preference restore default feature added
 
 Version 1.1.11:
 	Filter section updated
@@ -37,7 +43,6 @@ Version 1.1.3:
 	Preference getter and setters added
 
 Version 1.1.2:
-	
 	Option class updated
 		selective fonz size
 		selective bold option

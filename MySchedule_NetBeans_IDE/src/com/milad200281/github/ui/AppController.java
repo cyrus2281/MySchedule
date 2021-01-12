@@ -3,34 +3,26 @@ package com.milad200281.github.ui;
 import com.milad200281.github.commen.Option;
 import com.milad200281.github.commen.TodoData;
 import com.milad200281.github.commen.TodoItem;
-import com.sun.javafx.css.Style;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Dialog;
@@ -40,15 +32,12 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.util.Callback;
-import javax.swing.text.StyledEditorKit;
 
 public class AppController {
 
@@ -108,7 +97,7 @@ public class AppController {
                 System.out.println(savePath);
                 new Thread(() -> {
                     try {
-                        List<TodoItem> items = new ArrayList<TodoItem>();
+                        List<TodoItem> items = new ArrayList<>();
                         items.add(item);
                         TodoData.getInstance().exportTodoItemsMSF(savePath, items);
                     } catch (IOException ex) {
@@ -226,8 +215,8 @@ public class AppController {
     }
 
     public void sorting() {
-        filteredList = new FilteredList<TodoItem>(TodoData.getInstance().getTodoItems(), wantAllItems);
-        sortedList = new SortedList<TodoItem>(filteredList, (TodoItem o1, TodoItem o2) -> o1.getDeadline().compareTo(o2.getDeadline()));
+        filteredList = new FilteredList<>(TodoData.getInstance().getTodoItems(), wantAllItems);
+        sortedList = new SortedList<>(filteredList, (TodoItem o1, TodoItem o2) -> o1.getDeadline().compareTo(o2.getDeadline()));
         todoListView.setItems(sortedList);
     }
 
@@ -335,8 +324,7 @@ public class AppController {
             dialog.getDialogPane().setContent(fxmlLoader.load());
 
         } catch (IOException e) {
-            System.out.println("Couldn't load the dialog");
-            e.printStackTrace();
+            System.out.println("Couldn't load the dialog" + e.getMessage());
             return;
         }
         dialog.getDialogPane().getButtonTypes().add(ButtonType.APPLY);
@@ -381,8 +369,7 @@ public class AppController {
         try {
             dialog.getDialogPane().setContent(fxmlLoader.load());
         } catch (IOException e) {
-            System.out.println("Couldn't load the dialog");
-            e.printStackTrace();
+            System.out.println("Couldn't load the dialog" + e.getMessage());
             return;
         }
 
@@ -603,8 +590,7 @@ public class AppController {
             dialog.getDialogPane().setContent(fxmlOption.load());
 
         } catch (IOException e) {
-            System.out.println("Couldn't load the dialog");
-            e.printStackTrace();
+            System.out.println("Couldn't load the dialog" + e.getMessage());
             return;
         }
         dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
@@ -671,7 +657,7 @@ public class AppController {
 
     @FXML
     public void handlePreference() {
-
+        TodoItem selectedItem = todoListView.getSelectionModel().getSelectedItem();
         Dialog<ButtonType> OptionDialog = new Dialog<>();
         OptionDialog.initOwner(mainBorderPane.getScene().getWindow());
 
@@ -684,8 +670,7 @@ public class AppController {
             OptionDialog.getDialogPane().setContent(fxmlOption.load());
 
         } catch (IOException e) {
-            System.out.println("Couldn't load the dialog");
-            e.printStackTrace();
+            System.out.println("Couldn't load the dialog" + e.getMessage());
             return;
         }
         OptionDialog.getDialogPane().getButtonTypes().add(ButtonType.APPLY);
@@ -696,7 +681,9 @@ public class AppController {
 
         if (result.isPresent() && result.get() == ButtonType.APPLY) {
             Optioncontroller.setValues();
-            todoListView.setItems(sortedList);
+            todoListView.refresh();
+            todoListView.getSelectionModel().selectNext();
+            todoListView.getSelectionModel().selectPrevious();
             System.out.println("Apply pressed");
         } else {
             System.out.println("Cancel pressed");
@@ -715,8 +702,7 @@ public class AppController {
         try {
             dialog.getDialogPane().setContent(fxmlLoader.load());
         } catch (IOException e) {
-            System.out.println("Couldn't load the dialog");
-            e.printStackTrace();
+            System.out.println("Couldn't load the dialog" + e.getMessage());
             return;
         }
         dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
@@ -735,8 +721,7 @@ public class AppController {
         try {
             dialog.getDialogPane().setContent(fxmlLoader.load());
         } catch (IOException e) {
-            System.out.println("Couldn't load the dialog");
-            e.printStackTrace();
+            System.out.println("Couldn't load the dialog" + e.getMessage());
             return;
         }
         dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
