@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -30,6 +31,7 @@ public class Main extends Application {
         //this line will choose the template
         setUserAgentStylesheet(STYLESHEET_MODENA);
         primaryStage.setTitle("MySchedule");
+        primaryStage.getIcons().add(new Image("/com/milad200281/github/commen/MSicon.png"));
         primaryStage.setScene(new Scene(root, 900, 500));
         primaryStage.show();
         popUpNotification();

@@ -1,0 +1,31 @@
+
+
+Version:	3.12
+CmdLine:	D:\Leon\Programing\Projects\MySchedule\MySchedule_NetBeans_IDE\MySchedule.exe --l4j-debug
+WOW64:		yes
+Working dir:	D:\Leon\Programing\Projects\MySchedule\MySchedule_NetBeans_IDE\.
+Java min ver:	1.008.000
+Java max ver:	
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_191\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_191
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_191\bin\javaw.exe (OK)
+Match:		1.008.000_191
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Ignore:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_111
+Ignore:		1.008.000_111
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+32-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+32-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_191 (32-bit)
+Launcher:	C:\Program Files (x86)\Java\jre1.8.0_191\bin\javaw.exe
+Launcher args:	-jar "D:\Leon\Programing\Projects\MySchedule\MySchedule_NetBeans_IDE\MySchedule.exe"
+Args length:	84/32768 chars
+Exit code:	0
