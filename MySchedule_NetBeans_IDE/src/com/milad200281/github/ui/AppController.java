@@ -691,8 +691,8 @@ public class AppController {
         if (result.isPresent() && result.get() == ButtonType.APPLY) {
             Optioncontroller.setValues();
             todoListView.refresh();
-            todoListView.getSelectionModel().selectNext();
-            todoListView.getSelectionModel().selectPrevious();
+            todoListView.getSelectionModel().select(null);
+            todoListView.getSelectionModel().select(selectedItem);
             System.out.println("Apply pressed");
         } else {
             System.out.println("Cancel pressed");
