@@ -8,7 +8,7 @@
 
 <BorderPane fx:id="supportGridPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.milad200281.github.ui.SelectiveExportController">
    <top>
-    <Label alignment="center" text="Hold Control key to select multiple items">
+    <Label alignment="center" text="Hold Control key to select multiple items.">
         <font>
             <Font name="System bold" size="18" />
         </font>
@@ -18,11 +18,11 @@
     </Label>  
    </top>
    <center>
-    <ListView fx:id="todoListView"> 
+    <ListView fx:id="todoListView"  onKeyPressed="#onMouseClick" onKeyReleased="#onMouseClick" onMouseClicked="#onMouseClick"> 
     </ListView> 
    </center>
    <bottom>
-    <Label fx:id="labelText" text="No Items selected" BorderPane.alignment="CENTER_LEFT" >
+    <Label fx:id="labelText" text="No Items selected" BorderPane.alignment="CENTER_LEFT">
         <BorderPane.margin>
             <Insets left="15.0" />
          </BorderPane.margin>

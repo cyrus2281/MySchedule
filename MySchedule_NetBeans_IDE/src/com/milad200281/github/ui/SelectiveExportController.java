@@ -41,23 +41,6 @@ public class SelectiveExportController {
         todoListView.getSelectionModel()
                 .setSelectionMode(SelectionMode.MULTIPLE);
 
-        todoListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TodoItem>() {
-            @Override
-            public void changed(ObservableValue<? extends TodoItem> observable, TodoItem oldValue, TodoItem newValue) {
-              
-                    int num = todoListView.getSelectionModel().getSelectedItems().size();
-                    if (num == 0) {
-                        labelText.setText("No item selected");
-                    } else if (num == 1) {
-                        labelText.setText("1 item selected");
-                    } else {
-                        labelText.setText(num + " items selected");
-                    }
-                }
-            
-        }
-        );
-
         todoListView.setCellFactory(
                 new Callback<ListView<TodoItem>, ListCell<TodoItem>>() {
             @Override
@@ -97,8 +80,34 @@ public class SelectiveExportController {
 
         todoListView.setItems(sortedList);
     }
-    
-    public List<TodoItem> getSelectedItems(){
+
+    public List<TodoItem> getSelectedItems() {
         return todoListView.getSelectionModel().getSelectedItems();
+    }
+
+    @FXML
+    public void onMouseClick() {
+        labelText.setTextFill(Color.BLACK);
+        labelText.setStyle("-fx-font-size: 16");
+        int num = todoListView.getSelectionModel().getSelectedItems().size();
+        if (num == 0) {
+            labelText.setText("No item selected");
+        } else if (num == 1) {
+            labelText.setText("1 item selected");
+        } else {
+            labelText.setText(num + " items selected");
+        }
+    }
+
+    public boolean checkValidation() {
+        labelText.setText("");
+        labelText.setStyle("-fx-font-size: 22");
+        if (todoListView.getSelectionModel().getSelectedItems().size() > 0) {
+            return false;
+        } else {
+            labelText.setTextFill(Color.RED);
+            labelText.setText("No item was selected!");
+            return true;
+        }
     }
 }

@@ -2,13 +2,17 @@
 ===     Current Version    ===
 =======================
 
-Update Version 1.1.6:
-	multiple item selection added
-	multiple item export added
+Update Version 1.1.7:
+	bugs fixed
+	code modified
 
 =======================
 ===     Version History     ===
 =======================
+
+Version 1.1.7:
+	bugs fixed
+	code modified
 
  Version 1.1.6:
 	multiple item selection added

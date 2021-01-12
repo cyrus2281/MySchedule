@@ -93,7 +93,7 @@ public class AppController {
             TodoItem item = todoListView.getSelectionModel().getSelectedItem();
             Path savePath;
             FileChooser chooser = new FileChooser();
-            chooser.setTitle("Export " + item.getShortDescription());
+            chooser.setTitle("Export \"" + item.getShortDescription() + "\" as MSF");
             chooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("MSF", "*.msf"));
             File file = chooser.showSaveDialog(mainBorderPane.getScene().getWindow());
             if (file != null) {
@@ -106,7 +106,7 @@ public class AppController {
                         TodoData.getInstance().exportTodoItemsMSF(savePath, items);
                     } catch (IOException ex) {
                         System.out.println(ex.getMessage());
-                    }
+                    } 
                 }).start();
             } else {
                 System.out.println("Chooser was cancelled");
@@ -505,28 +505,38 @@ public class AppController {
     @FXML
     public void handleExportMultiple() {
 
-        Dialog<ButtonType> Dialog = new Dialog<>();
-        Dialog.initOwner(mainBorderPane.getScene().getWindow());
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.initOwner(mainBorderPane.getScene().getWindow());
 
-        Dialog.setTitle("Multiple Item export");
-        Dialog.setHeaderText("Select items to export.");
+        dialog.setTitle("Multiple Item export");
+        dialog.setHeaderText("Select items to export.");
 
         FXMLLoader fxmlOption = new FXMLLoader();
         fxmlOption.setLocation(getClass().getResource("selectiveExport.fxml"));
 
         try {
-            Dialog.getDialogPane().setContent(fxmlOption.load());
+            dialog.getDialogPane().setContent(fxmlOption.load());
 
         } catch (IOException e) {
             System.out.println("Couldn't load the dialog");
             e.printStackTrace();
             return;
         }
-        Dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
-        Dialog.getDialogPane().getButtonTypes().add(ButtonType.NEXT);
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.NEXT);
 
         final SelectiveExportController controller = fxmlOption.getController();
-        Optional<ButtonType> result = Dialog.showAndWait();
+
+        final Button btNEXT = (Button) dialog.getDialogPane().lookupButton(ButtonType.NEXT);
+        btNEXT.addEventFilter(
+                ActionEvent.ACTION,
+                event -> {
+                    if (controller.checkValidation()) {
+                        event.consume();
+                    }
+                }
+        );
+        Optional<ButtonType> result = dialog.showAndWait();
 
         if (result.isPresent() && result.get() == ButtonType.NEXT) {
             controller.getSelectedItems();
@@ -557,6 +567,7 @@ public class AppController {
     }
 
     @FXML
+
     public void handlePreference() {
 
         Dialog<ButtonType> OptionDialog = new Dialog<>();
