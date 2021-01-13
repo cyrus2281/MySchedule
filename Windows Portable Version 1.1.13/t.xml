@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch4jConfig>
+  <dontWrapJar>false</dontWrapJar>
+  <headerType>gui</headerType>
+  <jar>D:\Leon\Programing\Projects\MySchedule\Windows Portable Version 1.1.13\MyScheduleV1.1.13\MySchedule_NetBeans_IDE.jar</jar>
+  <outfile>D:\Leon\Programing\Projects\MySchedule\Windows Portable Version 1.1.13\MyScheduleV1.1.13\MySchedule.exe</outfile>
+  <errTitle></errTitle>
+  <cmdLine></cmdLine>
+  <chdir>.</chdir>
+  <priority>normal</priority>
+  <downloadUrl>http://java.com/download</downloadUrl>
+  <supportUrl></supportUrl>
+  <stayAlive>false</stayAlive>
+  <restartOnCrash>false</restartOnCrash>
+  <manifest></manifest>
+  <icon>D:\Leon\Programing\Projects\MySchedule\Windows Portable Version 1.1.13\MyScheduleLogo.ico</icon>
+  <jre>
+    <path></path>
+    <bundledJre64Bit>false</bundledJre64Bit>
+    <bundledJreAsFallback>false</bundledJreAsFallback>
+    <minVersion>1.8</minVersion>
+    <maxVersion></maxVersion>
+    <jdkPreference>preferJre</jdkPreference>
+    <runtimeBits>64/32</runtimeBits>
+  </jre>
+  <versionInfo>
+    <fileVersion>1.1.1.4</fileVersion>
+    <txtFileVersion>1.1.14</txtFileVersion>
+    <fileDescription>MyShedule</fileDescription>
+    <copyright>All rights reserved to Milad Mobini</copyright>
+    <productVersion>1.1.1.4</productVersion>
+    <txtProductVersion>1.1.14</txtProductVersion>
+    <productName>MyShedule.exe</productName>
+    <companyName>Milad Robotics</companyName>
+    <internalName>MyShedule</internalName>
+    <originalFilename>MyShedule.exe</originalFilename>
+    <trademarks></trademarks>
+    <language>ENGLISH_US</language>
+  </versionInfo>
+</launch4jConfig>

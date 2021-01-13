@@ -2,12 +2,21 @@
 ===     Current Version    ===
 =======================
 
-Update Version 1.1.13:
-	Code documation added
+Update Version 1.1.14:
+	Logo added
+	UI updated
+	Multiple delete added
+	shortkey updated
 
 =======================
 ===     Version History     ===
 =======================
+
+Version 1.1.14:
+	Logo added
+	UI updated
+	Multiple delete added
+	shortkey updated
 
 Version 1.1.13:
 	Code documation added

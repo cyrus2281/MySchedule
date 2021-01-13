@@ -21,7 +21,7 @@
 <GridPane fx:id="supportGridPane" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" 
           xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.milad200281.github.ui.AboutAndSupportController">     
     <HBox alignment="center" GridPane.columnIndex="1" GridPane.rowIndex="1">
-        <Label text="MySchedule 2021" />
+        <Label fx:id="msLabel" text="MySchedule 2021" />
     </HBox>
 
     <Label text="File:" GridPane.columnIndex="1" GridPane.rowIndex="2">
@@ -66,17 +66,7 @@
             <Insets left="10.0" />
         </GridPane.margin>
     </Label>
-    <Label  text="Truncate: Delete all the items, and clear the list." GridPane.columnIndex="1" GridPane.rowIndex="7">
-        <graphic>
-            <ImageView>
-                <Image url="@/toolbarButtonGraphics/general/Stop24.gif" />
-            </ImageView>
-        </graphic>
-        <GridPane.margin>
-            <Insets left="10.0" />
-        </GridPane.margin>
-    </Label>
-    <Label  text="Preference: Allows you to:" GridPane.columnIndex="1" GridPane.rowIndex="8">
+    <Label text="Select Multiple: Allows you to select multiple items to export or delete." GridPane.columnIndex="1" GridPane.rowIndex="7">
         <graphic>
             <ImageView>
                 <Image url="@/toolbarButtonGraphics/general/Preferences24.gif" />
@@ -86,33 +76,53 @@
             <Insets left="10.0" />
         </GridPane.margin>
     </Label>
-    <Label text="Color Codes items based in due dates." GridPane.columnIndex="1" GridPane.rowIndex="9">
+    <Label  text="Truncate: Delete all the items, and clear the list." GridPane.columnIndex="1" GridPane.rowIndex="8">
+        <graphic>
+            <ImageView>
+                <Image url="@/toolbarButtonGraphics/general/Stop24.gif" />
+            </ImageView>
+        </graphic>
+        <GridPane.margin>
+            <Insets left="10.0" />
+        </GridPane.margin>
+    </Label>
+    <Label  text="Preference: Allows you to:" GridPane.columnIndex="1" GridPane.rowIndex="9">
+        <graphic>
+            <ImageView>
+                <Image url="@/com/milad200281/github/icons/configuration.png" />
+            </ImageView>
+        </graphic>
+        <GridPane.margin>
+            <Insets left="10.0" />
+        </GridPane.margin>
+    </Label>
+    <Label text="Color Codes items based in due dates." GridPane.columnIndex="1" GridPane.rowIndex="10">
         <GridPane.margin>
             <Insets left="40.0" />
         </GridPane.margin>
     </Label>
-    <Label text="Change the date display format." GridPane.columnIndex="1" GridPane.rowIndex="10">
+    <Label text="Change the date display format." GridPane.columnIndex="1" GridPane.rowIndex="11">
         <GridPane.margin>
             <Insets left="40.0" />
         </GridPane.margin>
     </Label>
-    <Label text="Change text sizes."  GridPane.columnIndex="1" GridPane.rowIndex="11">
+    <Label text="Change text sizes."  GridPane.columnIndex="1" GridPane.rowIndex="12">
         <GridPane.margin>
             <Insets left="40.0" />
         </GridPane.margin>
     </Label>
-    <Label text="Notification pop-up at the start of app."  GridPane.columnIndex="1" GridPane.rowIndex="12">
+    <Label text="Notification pop-up at the start of app."  GridPane.columnIndex="1" GridPane.rowIndex="13">
         <GridPane.margin>
             <Insets left="40.0" />
         </GridPane.margin>
     </Label>
-    <Label text="Bold today's items"  GridPane.columnIndex="1" GridPane.rowIndex="13">
+    <Label text="Bold today's items"  GridPane.columnIndex="1" GridPane.rowIndex="14">
         <GridPane.margin>
             <Insets left="40.0" />
         </GridPane.margin>
     </Label>
    
-    <HBox alignment="center_left" GridPane.columnIndex="1" GridPane.rowIndex="14">
+    <HBox alignment="center_left" GridPane.columnIndex="1" GridPane.rowIndex="15">
         <Label text="For more help and support you can contact the creator through" />
         <Hyperlink onAction="#handleLinkGithub" text="GitHub. " />
     </HBox>

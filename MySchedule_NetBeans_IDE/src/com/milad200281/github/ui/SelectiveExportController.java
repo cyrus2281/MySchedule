@@ -9,6 +9,7 @@ import com.milad200281.github.commen.Option;
 import com.milad200281.github.commen.TodoData;
 import com.milad200281.github.commen.TodoItem;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -78,8 +79,12 @@ public class SelectiveExportController {
         todoListView.setItems(sortedList);
     }
 
-    public List<TodoItem> getSelectedItems() {
-        return todoListView.getSelectionModel().getSelectedItems();
+    public ArrayList<TodoItem> getSelectedItems() {
+        ArrayList<TodoItem> lists = new ArrayList<>();
+        for(TodoItem item :todoListView.getSelectionModel().getSelectedItems()){
+            lists.add(item);
+        }
+        return lists;
     }
 
     @FXML

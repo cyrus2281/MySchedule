@@ -8,6 +8,8 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 
 <!--
 *MySchedule 
@@ -19,10 +21,11 @@
 <GridPane fx:id="aboutGridPane" alignment="center" vgap="10" xmlns="http://javafx.com/javafx/11.0.1"
           xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.milad200281.github.ui.AboutAndSupportController">   
     <HBox GridPane.rowIndex="0" GridPane.columnIndex="1" alignment="center">
-        <Label text="MySchedule 2021" />
+        <Label fx:id="msLabel" text="MySchedule 2021" >
+        </Label>
     </HBox>
     <Label text="Creator: Milad Mobini" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-    <Label text="Version: 1.1.13" GridPane.columnIndex="1" GridPane.rowIndex="3"/>  
+    <Label text="Version: 1.1.14" GridPane.columnIndex="1" GridPane.rowIndex="3"/>  
     <Label text="Last Updated: 2021/1" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
     <HBox GridPane.rowIndex="5" GridPane.columnIndex="1" alignment="center_left">
         <Label text="Click Here for" />

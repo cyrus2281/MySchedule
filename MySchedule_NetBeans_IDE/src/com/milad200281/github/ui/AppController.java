@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -40,13 +42,9 @@ import javafx.stage.FileChooser;
 import javafx.util.Callback;
 
 /**
-*MySchedule 
-*Author: Milad Mobini
-*Last Modified: 2021/1
-* GitHub: https://github.com/milad200281/MySchedule
-* License available at legal folder
-*/
-
+ * MySchedule Author: Milad Mobini Last Modified: 2021/1 GitHub:
+ * https://github.com/milad200281/MySchedule License available at legal folder
+ */
 public class AppController {
 
     private List<TodoItem> todoItems;
@@ -238,8 +236,8 @@ public class AppController {
                 deleteItem(selectedItem);
             }
         }
-        if (keyEvent.isControlDown() && (keyEvent.getCode() == KeyCode.R)) {
-            System.out.println("Ctrl+R");
+        if (keyEvent.isControlDown() && (keyEvent.getCode() == KeyCode.H)) {
+            System.out.println("Ctrl+H");
             editItem(selectedItem);
         }
     }
@@ -282,6 +280,14 @@ public class AppController {
         if (keyEvent.isControlDown() && (keyEvent.getCode() == KeyCode.R)) {
             System.out.println("Ctrl+R");
             handleExportMultiple();
+        }
+        if (keyEvent.getCode() == KeyCode.F1) {
+            System.out.println("F1");
+            handleSupport();
+        }
+        if (keyEvent.getCode() == KeyCode.F2) {
+            System.out.println("F2");
+            handleAbout();
         }
     }
 
@@ -589,8 +595,8 @@ public class AppController {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.initOwner(mainBorderPane.getScene().getWindow());
 
-        dialog.setTitle("Multiple Item export");
-        dialog.setHeaderText("Select items to export.");
+        dialog.setTitle("Select Multiple Items");
+        dialog.setHeaderText("Select items.");
 
         FXMLLoader fxmlOption = new FXMLLoader();
         fxmlOption.setLocation(getClass().getResource("selectiveExport.fxml"));
@@ -602,13 +608,25 @@ public class AppController {
             System.out.println("Couldn't load the dialog" + e.getMessage());
             return;
         }
-        dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
-        dialog.getDialogPane().getButtonTypes().add(ButtonType.NEXT);
+        ButtonType del = new ButtonType("Delete");
+        ButtonType exp = new ButtonType("Export");
+        dialog.getDialogPane().getButtonTypes().add(0, ButtonType.CANCEL);
+        dialog.getDialogPane().getButtonTypes().add(1, del);
+        dialog.getDialogPane().getButtonTypes().add(2, exp);
 
         final SelectiveExportController controller = fxmlOption.getController();
 
-        final Button btNEXT = (Button) dialog.getDialogPane().lookupButton(ButtonType.NEXT);
-        btNEXT.addEventFilter(
+        final Button btEXP = (Button) dialog.getDialogPane().lookupButton(exp);
+        btEXP.addEventFilter(
+                ActionEvent.ACTION,
+                event -> {
+                    if (controller.checkValidation()) {
+                        event.consume();
+                    }
+                }
+        );
+        final Button btdel = (Button) dialog.getDialogPane().lookupButton(del);
+        btdel.addEventFilter(
                 ActionEvent.ACTION,
                 event -> {
                     if (controller.checkValidation()) {
@@ -618,11 +636,11 @@ public class AppController {
         );
         Optional<ButtonType> result = dialog.showAndWait();
 
-        if (result.isPresent() && result.get() == ButtonType.NEXT) {
+        if (result.isPresent() && result.get() == exp) {
             controller.getSelectedItems();
             Path savePath;
             FileChooser chooser = new FileChooser();
-            chooser.setTitle("Export selected items as MSF");
+            chooser.setTitle("Export Multiple items as MSF");
             chooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("MSF", "*.msf"));
             File file = chooser.showSaveDialog(mainBorderPane.getScene().getWindow());
             if (file != null) {
@@ -640,6 +658,25 @@ public class AppController {
             }
 
             System.out.println("Apply pressed");
+        } else if (result.isPresent() && result.get() == del) {
+            ArrayList<TodoItem> items = controller.getSelectedItems();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Delete Multiple Items");
+            String str = (items.size() > 1) ? " items" : " item";
+            alert.setHeaderText("Delete: " + items.size() + str);
+            alert.setContentText("Are you sure you want to delete " + items.size() + str + "?");
+            alert.getButtonTypes().remove(ButtonType.OK);
+            alert.getButtonTypes().add(ButtonType.YES);
+            Optional<ButtonType> warning = alert.showAndWait();
+            if (result.isPresent() && warning.get() == ButtonType.YES) {
+                System.out.println(items.size());
+                items.forEach((item)->TodoData.getInstance().deleteTodoItem(item));
+                /*for (TodoItem item : items) {
+                    System.out.println("deleting "+item.getShortDescription());
+                    TodoData.getInstance().deleteTodoItem(item);
+                }*/
+                saveAll();
+            }
         } else {
             System.out.println("Cancel pressed");
         }
@@ -692,6 +729,11 @@ public class AppController {
             Optioncontroller.setValues();
             todoListView.refresh();
             todoListView.getSelectionModel().select(null);
+            try {
+                Option.getInstance().saveOption();
+            } catch (IOException ex) {
+                System.out.println("Could not save:" + ex.getMessage());
+            }
             todoListView.getSelectionModel().select(selectedItem);
             System.out.println("Apply pressed");
         } else {

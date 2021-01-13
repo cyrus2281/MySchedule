@@ -31,7 +31,7 @@ public class Main extends Application {
         //this line will choose the template
         setUserAgentStylesheet(STYLESHEET_MODENA);
         primaryStage.setTitle("MySchedule");
-        primaryStage.getIcons().add(new Image("/com/milad200281/github/commen/MSicon.png"));
+        primaryStage.getIcons().add(new Image("/com/milad200281/github/icons/MyScheduleLogo.png"));
         primaryStage.setScene(new Scene(root, 900, 500));
         primaryStage.show();
         popUpNotification();
