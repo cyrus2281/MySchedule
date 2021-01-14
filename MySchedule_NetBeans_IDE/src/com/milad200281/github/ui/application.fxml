@@ -64,7 +64,7 @@
                                 </ImageView>
                             </graphic>
                         </MenuItem>
-                        <MenuItem onAction="#handleExportMultiple" text="Select Multiple       Ctrl+R">
+                        <MenuItem onAction="#handleSelectMultiple" text="Select Multiple       Ctrl+R">
                             <graphic>
                                 <ImageView>
                                     <Image url="@/toolbarButtonGraphics/general/Preferences24.gif" />

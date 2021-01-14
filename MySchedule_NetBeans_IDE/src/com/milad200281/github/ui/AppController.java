@@ -1,3 +1,7 @@
+/**
+ * MySchedule Author: Milad Mobini Last Modified: 2021/1 GitHub:
+ * https://github.com/milad200281/MySchedule License available at legal folder
+ */
 package com.milad200281.github.ui;
 
 import com.milad200281.github.commen.Option;
@@ -42,8 +46,10 @@ import javafx.stage.FileChooser;
 import javafx.util.Callback;
 
 /**
- * MySchedule Author: Milad Mobini Last Modified: 2021/1 GitHub:
- * https://github.com/milad200281/MySchedule License available at legal folder
+ * This is controller class for the main page, and responsible for most of the
+ * events in the application
+ *
+ * @author Milad Mobini
  */
 public class AppController {
 
@@ -77,6 +83,9 @@ public class AppController {
     private Predicate<TodoItem> wantTomorrowItems;
     private Predicate<TodoItem> wantThisMonthItems;
 
+    /**
+     * runs at once and at the start of the page
+     */
     public void initialize() {
         //right click option menues
         listContextMenu = new ContextMenu();
@@ -114,13 +123,11 @@ public class AppController {
             } else {
                 System.out.println("Chooser was cancelled");
             }
-
         });
-
         editButton.setDisable(true);
         deleteButton.setDisable(true);
-
         listContextMenu.getItems().addAll(editMenuItem, exportMenuItem, deleteMenuItem);
+
         //listener on changing selection on the todoListView
         todoListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TodoItem>() {
             @Override
@@ -161,9 +168,8 @@ public class AppController {
             }
             return false;
         };
-
+        //do the sorting the display the items on the list
         sorting();
-
         todoListView.getSelectionModel()
                 .setSelectionMode(SelectionMode.SINGLE);
         if (TodoData.getInstance()
@@ -174,7 +180,7 @@ public class AppController {
             todoListView.getSelectionModel()
                     .selectFirst();
         }
-
+        //Listener on click on the list
         todoListView.setCellFactory(
                 new Callback<ListView<TodoItem>, ListCell<TodoItem>>() {
             @Override
@@ -221,12 +227,20 @@ public class AppController {
 
     }
 
+    /**
+     * Sort the item list base on a filter
+     */
     public void sorting() {
         filteredList = new FilteredList<>(TodoData.getInstance().getTodoItems(), wantAllItems);
         sortedList = new SortedList<>(filteredList, (TodoItem o1, TodoItem o2) -> o1.getDeadline().compareTo(o2.getDeadline()));
         todoListView.setItems(sortedList);
     }
 
+    /**
+     * Handle the hot-key for the items
+     *
+     * @param keyEvent the keys pressed
+     */
     @FXML
     public void handleKeyPressedItem(KeyEvent keyEvent) {
         TodoItem selectedItem = todoListView.getSelectionModel().getSelectedItem();
@@ -242,6 +256,12 @@ public class AppController {
         }
     }
 
+    /**
+     * Handle the hot keys
+     *
+     * @param keyEvent keys pressed
+     * @throws IOException
+     */
     @FXML
     public void handleKeyPressed(KeyEvent keyEvent) throws IOException {
         if (keyEvent.isControlDown() && (keyEvent.getCode() == KeyCode.E)) {
@@ -279,7 +299,7 @@ public class AppController {
         }
         if (keyEvent.isControlDown() && (keyEvent.getCode() == KeyCode.R)) {
             System.out.println("Ctrl+R");
-            handleExportMultiple();
+            handleSelectMultiple();
         }
         if (keyEvent.getCode() == KeyCode.F1) {
             System.out.println("F1");
@@ -291,6 +311,9 @@ public class AppController {
         }
     }
 
+    /**
+     * set the text and deadline in the right panel by choosing an item
+     */
     @FXML
     public void handleClickListView() {
         TodoItem item = todoListView.getSelectionModel().getSelectedItem();
@@ -298,6 +321,9 @@ public class AppController {
         deadlineLabel.setText(item.getDeadline().toString());
     }
 
+    /**
+     * Save all the files
+     */
     public static void saveAll() {
         new Thread(() -> {
             try {
@@ -308,6 +334,11 @@ public class AppController {
         }).start();
     }
 
+    /**
+     * On confirmation from an alert panel, deletes the item
+     *
+     * @param item item to be deleted
+     */
     public void deleteItem(TodoItem item) {
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -323,6 +354,12 @@ public class AppController {
         }
     }
 
+    /**
+     * Bring up a panel for editing an item Edits an item, by creating a new
+     * version of it and deleting the old one
+     *
+     * @param oldItem item to be edited
+     */
     public void editItem(TodoItem oldItem) {
 
         Dialog<ButtonType> dialog = new Dialog<>();
@@ -371,6 +408,9 @@ public class AppController {
 
     }
 
+    /**
+     * Bring up the new panel for adding a new item Add the new item to the list
+     */
     @FXML
     public void showNewItemDialog() {
         Dialog<ButtonType> dialog = new Dialog<>();
@@ -415,17 +455,26 @@ public class AppController {
 
     }
 
+    /**
+     * handle the edit button
+     */
     @FXML
     public void handleEditButton() {
         TodoItem item = todoListView.getSelectionModel().getSelectedItem();
         editItem(item);
     }
 
+    /**
+     * delete the item from the list
+     */
     public void handleDeleteButton() {
         TodoItem item = todoListView.getSelectionModel().getSelectedItem();
         deleteItem(item);
     }
 
+    /**
+     * change the filter of the sorted list
+     */
     @FXML
     public void handleFilterButton() {
         TodoItem selectedItem = todoListView.getSelectionModel().getSelectedItem();
@@ -502,6 +551,11 @@ public class AppController {
         }
     }
 
+    /**
+     * Export all the items to a specified path from the user
+     *
+     * @throws IOException
+     */
     @FXML
     public void handleExportMSF() throws IOException {
         Path savePath;
@@ -512,6 +566,7 @@ public class AppController {
         if (file != null) {
             savePath = file.toPath();
             System.out.println(savePath);
+            //Start a new thread
             new Thread(() -> {
                 try {
                     TodoData.getInstance().exportTodoItemsMSF(savePath, TodoData.getInstance().getTodoItems());
@@ -525,6 +580,11 @@ public class AppController {
 
     }
 
+    /**
+     * Export all the items in a CSV format to a specified path from the user
+     *
+     * @throws IOException
+     */
     @FXML
     public void handleExportCSV() throws IOException {
         Path savePath;
@@ -535,6 +595,7 @@ public class AppController {
         if (file != null) {
             savePath = file.toPath();
             System.out.println(savePath);
+            //Start a new thread
             new Thread(() -> {
                 try {
                     TodoData.getInstance().exportTodoItemsCSV(savePath);
@@ -548,6 +609,12 @@ public class AppController {
 
     }
 
+    /**
+     * Import items from a file and add all the items from a specified path from
+     * the user by overwriting the existing items
+     *
+     * @throws IOException
+     */
     @FXML
     public void handleImportMSF() throws IOException {
         Path loadPath;
@@ -569,6 +636,12 @@ public class AppController {
 
     }
 
+    /**
+     * Merge items from a file and add all the items from a specified path from
+     * the user by adding them to the existing items
+     *
+     * @throws IOException
+     */
     @FXML
     public void handleMerge() throws IOException {
         Path loadPath;
@@ -589,8 +662,12 @@ public class AppController {
 
     }
 
+    /**
+     * Opens a new panel allowing the user to select multiple items to delete or
+     * export to a path specified by the user
+     */
     @FXML
-    public void handleExportMultiple() {
+    public void handleSelectMultiple() {
 
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.initOwner(mainBorderPane.getScene().getWindow());
@@ -599,7 +676,7 @@ public class AppController {
         dialog.setHeaderText("Select items.");
 
         FXMLLoader fxmlOption = new FXMLLoader();
-        fxmlOption.setLocation(getClass().getResource("selectiveExport.fxml"));
+        fxmlOption.setLocation(getClass().getResource("multipleSelection.fxml"));
 
         try {
             dialog.getDialogPane().setContent(fxmlOption.load());
@@ -614,7 +691,7 @@ public class AppController {
         dialog.getDialogPane().getButtonTypes().add(1, del);
         dialog.getDialogPane().getButtonTypes().add(2, exp);
 
-        final SelectiveExportController controller = fxmlOption.getController();
+        final MultipleSelectionController controller = fxmlOption.getController();
 
         final Button btEXP = (Button) dialog.getDialogPane().lookupButton(exp);
         btEXP.addEventFilter(
@@ -646,6 +723,7 @@ public class AppController {
             if (file != null) {
                 savePath = file.toPath();
                 System.out.println(savePath);
+                //Start a new thread
                 new Thread(() -> {
                     try {
                         TodoData.getInstance().exportTodoItemsMSF(savePath, controller.getSelectedItems());
@@ -670,11 +748,7 @@ public class AppController {
             Optional<ButtonType> warning = alert.showAndWait();
             if (result.isPresent() && warning.get() == ButtonType.YES) {
                 System.out.println(items.size());
-                items.forEach((item)->TodoData.getInstance().deleteTodoItem(item));
-                /*for (TodoItem item : items) {
-                    System.out.println("deleting "+item.getShortDescription());
-                    TodoData.getInstance().deleteTodoItem(item);
-                }*/
+                items.forEach((item) -> TodoData.getInstance().deleteTodoItem(item));
                 saveAll();
             }
         } else {
@@ -683,6 +757,9 @@ public class AppController {
 
     }
 
+    /**
+     * On confirmation form an alert panel, delete all the items
+     */
     @FXML
     public void handleTruncate() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -701,6 +778,9 @@ public class AppController {
         }
     }
 
+    /**
+     * Opens the preference panel, and apply and save the changes
+     */
     @FXML
     public void handlePreference() {
         TodoItem selectedItem = todoListView.getSelectionModel().getSelectedItem();
@@ -742,6 +822,9 @@ public class AppController {
 
     }
 
+    /**
+     * Open the about panel
+     */
     @FXML
     public void handleAbout() {
 
@@ -761,6 +844,9 @@ public class AppController {
 
     }
 
+    /**
+     * Open the support panel
+     */
     @FXML
     public void handleSupport() {
 
@@ -780,6 +866,9 @@ public class AppController {
 
     }
 
+    /**
+     * exit the application safely
+     */
     @FXML
     public void handleExit() {
         Platform.exit();

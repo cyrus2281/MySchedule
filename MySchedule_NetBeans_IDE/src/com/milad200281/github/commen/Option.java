@@ -1,4 +1,10 @@
-package com.milad200281.github.commen;
+/**
+*MySchedule 
+*Author: Milad Mobini
+*Last Modified: 2021/1
+* GitHub: https://github.com/milad200281/MySchedule
+* License available at legal folder
+*/package com.milad200281.github.commen;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -11,12 +17,9 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 /**
-*MySchedule 
-*Author: Milad Mobini
-*Last Modified: 2021/1
-* GitHub: https://github.com/milad200281/MySchedule
-* License available at legal folder
-*/
+ * @author Milad Mobini
+ * This class will handle all the customizable features and saving them
+ */
 public class Option implements Serializable {
 
     private final long SerialVersionUID = 123456789L;
@@ -56,16 +59,22 @@ public class Option implements Serializable {
         tomorrowItems = 0;
     }
 
+    /**
+     * @return an instance of the option class
+     */
     public static Option getInstance() {
         return instance;
     }
-
+    /**
+     * The method is responsible for reading data from a file
+     * @return true on success and false on failure
+     * @throws IOException 
+     */
     public boolean loadOption() throws IOException {
         try (ObjectInputStream locFile = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filename)))) {
             boolean eof = false;
             while (!eof) {
                 try {
-
                     String option = (String) locFile.readObject();
                     if (option != null) {
                         String[] opt = option.split(";");
@@ -79,7 +88,6 @@ public class Option implements Serializable {
                         dateFormat = opt[7];
                         popUp = Boolean.parseBoolean(opt[8]);
                     }
-
                 } catch (EOFException e) {
                     eof = true;
                 }
@@ -91,10 +99,12 @@ public class Option implements Serializable {
         } catch (ClassNotFoundException e) {
             System.out.println("ClassNotFoundException " + e.getMessage());
             return false;
-
         }
     }
-
+/**
+ * This method save all the customizable options to a file
+ * @throws IOException 
+ */
     public void saveOption() throws IOException {
         synchronized (this) {
             try (ObjectOutputStream locFile = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(filename)))) {

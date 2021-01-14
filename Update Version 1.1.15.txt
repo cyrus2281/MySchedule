@@ -2,15 +2,15 @@
 ===     Current Version    ===
 =======================
 
-Update Version 1.1.14:
-	Logo added
-	UI updated
-	Multiple delete added
-	shortkey updated
+Update Version 1.1.15:
+	Documentation updated
 
 =======================
 ===     Version History     ===
 =======================
+
+Version 1.1.15:
+	Documentation updated
 
 Version 1.1.14:
 	Logo added

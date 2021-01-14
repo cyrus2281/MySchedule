@@ -1,4 +1,10 @@
-
+/**
+ *MySchedule
+ *Author: Milad Mobini
+ *Last Modified: 2021/1
+ * GitHub: https://github.com/milad200281/MySchedule
+ * License available at legal folder
+ */
 package com.milad200281.github.ui;
 
 import com.milad200281.github.commen.Option;
@@ -8,12 +14,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 
 /**
-*MySchedule 
-*Author: Milad Mobini
-*Last Modified: 2021/1
-* GitHub: https://github.com/milad200281/MySchedule
-* License available at legal folder
-*/
+ * This class is the controller for the preference page
+ *
+ * @author Milad Mobini
+ */
 public class PreferenceController {
 
     @FXML
@@ -35,6 +39,9 @@ public class PreferenceController {
     @FXML
     CheckBox popUp;
 
+    /**
+     * initialize the page by setting the values from option class
+     */
     public void initialize() {
 
         futureColorPicker.setValue(javafx.scene.paint.Color.valueOf(Option.getInstance().getColorFuture()));
@@ -56,6 +63,9 @@ public class PreferenceController {
         }
     }
 
+    /**
+     * write the values to the option class variables
+     */
     public void setValues() {
         Option.getInstance().setColorPast(pastColorPicker.getValue().toString());
         Option.getInstance().setColorToday(todayColorPicker.getValue().toString());
@@ -77,6 +87,9 @@ public class PreferenceController {
         }
     }
 
+    /**
+     * Set the value to the default values
+     */
     @FXML
     public void handleRestoreDefault() {
         futureColorPicker.setValue(javafx.scene.paint.Color.valueOf("#000000"));

@@ -1,3 +1,9 @@
+/**
+ * MySchedule Author: Milad Mobini
+ * Last Modified: 2021/1 GitHub:
+ * https://github.com/milad200281/MySchedule
+ * License available at legal folder
+ */
 package com.milad200281.github.ui;
 
 import com.milad200281.github.commen.Option;
@@ -15,15 +21,20 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
-*MySchedule 
-*Author: Milad Mobini
-*Last Modified: 2021/1
-* GitHub: https://github.com/milad200281/MySchedule
-* License available at legal folder
-*/
+ * This the main class the starts the main stage
+ *
+ * @author Milad Mobini
+ * @version 1.1.15
+ * @since JDK 1.8u271
+ */
 public class Main extends Application {
 
-    //The Application
+    /**
+     * runs at the start of the application
+     *
+     * @param primaryStage
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -37,6 +48,11 @@ public class Main extends Application {
         popUpNotification();
     }
 
+    /**
+     * initialize the program
+     *
+     * @throws Exception
+     */
     @Override
     public void init() throws Exception {
         try {
@@ -47,10 +63,20 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * Main method
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     * runs when the application is closed
+     *
+     * @throws Exception
+     */
     @Override
     public void stop() throws Exception {
         try {
@@ -61,6 +87,10 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * This method handle the pop-up notification at the opening stage of the
+     * application
+     */
     public void popUpNotification() {
         if (Option.getInstance().isPopUp()) {
             if (TodoData.getInstance().getTodoItems().size() >= 1) {

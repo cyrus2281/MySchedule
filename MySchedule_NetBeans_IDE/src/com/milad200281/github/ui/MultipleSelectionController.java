@@ -1,7 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ *MySchedule
+ *Author: Milad Mobini
+ *Last Modified: 2021/1
+ * GitHub: https://github.com/milad200281/MySchedule
+ * License available at legal folder
  */
 package com.milad200281.github.ui;
 
@@ -10,7 +12,6 @@ import com.milad200281.github.commen.TodoData;
 import com.milad200281.github.commen.TodoItem;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
@@ -22,19 +23,20 @@ import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
 /**
-*MySchedule 
-*Author: Milad Mobini
-*Last Modified: 2021/1
-* GitHub: https://github.com/milad200281/MySchedule
-* License available at legal folder
-*/
-public class SelectiveExportController {
+ * This class is a controller for the Multiple selection page
+ *
+ * @author Milad Mobini
+ */
+public class MultipleSelectionController {
 
     @FXML
     private ListView<TodoItem> todoListView;
     @FXML
     private Label labelText;
 
+    /**
+     * initialize the page by printing the items to the view list in date order
+     */
     public void initialize() {
         todoListView.getSelectionModel()
                 .setSelectionMode(SelectionMode.MULTIPLE);
@@ -79,14 +81,20 @@ public class SelectiveExportController {
         todoListView.setItems(sortedList);
     }
 
+    /**
+     * @return a list of all the selected items
+     */
     public ArrayList<TodoItem> getSelectedItems() {
         ArrayList<TodoItem> lists = new ArrayList<>();
-        for(TodoItem item :todoListView.getSelectionModel().getSelectedItems()){
+        for (TodoItem item : todoListView.getSelectionModel().getSelectedItems()) {
             lists.add(item);
         }
         return lists;
     }
 
+    /**
+     * Changes the label text based on the number of selected items
+     */
     @FXML
     public void onMouseClick() {
         labelText.setTextFill(Color.BLACK);
@@ -101,6 +109,11 @@ public class SelectiveExportController {
         }
     }
 
+    /**
+     * validate if any item has been selected
+     *
+     * @return true if at least one item is selected, false if non is selected
+     */
     public boolean checkValidation() {
         labelText.setText("");
         labelText.setStyle("-fx-font-size: 22");

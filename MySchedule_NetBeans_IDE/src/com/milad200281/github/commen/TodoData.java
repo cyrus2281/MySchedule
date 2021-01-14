@@ -1,3 +1,10 @@
+/**
+ *MySchedule
+ *Author: Milad Mobini
+ *Last Modified: 2021/1
+ * GitHub: https://github.com/milad200281/MySchedule
+ * License available at legal folder
+ */
 package com.milad200281.github.commen;
 
 import com.milad200281.github.commen.TodoItem;
@@ -29,13 +36,12 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.FileChooser;
+
 /**
-*MySchedule 
-*Author: Milad Mobini
-*Last Modified: 2021/1
-* GitHub: https://github.com/milad200281/MySchedule
-* License available at legal folder
-*/
+ * This class handle the main data used in the application
+ *
+ * @author Milad Mobini
+ */
 public class TodoData {
 
     private static TodoData instance = new TodoData();
@@ -45,18 +51,32 @@ public class TodoData {
     private DateTimeFormatter formatter;
     private TodoItem firstTodayItem;
 
+    /**
+     * @return an instance of the class variable
+     */
     public static TodoData getInstance() {
         return instance;
     }
 
+    /**
+     * default constructor setting the date format
+     */
     private TodoData() {
         formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     }
 
+    /**
+     * @return the items list
+     */
     public ObservableList<TodoItem> getTodoItems() {
         return todoItems;
     }
 
+    /**
+     * adds the item to the list if it is not already there
+     *
+     * @param item item that want to be added to the list
+     */
     public void addTodoItem(TodoItem item) {
 
         boolean notContain = true;
@@ -74,6 +94,12 @@ public class TodoData {
         }
     }
 
+    /**
+     * This method will read the list from the file
+     *
+     * @return true on succuss, false on failure
+     * @throws IOException
+     */
     public boolean loadTodoItems() throws IOException {
 
         todoItems = FXCollections.observableArrayList();
@@ -89,7 +115,7 @@ public class TodoData {
                     todoItems.add(item);
                     if (item.getDeadline().isEqual(LocalDate.now())) {
                         todayNum++;
-                        if(firstTodayItem == null){
+                        if (firstTodayItem == null) {
                             firstTodayItem = item;
                         }
                     } else if (item.getDeadline().equals(LocalDate.now().plusDays(1))) {
@@ -112,6 +138,11 @@ public class TodoData {
         }
     }
 
+    /**
+     * This method will write the list to a file
+     *
+     * @throws IOException
+     */
     public void storeTodoItems() throws IOException {
         synchronized (this) {
             try (ObjectOutputStream locFile = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(filename)))) {
@@ -122,6 +153,12 @@ public class TodoData {
         }
     }
 
+    /**
+     * This method will write all the list in a CSV format
+     *
+     * @param path the path to where it's going to be exported
+     * @throws IOException
+     */
     public void exportTodoItemsCSV(Path path) throws IOException {
         synchronized (this) {
             DateTimeFormatter df = DateTimeFormatter.ofPattern("MMMM d, yyyy");
@@ -145,6 +182,13 @@ public class TodoData {
 
     }
 
+    /**
+     * This method will export a list of items to a file
+     *
+     * @param path path to where it's going to be exported
+     * @param items The list of the item that are going to be exported
+     * @throws IOException
+     */
     public void exportTodoItemsMSF(Path path, List<TodoItem> items) throws IOException {
         synchronized (this) {
             try (ObjectOutputStream locFile = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(path.toString())))) {
@@ -155,6 +199,12 @@ public class TodoData {
         }
     }
 
+    /**
+     * This method will import items from a file by over-writing the existing
+     * list
+     *
+     * @param path path of the existing file
+     */
     public void importTodoItemsMSF(Path path) {
         todoItems.clear();
         todoItems = FXCollections.observableArrayList();
@@ -181,6 +231,12 @@ public class TodoData {
 
     }
 
+    /**
+     * This method will merge items from a file by adding them to the existing
+     * list
+     *
+     * @param path path of the existing file
+     */
     public void MergeTodoItemsMSF(Path path) {
         try (ObjectInputStream locFile = new ObjectInputStream(new BufferedInputStream(new FileInputStream(path.toString())))) {
             boolean eof = false;
@@ -192,35 +248,35 @@ public class TodoData {
                     eof = true;
                 }
             }
-
         } catch (IOException io) {
             System.out.println("IO Exception" + io.getMessage());
         } catch (ClassNotFoundException e) {
             System.out.println("ClassNotFoundException " + e.getMessage());
-
         }
     }
 
+    /**
+     * Delete an item from the list
+     *
+     * @param item item to be deleted
+     */
     public void deleteTodoItem(TodoItem item) {
         todoItems.remove(item);
     }
 
+    /**
+     * delete all items from the list
+     */
     public void deleteAll() {
         todoItems.clear();
     }
 
-    public void editItem(TodoItem oldItem, TodoItem newItem) {
-        oldItem.setShortDescription(newItem.getShortDescription());
-        oldItem.setDetails(newItem.getDetails());
-        oldItem.setDeadline(newItem.getDeadline());
-    }
-
+    /**
+     * returns, if any, the first item that is due to today
+     *
+     * @return item due to today
+     */
     public TodoItem getFirstTodayItem() {
         return firstTodayItem;
     }
-
-    public void setFirstTodayItem(TodoItem firstTodayItem) {
-        this.firstTodayItem = firstTodayItem;
-    }
-    
 }

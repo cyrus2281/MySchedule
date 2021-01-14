@@ -12,7 +12,8 @@
 * GitHub: https://github.com/milad200281/MySchedule
 * License available at legal folder
 -->
-<BorderPane fx:id="supportGridPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.milad200281.github.ui.SelectiveExportController">
+<BorderPane fx:id="supportGridPane" xmlns="http://javafx.com/javafx/11.0.1" 
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.milad200281.github.ui.MultipleSelectionController">
    <top>
     <Label alignment="center" text="Hold Control key to select multiple items.">
         <font>
