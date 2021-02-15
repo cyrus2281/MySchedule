@@ -87,7 +87,7 @@ public class AppController {
      * runs at once and at the start of the page
      */
     public void initialize() {
-        //right click option menues
+        // right click option menues
         listContextMenu = new ContextMenu();
         MenuItem deleteMenuItem = new MenuItem("Delete");
         MenuItem editMenuItem = new MenuItem("Edit");
@@ -128,7 +128,7 @@ public class AppController {
         deleteButton.setDisable(true);
         listContextMenu.getItems().addAll(editMenuItem, exportMenuItem, deleteMenuItem);
 
-        //listener on changing selection on the todoListView
+        // listener on changing selection on the todoListView
         todoListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TodoItem>() {
             @Override
             public void changed(ObservableValue<? extends TodoItem> observable, TodoItem oldValue, TodoItem newValue) {
@@ -154,9 +154,8 @@ public class AppController {
                     truncateMenuItem.setDisable(false);
                 }
             }
-        }
-        );
-        //creating filters
+        });
+        // creating filters
         wantAllItems = (TodoItem todoItem) -> true;
         wantTodaysItems = (TodoItem todoItem) -> todoItem.getDeadline().equals(LocalDate.now());
         wantTomorrowItems = (TodoItem todoItem) -> todoItem.getDeadline().equals(LocalDate.now().plusDays(1));
@@ -168,24 +167,18 @@ public class AppController {
             }
             return false;
         };
-        //do the sorting the display the items on the list
+        // do the sorting the display the items on the list
         sorting();
-        todoListView.getSelectionModel()
-                .setSelectionMode(SelectionMode.SINGLE);
-        if (TodoData.getInstance()
-                .getFirstTodayItem() != null) {
-            todoListView.getSelectionModel()
-                    .select(TodoData.getInstance().getFirstTodayItem());
+        todoListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        if (TodoData.getInstance().getFirstTodayItem() != null) {
+            todoListView.getSelectionModel().select(TodoData.getInstance().getFirstTodayItem());
         } else {
-            todoListView.getSelectionModel()
-                    .selectFirst();
+            todoListView.getSelectionModel().selectFirst();
         }
-        //Listener on click on the list
-        todoListView.setCellFactory(
-                new Callback<ListView<TodoItem>, ListCell<TodoItem>>() {
+        // Listener on click on the list
+        todoListView.setCellFactory(new Callback<ListView<TodoItem>, ListCell<TodoItem>>() {
             @Override
-            public ListCell<TodoItem> call(ListView<TodoItem> param
-            ) {
+            public ListCell<TodoItem> call(ListView<TodoItem> param) {
                 ListCell<TodoItem> cell = new ListCell<TodoItem>() {
                     @Override
                     protected void updateItem(TodoItem item, boolean empty) {
@@ -211,19 +204,16 @@ public class AppController {
                         }
                     }
                 };
-                cell.emptyProperty().addListener(
-                        (obs, wasEmpty, isNowEmpty) -> {
-                            if (isNowEmpty) {
-                                cell.setContextMenu(null);
-                            } else {
-                                cell.setContextMenu(listContextMenu);
-                            }
-                        }
-                );
+                cell.emptyProperty().addListener((obs, wasEmpty, isNowEmpty) -> {
+                    if (isNowEmpty) {
+                        cell.setContextMenu(null);
+                    } else {
+                        cell.setContextMenu(listContextMenu);
+                    }
+                });
                 return cell;
             }
-        }
-        );
+        });
 
     }
 
@@ -232,7 +222,8 @@ public class AppController {
      */
     public void sorting() {
         filteredList = new FilteredList<>(TodoData.getInstance().getTodoItems(), wantAllItems);
-        sortedList = new SortedList<>(filteredList, (TodoItem o1, TodoItem o2) -> o1.getDeadline().compareTo(o2.getDeadline()));
+        sortedList = new SortedList<>(filteredList,
+                (TodoItem o1, TodoItem o2) -> o1.getDeadline().compareTo(o2.getDeadline()));
         todoListView.setItems(sortedList);
     }
 
@@ -282,7 +273,7 @@ public class AppController {
             showNewItemDialog();
         }
         if (keyEvent.isControlDown() && (keyEvent.getCode() == KeyCode.D)) {
-            System.out.println("Ctrl+T");
+            System.out.println("Ctrl+D");
             handleExportCSV();
         }
         if (keyEvent.isControlDown() && (keyEvent.getCode() == KeyCode.T)) {
@@ -355,8 +346,8 @@ public class AppController {
     }
 
     /**
-     * Bring up a panel for editing an item Edits an item, by creating a new
-     * version of it and deleting the old one
+     * Bring up a panel for editing an item Edits an item, by creating a new version
+     * of it and deleting the old one
      *
      * @param oldItem item to be edited
      */
@@ -386,14 +377,11 @@ public class AppController {
         controller.proccessEdit(oldItem);
 
         final Button btApply = (Button) dialog.getDialogPane().lookupButton(ButtonType.APPLY);
-        btApply.addEventFilter(
-                ActionEvent.ACTION,
-                event -> {
-                    if (controller.validation()) {
-                        event.consume();
-                    }
-                }
-        );
+        btApply.addEventFilter(ActionEvent.ACTION, event -> {
+            if (controller.validation()) {
+                event.consume();
+            }
+        });
 
         Optional<ButtonType> result = dialog.showAndWait();
 
@@ -433,14 +421,11 @@ public class AppController {
 
         final TodoItemDialogController controller = fxmlLoader.getController();
         final Button btOk = (Button) dialog.getDialogPane().lookupButton(ButtonType.OK);
-        btOk.addEventFilter(
-                ActionEvent.ACTION,
-                event -> {
-                    if (controller.validation()) {
-                        event.consume();
-                    }
-                }
-        );
+        btOk.addEventFilter(ActionEvent.ACTION, event -> {
+            if (controller.validation()) {
+                event.consume();
+            }
+        });
 
         Optional<ButtonType> result = dialog.showAndWait();
 
@@ -566,7 +551,7 @@ public class AppController {
         if (file != null) {
             savePath = file.toPath();
             System.out.println(savePath);
-            //Start a new thread
+            // Start a new thread
             new Thread(() -> {
                 try {
                     TodoData.getInstance().exportTodoItemsMSF(savePath, TodoData.getInstance().getTodoItems());
@@ -595,7 +580,7 @@ public class AppController {
         if (file != null) {
             savePath = file.toPath();
             System.out.println(savePath);
-            //Start a new thread
+            // Start a new thread
             new Thread(() -> {
                 try {
                     TodoData.getInstance().exportTodoItemsCSV(savePath);
@@ -610,8 +595,8 @@ public class AppController {
     }
 
     /**
-     * Import items from a file and add all the items from a specified path from
-     * the user by overwriting the existing items
+     * Import items from a file and add all the items from a specified path from the
+     * user by overwriting the existing items
      *
      * @throws IOException
      */
@@ -637,8 +622,8 @@ public class AppController {
     }
 
     /**
-     * Merge items from a file and add all the items from a specified path from
-     * the user by adding them to the existing items
+     * Merge items from a file and add all the items from a specified path from the
+     * user by adding them to the existing items
      *
      * @throws IOException
      */
@@ -694,23 +679,17 @@ public class AppController {
         final MultipleSelectionController controller = fxmlOption.getController();
 
         final Button btEXP = (Button) dialog.getDialogPane().lookupButton(exp);
-        btEXP.addEventFilter(
-                ActionEvent.ACTION,
-                event -> {
-                    if (controller.checkValidation()) {
-                        event.consume();
-                    }
-                }
-        );
+        btEXP.addEventFilter(ActionEvent.ACTION, event -> {
+            if (controller.checkValidation()) {
+                event.consume();
+            }
+        });
         final Button btdel = (Button) dialog.getDialogPane().lookupButton(del);
-        btdel.addEventFilter(
-                ActionEvent.ACTION,
-                event -> {
-                    if (controller.checkValidation()) {
-                        event.consume();
-                    }
-                }
-        );
+        btdel.addEventFilter(ActionEvent.ACTION, event -> {
+            if (controller.checkValidation()) {
+                event.consume();
+            }
+        });
         Optional<ButtonType> result = dialog.showAndWait();
 
         if (result.isPresent() && result.get() == exp) {
@@ -723,7 +702,7 @@ public class AppController {
             if (file != null) {
                 savePath = file.toPath();
                 System.out.println(savePath);
-                //Start a new thread
+                // Start a new thread
                 new Thread(() -> {
                     try {
                         TodoData.getInstance().exportTodoItemsMSF(savePath, controller.getSelectedItems());

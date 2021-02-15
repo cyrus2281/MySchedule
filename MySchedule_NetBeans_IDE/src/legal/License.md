@@ -8,4 +8,4 @@ The application “MySchedule” was inspired by the need of synchronization amo
 Any use, modify, or update of the code should be also publicly shared and available open source.
 Any commit to the main branch without the permission of the creator is prohibited.
 
-A great thank you to Tim Buchalka for the Udemy course “Java Programming Masterclass for Software Developers” and providing the needed knowledge, requirments, and the basic code for creating this application.
+A great thank you to Tim Buchalka for the Udemy course “Java Programming Masterclass for Software Developers” and providing the needed knowledge, requirements, and the basic code for creating this application.
