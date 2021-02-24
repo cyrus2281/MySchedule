@@ -31,7 +31,7 @@ public class AboutAndSupportController {
      */
     public void initialize() {
 
-        Image img = new Image("/com/milad200281/github/icons/MyScheduleLogo.png");
+        Image img = new Image("/com/milad2281/github/icons/MyScheduleLogo.png");
         ImageView view = new ImageView(img);
         msLabel.setGraphic(view);
     }
@@ -42,7 +42,7 @@ public class AboutAndSupportController {
     @FXML
     public void handleLinkLicense() {
         try {
-            Desktop.getDesktop().browse(new URI("https://github.com/milad200281/MySchedule/blob/main/License.md"));
+            Desktop.getDesktop().browse(new URI("https://github.com/milad2281/MySchedule/blob/main/License.md"));
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
