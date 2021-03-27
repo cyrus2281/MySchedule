@@ -8,11 +8,11 @@
 <!--
 *MySchedule 
 *Author: Milad Mobini
-*Last Modified: 2021/1
-* GitHub: https://github.com/milad200281/MySchedule
+*Last Modified: 2021/3
+* GitHub: https://github.com/milad2281/MySchedule
 * License available at legal folder
 -->
-<DialogPane     fx:controller="com.milad200281.github.ui.TodoItemDialogController"
+<DialogPane     fx:controller="com.milad2281.github.ui.TodoItemDialogController"
                 xmlns:fx="http://javafx.com/fxml" >
     <headerText>
 

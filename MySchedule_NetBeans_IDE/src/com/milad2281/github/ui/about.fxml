@@ -14,19 +14,19 @@
 <!--
 *MySchedule 
 *Author: Milad Mobini
-*Last Modified: 2021/1
-* GitHub: https://github.com/milad200281/MySchedule
+*Last Modified: 2021/3
+* GitHub: https://github.com/milad2281/MySchedule
 * License available at legal folder
 -->
 <GridPane fx:id="aboutGridPane" alignment="center" vgap="10" xmlns="http://javafx.com/javafx/11.0.1"
-          xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.milad200281.github.ui.AboutAndSupportController">   
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.milad2281.github.ui.AboutAndSupportController">   
     <HBox GridPane.rowIndex="0" GridPane.columnIndex="1" alignment="center">
         <Label fx:id="msLabel" text="MySchedule 2021" >
         </Label>
     </HBox>
     <Label text="Creator: Milad Mobini" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-    <Label text="Version: 1.1.15" GridPane.columnIndex="1" GridPane.rowIndex="3"/>  
-    <Label text="Last Updated: 2021/1" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+    <Label text="Version: 1.2.15" GridPane.columnIndex="1" GridPane.rowIndex="3"/>  
+    <Label text="Last Updated: 2021/3" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
     <HBox GridPane.rowIndex="5" GridPane.columnIndex="1" alignment="center_left">
         <Label text="Click Here for" />
         <Hyperlink onAction="#handleLinkLicense" text="License" />

@@ -2,12 +2,15 @@
 ===     Current Version    ===
 =======================
 
-Update Version 1.1.15:
-	Documentation updated
+Update Version 1.2.15:
+	Packaging updated
 
 =======================
 ===     Version History     ===
 =======================
+
+Version 1.2.15:
+	Packaging updated
 
 Version 1.1.15:
 	Documentation updated

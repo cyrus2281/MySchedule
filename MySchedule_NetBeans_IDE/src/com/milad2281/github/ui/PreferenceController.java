@@ -1,13 +1,13 @@
 /**
  *MySchedule
  *Author: Milad Mobini
- *Last Modified: 2021/1
- * GitHub: https://github.com/milad200281/MySchedule
+ *Last Modified: 2021/3
+ * GitHub: https://github.com/milad2281/MySchedule
  * License available at legal folder
  */
-package com.milad200281.github.ui;
+package com.milad2281.github.ui;
 
-import com.milad200281.github.commen.Option;
+import com.milad2281.github.data.Option;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
 import javafx.fxml.FXML;

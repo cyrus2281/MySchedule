@@ -1,13 +1,14 @@
 /**
  * MySchedule Author: Milad Mobini
- * Last Modified: 2021/1 GitHub:
- * https://github.com/milad200281/MySchedule
+ * Last Modified: 2021/3 GitHub:
+ * https://github.com/milad2281/MySchedule
  * License available at legal folder
  */
-package com.milad200281.github.ui;
+package com.milad2281.github;
 
-import com.milad200281.github.commen.Option;
-import com.milad200281.github.commen.TodoData;
+import com.milad2281.github.data.Option;
+import com.milad2281.github.data.TodoData;
+import com.milad2281.github.ui.*;
 import java.io.IOException;
 import java.util.Optional;
 import javafx.application.Application;
@@ -24,7 +25,7 @@ import javafx.stage.Stage;
  * This the main class the starts the main stage
  *
  * @author Milad Mobini
- * @version 1.1.15
+ * @version 1.2.15
  * @since JDK 1.8u271
  */
 public class Main extends Application {
@@ -38,11 +39,11 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Parent root = FXMLLoader.load(getClass().getResource("application.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("ui/application.fxml"));
         //this line will choose the template
         setUserAgentStylesheet(STYLESHEET_MODENA);
         primaryStage.setTitle("MySchedule");
-        primaryStage.getIcons().add(new Image("/com/milad200281/github/icons/MyScheduleLogo.png"));
+        primaryStage.getIcons().add(new Image("/com/milad2281/github/icons/MyScheduleLogo.png"));
         primaryStage.setScene(new Scene(root, 900, 500));
         primaryStage.show();
         popUpNotification();
