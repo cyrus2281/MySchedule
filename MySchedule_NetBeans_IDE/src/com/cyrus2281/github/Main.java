@@ -1,18 +1,20 @@
 /**
- * MySchedule Author: Milad Mobini
+ * MySchedule Author: Cyrus Mobini
  * Last Modified: 2021/3 GitHub:
- * https://github.com/milad2281/MySchedule
+ * https://github.com/cyrus2281/MySchedule
  * License available at legal folder
  */
-package com.milad2281.github;
+package com.cyrus2281.github;
 
-import com.milad2281.github.data.Option;
-import com.milad2281.github.data.TodoData;
-import com.milad2281.github.ui.*;
+import com.cyrus2281.github.data.Option;
+import com.cyrus2281.github.data.TodoData;
+import com.cyrus2281.github.util.TrayNotification;
+import java.awt.AWTException;
 import java.io.IOException;
 import java.util.Optional;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
@@ -24,7 +26,7 @@ import javafx.stage.Stage;
 /**
  * This the main class the starts the main stage
  *
- * @author Milad Mobini
+ * @author Cyrus Mobini
  * @version 1.2.15
  * @since JDK 1.8u271
  */
@@ -43,7 +45,7 @@ public class Main extends Application {
         //this line will choose the template
         setUserAgentStylesheet(STYLESHEET_MODENA);
         primaryStage.setTitle("MySchedule");
-        primaryStage.getIcons().add(new Image("/com/milad2281/github/icons/MyScheduleLogo.png"));
+        primaryStage.getIcons().add(new Image("/com/cyrus2281/github/icons/MyScheduleLogo.png"));
         primaryStage.setScene(new Scene(root, 900, 500));
         primaryStage.show();
         popUpNotification();
@@ -126,6 +128,16 @@ public class Main extends Application {
                 }
                 alert.setContentText(strOne + "\n" + strTwo);
                 Optional<ButtonType> result = alert.showAndWait();
+                new Thread(() -> {
+                    TrayNotification tr = new TrayNotification("Test One", "You have no items due today");
+                    try {
+                        tr.displayTray();
+                         return;
+                    } catch (AWTException ex) {
+                        System.out.println("Error while open tray notification" + ex.getMessage());
+                    }
+                }).start();
+
             }
         }
     }

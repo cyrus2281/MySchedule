@@ -1,13 +1,13 @@
 /**
  *MySchedule
- *Author: Milad Mobini
+ *Author: Cyrus Mobini
  *Last Modified: 2021/3
- * GitHub: https://github.com/milad2281/MySchedule
+ * GitHub: https://github.com/cyrus2281/MySchedule
  * License available at legal folder
  */
-package com.milad2281.github.ui;
+package com.cyrus2281.github.ui;
 
-import com.milad2281.github.data.Option;
+import com.cyrus2281.github.data.Option;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
 import javafx.fxml.FXML;
@@ -16,7 +16,7 @@ import javafx.scene.control.CheckBox;
 /**
  * This class is the controller for the preference page
  *
- * @author Milad Mobini
+ * @author Cyrus Mobini
  */
 public class PreferenceController {
 

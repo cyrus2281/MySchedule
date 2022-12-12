@@ -22,13 +22,13 @@
 <?import javafx.scene.text.Font?>
 <!--
 *MySchedule 
-*Author: Milad Mobini
+*Author: Cyrus Mobini
 *Last Modified: 2021/3
-* GitHub: https://github.com/milad2281/MySchedule
+* GitHub: https://github.com/cyrus2281/MySchedule
 * License available at legal folder
 -->
 <BorderPane fx:id="mainBorderPane" onKeyPressed="#handleKeyPressed" xmlns="http://javafx.com/javafx/11.0.1" 
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.milad2281.github.ui.AppController">
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cyrus2281.github.ui.AppController">
     <top>
         <VBox>
             <HBox>
@@ -81,14 +81,14 @@
                         <MenuItem onAction="#handlePreference" text="Preference              Ctrl+P" >
                             <graphic>
                                 <ImageView>
-                                    <Image url="@/com/milad2281/github/icons/configuration.png" />
+                                    <Image url="@/com/cyrus2281/github/icons/configuration.png" />
                                 </ImageView>
                             </graphic>
                         </MenuItem>
                         <MenuItem onAction="#handleExit" text="Exit                         Esc" >
                             <graphic>
                                 <ImageView>
-                                    <Image url="@/com/milad2281/github/icons/exit.png" />
+                                    <Image url="@/com/cyrus2281/github/icons/exit.png" />
                                 </ImageView>
                             </graphic>
                         </MenuItem>

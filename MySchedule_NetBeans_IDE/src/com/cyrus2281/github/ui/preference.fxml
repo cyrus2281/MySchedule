@@ -16,12 +16,12 @@
 
 <!--
 *MySchedule 
-*Author: Milad Mobini
+*Author: Cyrus Mobini
 *Last Modified: 2021/3
-* GitHub: https://github.com/milad2281/MySchedule
+* GitHub: https://github.com/cyrus2281/MySchedule
 * License available at legal folder
 -->
-<GridPane alignment="center" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.milad2281.github.ui.PreferenceController">   
+<GridPane alignment="center" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cyrus2281.github.ui.PreferenceController">   
     
     <Label text="Preference:" GridPane.columnIndex="0" GridPane.rowIndex="0">
         <font>

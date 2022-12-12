@@ -1,12 +1,12 @@
 /**
- * MySchedule Author: Milad Mobini Last Modified: 2021/3 GitHub:
- * https://github.com/milad2281/MySchedule License available at legal folder
+ * MySchedule Author: Cyrus Mobini Last Modified: 2021/3 GitHub:
+ * https://github.com/cyrus2281/MySchedule License available at legal folder
  */
-package com.milad2281.github.ui;
+package com.cyrus2281.github.ui;
 
-import com.milad2281.github.data.Option;
-import com.milad2281.github.data.TodoData;
-import com.milad2281.github.data.TodoItem;
+import com.cyrus2281.github.data.Option;
+import com.cyrus2281.github.data.TodoData;
+import com.cyrus2281.github.data.TodoItem;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -16,8 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -49,7 +47,7 @@ import javafx.util.Callback;
  * This is controller class for the main page, and responsible for most of the
  * events in the application
  *
- * @author Milad Mobini
+ * @author Cyrus Mobini
  */
 public class AppController {
 
@@ -849,8 +847,19 @@ public class AppController {
      * exit the application safely
      */
     @FXML
-    public void handleExit() {
-        Platform.exit();
+    public void handleExit() throws IOException {
+            Platform.exit();
+            TodoData.getInstance().storeTodoItems();
+            closeApp();
+    }
+    /**
+     * Close the application completely
+     */
+    public void closeApp(){
+        new Thread(()->{
+            System.exit(0);
+    }).start();
+        
     }
 
 }

@@ -2,12 +2,15 @@
 ===     Current Version    ===
 =======================
 
-Update Version 1.2.15:
-	Packaging updated
+Update Version 2.1.0.0
+	Adding notification classes
 
 =======================
 ===     Version History     ===
 =======================
+
+Version 2.1.0.0
+	Adding notification classes
 
 Version 1.2.15:
 	Packaging updated

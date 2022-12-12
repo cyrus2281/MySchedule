@@ -1,15 +1,15 @@
 /**
  *MySchedule
- *Author: Milad Mobini
+ *Author: Cyrus Mobini
  *Last Modified: 2021/3
- * GitHub: https://github.com/milad2281/MySchedule
+ * GitHub: https://github.com/cyrus2281/MySchedule
  * License available at legal folder
  */
-package com.milad2281.github.ui;
+package com.cyrus2281.github.ui;
 
-import com.milad2281.github.ui.AppController;
-import com.milad2281.github.data.TodoData;
-import com.milad2281.github.data.TodoItem;
+import com.cyrus2281.github.ui.AppController;
+import com.cyrus2281.github.data.TodoData;
+import com.cyrus2281.github.data.TodoItem;
 import java.time.LocalDate;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
@@ -20,7 +20,7 @@ import javafx.scene.control.TextField;
 /**
  * This is the controller class for the new item/edit item page
  *
- * @author Milad Mobini
+ * @author Cyrus Mobini
  */
 public class TodoItemDialogController {
 

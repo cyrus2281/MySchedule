@@ -7,12 +7,12 @@
 <?import javafx.scene.layout.*?>
 <!--
 *MySchedule 
-*Author: Milad Mobini
+*Author: Cyrus Mobini
 *Last Modified: 2021/3
-* GitHub: https://github.com/milad2281/MySchedule
+* GitHub: https://github.com/cyrus2281/MySchedule
 * License available at legal folder
 -->
-<DialogPane     fx:controller="com.milad2281.github.ui.TodoItemDialogController"
+<DialogPane     fx:controller="com.cyrus2281.github.ui.TodoItemDialogController"
                 xmlns:fx="http://javafx.com/fxml" >
     <headerText>
 

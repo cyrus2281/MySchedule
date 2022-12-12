@@ -1,15 +1,15 @@
 /**
  *MySchedule
- *Author: Milad Mobini
+ *Author: Cyrus Mobini
  *Last Modified: 2021/3
- * GitHub: https://github.com/milad2281/MySchedule
+ * GitHub: https://github.com/cyrus2281/MySchedule
  * License available at legal folder
  */
-package com.milad2281.github.ui;
+package com.cyrus2281.github.ui;
 
-import com.milad2281.github.data.Option;
-import com.milad2281.github.data.TodoData;
-import com.milad2281.github.data.TodoItem;
+import com.cyrus2281.github.data.Option;
+import com.cyrus2281.github.data.TodoData;
+import com.cyrus2281.github.data.TodoItem;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import javafx.collections.transformation.FilteredList;
@@ -25,7 +25,7 @@ import javafx.util.Callback;
 /**
  * This class is a controller for the Multiple selection page
  *
- * @author Milad Mobini
+ * @author Cyrus Mobini
  */
 public class MultipleSelectionController {
 

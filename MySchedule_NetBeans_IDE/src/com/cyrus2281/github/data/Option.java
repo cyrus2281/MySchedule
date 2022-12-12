@@ -1,10 +1,10 @@
 /**
 *MySchedule 
-*Author: Milad Mobini
+*Author: Cyrus Mobini
 *Last Modified: 2021/3
-* GitHub: https://github.com/milad2281/MySchedule
+* GitHub: https://github.com/cyrus2281/MySchedule
 * License available at legal folder
-*/package com.milad2281.github.data;
+*/package com.cyrus2281.github.data;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -17,7 +17,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 /**
- * @author Milad Mobini
+ * @author Cyrus Mobini
  * This class will handle all the customizable features and saving them
  */
 public class Option implements Serializable {

@@ -7,13 +7,13 @@
 <?import javafx.scene.text.Font?>
 <!--
 *MySchedule 
-*Author: Milad Mobini
+*Author: Cyrus Mobini
 *Last Modified: 2021/3
-* GitHub: https://github.com/milad2281/MySchedule
+* GitHub: https://github.com/cyrus2281/MySchedule
 * License available at legal folder
 -->
 <BorderPane fx:id="supportGridPane" xmlns="http://javafx.com/javafx/11.0.1" 
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.milad2281.github.ui.MultipleSelectionController">
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cyrus2281.github.ui.MultipleSelectionController">
    <top>
     <Label alignment="center" text="Hold Control key to select multiple items.">
         <font>

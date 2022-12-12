@@ -1,11 +1,11 @@
 /**
  *MySchedule
- *Author: Milad Mobini
+ *Author: Cyrus Mobini
  *Last Modified: 2021/3
- * GitHub: https://github.com/milad2281/MySchedule
+ * GitHub: https://github.com/cyrus2281/MySchedule
  * License available at legal folder
  */
-package com.milad2281.github.data;
+package com.cyrus2281.github.data;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -14,7 +14,7 @@ import java.util.Objects;
 /**
  * This class is to create to-do items
  *
- * @author Milad Mobini
+ * @author Cyrus Mobini
  */
 public class TodoItem implements Serializable {
 

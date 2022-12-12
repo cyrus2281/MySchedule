@@ -1,10 +1,10 @@
 /**
- * MySchedule Author: Milad Mobini
+ * MySchedule Author: Cyrus Mobini
  * Last Modified: 2021/3 GitHub:
- * https://github.com/milad2281/MySchedule
+ * https://github.com/cyrus2281/MySchedule
  * License available at legal folder
  */
-package com.milad2281.github.ui;
+package com.cyrus2281.github.ui;
 
 import java.awt.Desktop;
 import java.io.IOException;
@@ -18,7 +18,7 @@ import javafx.scene.image.ImageView;
 /**
  * this class is the controller for the pages about and support
  *
- * @author Milad Mobini
+ * @author Cyrus Mobini
  *
  */
 public class AboutAndSupportController {
@@ -31,7 +31,7 @@ public class AboutAndSupportController {
      */
     public void initialize() {
 
-        Image img = new Image("/com/milad2281/github/icons/MyScheduleLogo.png");
+        Image img = new Image("/com/cyrus2281/github/icons/MyScheduleLogo.png");
         ImageView view = new ImageView(img);
         msLabel.setGraphic(view);
     }
@@ -42,7 +42,7 @@ public class AboutAndSupportController {
     @FXML
     public void handleLinkLicense() {
         try {
-            Desktop.getDesktop().browse(new URI("https://github.com/milad2281/MySchedule/blob/main/License.md"));
+            Desktop.getDesktop().browse(new URI("https://github.com/cyrus2281/MySchedule/blob/main/License.md"));
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
@@ -54,7 +54,7 @@ public class AboutAndSupportController {
     @FXML
     public void handleLinkGithub() {
         try {
-            Desktop.getDesktop().browse(new URI("https://github.com/milad2281/MySchedule"));
+            Desktop.getDesktop().browse(new URI("https://github.com/cyrus2281/MySchedule"));
         } catch (IOException | URISyntaxException e) {
             System.out.println(e.getMessage());
         }

@@ -13,13 +13,13 @@
 
 <!--
 *MySchedule 
-*Author: Milad Mobini
+*Author: Cyrus Mobini
 *Last Modified: 2021/3
-* GitHub: https://github.com/milad2281/MySchedule
+* GitHub: https://github.com/cyrus2281/MySchedule
 * License available at legal folder
 -->
 <GridPane fx:id="supportGridPane" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" 
-          xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.milad2281.github.ui.AboutAndSupportController">     
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cyrus2281.github.ui.AboutAndSupportController">     
     <HBox alignment="center" GridPane.columnIndex="1" GridPane.rowIndex="1">
         <Label fx:id="msLabel" text="MySchedule 2021" />
     </HBox>
@@ -89,7 +89,7 @@
     <Label  text="Preference: Allows you to:" GridPane.columnIndex="1" GridPane.rowIndex="9">
         <graphic>
             <ImageView>
-                <Image url="@/com/milad2281/github/icons/configuration.png" />
+                <Image url="@/com/cyrus2281/github/icons/configuration.png" />
             </ImageView>
         </graphic>
         <GridPane.margin>

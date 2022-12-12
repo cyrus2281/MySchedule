@@ -1,7 +1,7 @@
 #License
 
-This code has been initially created and developed by Milad Mobini and provided completely open source.
-Publicly shared at: https://github.com/milad200281/MySchedule
+This code has been initially created and developed by Cyrus Mobini and provided completely open source.
+Publicly shared at: https://github.com/cyrus200281/MySchedule
 
 The application “MySchedule” was inspired by the need of synchronization among students in 2020 global  pandemic and Tim Buchalka’s Udemy course.
 
